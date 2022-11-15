@@ -1,0 +1,3 @@
+a simple sentence classifier. 
+Requires the Turkish model, it can be downloaded by uncommenting the 
+"# fasttext.util.download_model('tr', if_exists='ignore')" line.
