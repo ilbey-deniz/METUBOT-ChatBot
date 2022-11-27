@@ -1,7 +1,7 @@
 import fasttext
-# import fasttext.util
-from fastText.python.fasttext_module.fasttext.util import util
-util.download_model('tr', if_exists='ignore')
+import fasttext.util
+# from fastText.python.fasttext_module.fasttext.util import util
+fasttext.util.download_model('tr', if_exists='ignore')
 
 from numpy import dot
 from numpy.linalg import norm
