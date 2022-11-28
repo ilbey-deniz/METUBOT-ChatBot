@@ -1,5 +1,5 @@
 <template>
-    <!-- source: https://www.codeply.com/p/2n5OiAvWd9 -->
+    <!-- source (only used as template and improved upon): https://www.codeply.com/p/2n5OiAvWd9 -->
     <v-container class="pa-0 fill-height">
         <v-row class="no-gutters elevation-4">
             <v-col cols="auto" class="flex-grow-1 flex-shrink-0">
@@ -9,12 +9,12 @@
 
                         <v-card-text :class="'flex-grow-1 overflow-y-auto ' + scrollbarTheme">
                             <template v-for="(msg, i) in messages">
-                                <div :class="{ 'd-flex flex-row-reverse': msg.me }">
+                                <div :class="{ 'd-flex flex-row-reverse': msg.isMetubot }">
                                     <v-menu offset-y>
                                         <template v-slot:activator="{ on }">
                                             <v-hover v-slot:default="{ hover }">
                                                 <v-chip
-                                                        :color="msg.me ? 'primary' : 'red'"
+                                                        :color="msg.isMetubot ? 'primary' : 'red'"
                                                         dark
                                                         style="height:auto;white-space: normal;"
                                                         class="pa-4 mb-2"
@@ -46,13 +46,11 @@
                                     no-details
                                     outlined
                                     append-outer-icon="mdi-send"
-                                    @keyup.enter="messages.push(messageForm)"
-                                    @click:append-outer="messages.push(messageForm)"
+                                    @keyup.enter="messages.push(Object.assign({}, messageForm))"
+                                    @click:append-outer="messages.push(Object.assign({}, messageForm))"
                                     hide-details
                             />
-
                         </v-card-text>
-
                     </v-card>
                 </v-responsive>
             </v-col>
@@ -70,22 +68,21 @@ export default {
     },
     data() {
         return {
-
             messages: [
                 {
                     content: "Merhaba, ben Metubot 🤖",
-                    me: false,
-                    created_at: "11:11",
+                    isMetubot: false,
+                    created_at: this.getClock(),
                 },
                 {
                     content: "Sizlere nasıl yardımcı olabilirim?",
-                    me: false,
-                    created_at: "11:11",
+                    isMetubot: false,
+                    created_at: this.getClock(),
                 },
             ],
             messageForm: {
                 content: "",
-                me: true,
+                isMetubot: true,
                 created_at: "11:11am",
             },
         }
@@ -95,6 +92,12 @@ export default {
             axios.post(`/`, {
                 question: this.chatMessage,
             });
+        },
+        getClock() {
+            let date = new Date();
+            let hour = date.getHours();
+            let minutes = date.getMinutes();
+            return `${hour}:${minutes}`;
         },
 
     },
