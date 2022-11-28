@@ -2,7 +2,8 @@
     <v-app>
         <v-app-bar
                 app
-                elevate-on-scroll
+                elevation="4"
+                :height="appBarHeight"
 
         >
             <div class="d-flex align-center">
@@ -11,7 +12,7 @@
                             alt="METUBOT Logo"
                             class="mr-2"
                             contain
-                            :src="require('./assets/metubot-logo.png')"
+                            :src="require('@/assets/metubot-logo.png')"
                             transition="scale-transition"
                             width="166"
                     />
@@ -36,7 +37,8 @@
         </v-app-bar>
 
         <v-main>
-            <router-view/>
+
+            <router-view :app-bar-height="appBarHeight"/>
         </v-main>
     </v-app>
 </template>
@@ -54,7 +56,7 @@ export default {
         },
     },
     data: () => ({
-        //
+        appBarHeight: 64,
     }),
 };
 </script>
@@ -73,5 +75,41 @@ html {
 .fade-leave-to {
     opacity: 0
 }
+.light-scrollbar::-webkit-scrollbar {
+    width: 15px;
+}
 
+.light-scrollbar::-webkit-scrollbar-track {
+    background: #e6e6e6;
+    border-left: 1px solid #dadada;
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb {
+    background: #b0b0b0;
+    border: solid 3px #e6e6e6;
+    border-radius: 7px;
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: black;
+}
+
+.dark-scrollbar::-webkit-scrollbar {
+    width: 15px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-track {
+    background: #202020;
+    border-left: 1px solid #2c2c2c;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb {
+    background: #3e3e3e;
+    border: solid 3px #202020;
+    border-radius: 7px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: white;
+}
 </style>
