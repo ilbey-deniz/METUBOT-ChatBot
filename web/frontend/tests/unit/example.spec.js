@@ -1,10 +1,10 @@
 import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import TheChat from '@/components/MetubotChat.vue'
 
-describe('HelloWorld.vue', () => {
+describe('MetubotChat.vue', () => {
   it('renders props.msg when passed', () => {
     const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
+    const wrapper = shallowMount(TheChat, {
       propsData: { msg }
     })
     expect(wrapper.text()).toMatch(msg)
