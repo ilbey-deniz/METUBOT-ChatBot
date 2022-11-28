@@ -16,11 +16,13 @@ def get_result_sentence():
     # dummy_response = sentence + " ile neyi kasteddiğinizi anlayamadım."
     dummy_response, similarity = match_questions(sentence)
     similarity = float(similarity)
-    dummy_response = json.dumps(dummy_response, indent=4, ensure_ascii=False)
+
     if similarity < 0.70:
         questions.create_question_db()
         questions.create_table()
         questions.insert_question(sentence, dummy_response, similarity)
+
+    dummy_response = json.dumps(dummy_response, indent=4, ensure_ascii=False)
     response = Response(dummy_response, mimetype="application/json", status=200)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
