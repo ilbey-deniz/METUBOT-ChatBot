@@ -60,7 +60,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'HelloWorld',
+  name: 'MetubotChat',
   props: {
     msg: String
   },
