@@ -1,9 +1,8 @@
 from catering import cafeteria
-import dorms
-import internet
-import departments
-import teleportation
-import os
+from dorms import dorms
+from internet import internet
+from departments import ceng
+from teleportation import rings
 
 
 
@@ -11,41 +10,39 @@ import os
 def add_question(category, fl, q, a):
     if category == "catering":
         if fl == "cafeteria":
-            print(cafeteria.cafeteria_questions)
             cafeteria.add(q, a)
-            print(cafeteria.cafeteria_questions)
     if category == "dorms":
         if fl == "dorms":
-            print(dorms.dorms.dorm_questions)
-            dorms.dorms.add(q, a)
-            print(dorms.dorms.dorm_questions)
-
+            dorms.add(q, a)
     if category == "internet":
         if fl == "internet":
-            print(internet.internet.dorm_questions)
             internet.internet.add(q,a)
-            print(internet.internet.dorm_questions)
-    
     if category == "teleportation":
         if fl == "rings":
-            print(teleportation.rings.ring_questions)
-            teleportation.rings.add(q,a)
-            print(internet.internet.dorm_questions)
-    
+            rings.add(q,a)
     if category == "departments":
         if fl == "ceng":
-            print(departments.ceng.ceng_questions)
-            departments.ceng.add(q,a)
-            print(departments.ceng.ceng_questions)
+            ceng.add(q,a)
 
 def answer_question(category, fl, q):
     if category == "catering":
         if fl == "cafeteria":
-            cafeteria.answer(q)
+            return cafeteria.answer(q)
+    if category == "departments":
+        if fl == "ceng":
+            return ceng.answer(q)
+    
 
 def admin_listener():
     #TODO: ADMINDEN KOMUT BEKLE
     ...
 
 add_question("catering","cafeteria","Bugün yemekhanede ne yemek var", 1) #If the answer is a number, then we fetch the answer by calling fetch.
-answer_question("catering","cafeteria","Bugün yemekhanede ne yemek var")
+print(answer_question("catering","cafeteria","Bugün yemekhanede ne yemek var"))
+add_question("departments","ceng","Müfredatta hangi dersler var", 1)
+add_question("departments","ceng","111 dersi kaç kredili", "'CENG 111: Introduction to Computer Engineering Concepts' dersi 4 kredilir .")
+add_question("departments","ceng","Data Structures neleri bağlıyor", "5710242, 5710315, 5710351, 5710350 .")
+add_question("departments","ceng","Bölüm başkanı kimdir", "Halit S. Oğuztüzün")
+add_question("departments","ceng","491 hangi ders", "CENG491 kodlu dersin adı Computer Engineering Design I' .")
+print(answer_question("departments","ceng","Bölüm başkanı kimdir"))
+print(answer_question("departments","ceng","Müfredatta hangi dersler var"))

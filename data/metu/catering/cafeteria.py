@@ -14,7 +14,7 @@ def answer(question):
     if type(cafeteria_questions[question]) != int:
         return cafeteria_questions[question]
     else:
-        fetch(cafeteria_questions[question])
+        return fetch(cafeteria_questions[question])
 
 def turkify(prompt):
     prompt = prompt.replace("\\" + "xc3" + "\\" + "x87","Ç")
@@ -26,7 +26,7 @@ def turkify(prompt):
     return prompt
 
 def fetch(qi): #qi = question index
-    if(qi == 1): #yemekhanedeki yemekler
+    if qi == 1: #yemekhanedeki yemekler
         r = requests.get("https://kafeterya.metu.edu.tr/")
         key = '<span property="dc:title" content="'
         c = str(r.content)
@@ -44,4 +44,4 @@ def fetch(qi): #qi = question index
         yemek4 = c[i4+len(key):s4]
         prompt = "Bugün yemekhanede "+ yemek1 + ", " + yemek2 + ", " + yemek3 + " ve " + yemek4 +  " var."
         prompt = turkify(prompt)
-        print(prompt)
+        return prompt

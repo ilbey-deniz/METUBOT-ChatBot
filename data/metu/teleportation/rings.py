@@ -13,7 +13,7 @@ def answer(question):
     if type(ring_questions[question]) != int:
         return ring_questions[question]
     else:
-        fetch(ring_questions[question])
+        return fetch(ring_questions[question])
 
 def fetch(qi): #qi = question index
     return

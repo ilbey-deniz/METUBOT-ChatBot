@@ -13,7 +13,7 @@ def answer(question):
     if type(internet_questions[question]) != int:
         return internet_questions[question]
     else:
-        fetch(internet_questions[question])
+        return fetch(internet_questions[question])
 
 def fetch(qi): #qi = question index
     return
