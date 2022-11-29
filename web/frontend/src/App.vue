@@ -19,9 +19,12 @@
                 </router-link>
 
             </div>
+            <v-toolbar-title class="text-h5" v-if="$route.name === 'admin'">Yönetim</v-toolbar-title>
+
 
             <v-spacer></v-spacer>
-            <router-link class="mr-2 grey--text text-decoration-none" to="admin">Yönetim</router-link>
+            <router-link class="mr-2 grey--text text-decoration-none" to="/yonetim">Yönetim</router-link>
+            <router-link class="mr-2 grey--text text-decoration-none" to="/">Metubot</router-link>
             <v-icon v-if="$vuetify.theme.dark"
                     @click="$vuetify.theme.dark = false"
             >

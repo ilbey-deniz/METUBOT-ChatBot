@@ -13,7 +13,7 @@ const routes = [
     meta: { title: 'METUBOT' }
   },
   {
-    path: '/admin',
+    path: '/yonetim',
     name: 'admin',
     component: AdminView,
     meta: { title: 'METUBOT Yönetim' }
