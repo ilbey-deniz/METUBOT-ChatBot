@@ -1,4 +1,20 @@
 {
-    
-
+    "sifre":[
+        "öğrenci şifremi unuttum, nasıl yenileyebilirim?",
+        "ODTU kullanıcı şifremi hatırlamıyorum, ne yapmam lazım?",
+        "metu mail şifremi kaybettim, nasıl sıfırlarım?",
+        "parolamı unuttum",
+        "metumail şifrem neydi"
+        ],
+    "lisanslı yazılımlar": [
+        "Microsoft Office'i öğrenci mailimle nasıl kullanabilirim?",
+        "ücretsiz Autocad kullanmak için ne yapmam lazım",
+        "exceli metu mailimle nasıl kullanabilirim?"
+        ],
+    "wifi":[
+        "meturoam a nasıl bağlanabilirim",
+        "odtu wifi nasıl bağlanırım",
+        "hangi wifi a bağlanmam gerek",
+        "eduroam şifresi neydi"
+    ]
 }
