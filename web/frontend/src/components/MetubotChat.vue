@@ -4,17 +4,17 @@
         <v-row class="no-gutters elevation-4">
             <v-col cols="auto" class="flex-grow-1 flex-shrink-0">
                 <v-responsive class="overflow-y-hidden">
-                    <v-card flat class="d-flex flex-column asdf" :style="{height: `calc(100vh - ${appBarHeight}px)` }">
+                    <v-card flat class="d-flex flex-column" :style="{height: `calc(100vh - ${appBarHeight}px)` }">
 
 
                         <v-card-text :class="'flex-grow-1 overflow-y-auto ' + scrollbarTheme">
                             <template v-for="(msg, i) in messages">
-                                <div :class="{ 'd-flex flex-row-reverse': msg.isMetubot }">
+                                <div :class="{ 'd-flex flex-row-reverse': msg.isUser }">
                                     <v-menu offset-y>
                                         <template v-slot:activator="{ on }">
                                             <v-hover v-slot:default="{ hover }">
                                                 <v-chip
-                                                        :color="msg.isMetubot ? 'primary' : 'red'"
+                                                        :color="msg.isUser ? 'primary' : 'red'"
                                                         dark
                                                         style="height:auto;white-space: normal;"
                                                         class="pa-4 mb-2"
@@ -46,7 +46,7 @@
                                     no-details
                                     outlined
                                     append-outer-icon="mdi-send"
-                                    @keyup.enter="messages.push(Object.assign({}, messageForm))"
+                                    @keyup.enter="sendMessage"
                                     @click:append-outer="messages.push(Object.assign({}, messageForm))"
                                     hide-details
                             />
@@ -71,18 +71,18 @@ export default {
             messages: [
                 {
                     content: "Merhaba, ben Metubot 🤖",
-                    isMetubot: false,
+                    isUser: false,
                     created_at: this.getClock(),
                 },
                 {
                     content: "Sizlere nasıl yardımcı olabilirim?",
-                    isMetubot: false,
+                    isUser: false,
                     created_at: this.getClock(),
                 },
             ],
             messageForm: {
                 content: "",
-                isMetubot: true,
+                isUser: true,
                 created_at: "11:11am",
             },
         }
@@ -98,6 +98,18 @@ export default {
             let hour = date.getHours();
             let minutes = date.getMinutes();
             return `${hour}:${minutes}`;
+        },
+        sendMessage() {
+            if (this.messageForm.content !== "") {
+                this.messageForm.created_at = this.getClock();
+                this.messages.push(this.messageForm);
+                this.messageForm = {
+                    content: "",
+                    isUser: true,
+                    created_at: null,
+                };
+            }
+
         },
 
     },
