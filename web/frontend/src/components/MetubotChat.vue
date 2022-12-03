@@ -74,6 +74,7 @@
 <script>
 import axios from 'axios'
 import Vue from 'vue'
+import { io } from "socket.io-client";
 
 export default {
     name: 'MetubotChat',
@@ -83,24 +84,34 @@ export default {
     data() {
         return {
             messages: [
-                {
+                /*{
                     content: "Merhaba, ben Metubot 🤖",
                     isUser: false,
                     created_at: this.getClock(),
-                },
-                {
-                    content: "Sizlere nasıl yardımcı olabilirim?",
-                    isUser: false,
-                    created_at: this.getClock(),
-                },
+                },*/
             ],
             messageForm: {
                 content: "",
                 isUser: true,
                 created_at: "11:11am",
             },
-            waitingForAnswer: false,
+            waitingForAnswer: true,
+            socketIoSocket: null,
         }
+    },
+    mounted() {
+        this.socketIoSocket = io();
+        this.socketIoSocket.on('chat answer', (msg) => {
+            this.waitingForAnswer = false;
+            if (msg === "") {
+                msg = "Sualinize maalesef mütenasip bir yanıt bulamamaktayım. Başka sorunuz varsa lütfen sakınmayınız.";
+            }
+            this.messages.push({
+                content: msg,
+                isUser: false,
+                created_at: this.getClock(),
+            });
+        })
     },
     methods: {
         sendMessageToServer() {
@@ -118,6 +129,7 @@ export default {
             if (this.messageForm.content !== "" && !this.waitingForAnswer) {
                 this.messageForm.created_at = this.getClock();
                 this.messages.push(this.messageForm);
+                this.socketIoSocket.emit('chat question', this.messageForm.content);
                 this.messageForm = {
                     content: "",
                     isUser: true,
@@ -149,10 +161,10 @@ export default {
 .fade-enter-active {
     transition: opacity .5s;
 }
+
 .fade-leave-active {
     transition: opacity 0s;
 }
-
 
 
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
