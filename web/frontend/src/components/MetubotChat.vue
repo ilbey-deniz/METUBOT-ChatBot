@@ -36,6 +36,19 @@
                                     </v-menu>
                                 </div>
                             </template>
+                            <transition name="fade">
+                                <v-chip v-if="waitingForAnswer"
+                                        color="red"
+                                        dark
+                                        style="height:auto; white-space: normal; width: 70px;"
+                                        class="pa-4 mb-2 d-flex justify-center"
+                                >
+                                    <div class="dot-typing"></div>
+                                    <!--                                <div class="dot-typing"></div>
+                                                                    <div class="dot-elastic"></div>-->
+                                </v-chip>
+                            </transition>
+
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-text class="flex-shrink-1">
@@ -47,7 +60,7 @@
                                     outlined
                                     append-outer-icon="mdi-send"
                                     @keyup.enter="sendMessage"
-                                    @click:append-outer="messages.push(Object.assign({}, messageForm))"
+                                    @click:append-outer="sendMessage"
                                     hide-details
                             />
                         </v-card-text>
@@ -60,6 +73,7 @@
 
 <script>
 import axios from 'axios'
+import Vue from 'vue'
 
 export default {
     name: 'MetubotChat',
@@ -85,6 +99,7 @@ export default {
                 isUser: true,
                 created_at: "11:11am",
             },
+            waitingForAnswer: false,
         }
     },
     methods: {
@@ -100,7 +115,7 @@ export default {
             return `${hour}:${minutes}`;
         },
         sendMessage() {
-            if (this.messageForm.content !== "") {
+            if (this.messageForm.content !== "" && !this.waitingForAnswer) {
                 this.messageForm.created_at = this.getClock();
                 this.messages.push(this.messageForm);
                 this.messageForm = {
@@ -108,6 +123,8 @@ export default {
                     isUser: true,
                     created_at: null,
                 };
+                this.waitingForAnswer = true;
+
             }
 
         },
@@ -122,7 +139,25 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
+@use 'three-dots' with (
+    $dot-width: 8px,
+    $dot-height: 8px,
+    $dot-color: #ffffff,
+);
 
+.fade-enter-active {
+    transition: opacity .5s;
+}
+.fade-leave-active {
+    transition: opacity 0s;
+}
+
+
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+    opacity: 0;
+}
 
 </style>
