@@ -11,11 +11,16 @@ cd backend; npm install; cd ../frontend; npm install;
 Then you need to copy the backend/.env.example file to backend/.env and fill in the values. The real .env file is not
 committed because it is dependent on the server and may contain classified information.
 
+
+Run the backend/frontend bundle
+
+```
+cd backend; node index;
 ```
 
-### Compiles the frontend and runs the backend/frontend bundle
+
+The compiled frontend is in git and can be found at frontend/dist. To compile it:
+
 ```
-
-cd backend; npm run serve
-
+cd frontend; npm run build;
 ```
