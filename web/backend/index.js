@@ -1,6 +1,12 @@
 const express = require('express')
-const dotenv = require('dotenv');
-dotenv.config();
+const fs = require('fs')
+
+if (!fs.existsSync('.env')) {
+    fs.copyFileSync('.env.example', '.env');
+    console.log('Created .env file from .env.example');
+}
+require('dotenv').config()
+
 var path = require('path');
 var cors = require('cors')
 const app = express()
