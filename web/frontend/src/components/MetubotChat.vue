@@ -60,11 +60,17 @@
                                     type="text"
                                     no-details
                                     outlined
-                                    append-outer-icon="mdi-send"
                                     @keyup.enter="sendMessage"
-                                    @click:append-outer="sendMessage"
                                     hide-details
-                            />
+                            >
+                                <template v-slot:append-outer>
+                                    <!-- touchend.prevent reason is not hiding the keyboard on mobile -->
+                                    <v-icon @click="sendMessage" @touchend.prevent="sendMessage">
+                                        mdi-send
+                                    </v-icon>
+
+                                </template>
+                            </v-text-field>
                         </v-card-text>
                     </v-card>
                 </v-responsive>
