@@ -1,4 +1,4 @@
-from backend.database.mysql.connector import Connector
+from connector import Connector
 
 
 def create_question_db():

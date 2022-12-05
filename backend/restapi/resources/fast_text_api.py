@@ -1,8 +1,14 @@
 from flask import Blueprint, Response, request
 import json
 # from bson import json_util
-from nlp.fasttext.fast_text import match_questions
-from backend.database.mysql import questions
+import sys
+import pathlib
+import os
+root_path = pathlib.Path(__file__).parent.parent.parent.parent.resolve()
+sys.path.append(os.path.join(root_path, r'nlp/fasttext'))
+sys.path.append(os.path.join(root_path, r'backend/database/mysql'))
+from fast_text import match_questions
+import questions
 
 fast_text = Blueprint("fast_text", __name__)
 
