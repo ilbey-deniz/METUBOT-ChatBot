@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app :style="{background: $vuetify.theme.themes[theme].background}">
         <v-app-bar
                 app
                 elevation="4"
@@ -61,12 +61,20 @@ export default {
     data: () => ({
         appBarHeight: 64,
     }),
+    computed:{
+        theme(){
+            return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+        }
+    }
 };
 </script>
 
 <style>
 html {
     overflow-y: auto !important;
+}
+* {
+    box-sizing: border-box;
 }
 
 .fade-enter-active,
