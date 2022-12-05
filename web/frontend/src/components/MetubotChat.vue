@@ -1,10 +1,12 @@
 <template>
     <!-- source (only used as template and improved upon): https://www.codeply.com/p/2n5OiAvWd9 -->
+
     <v-container class="pa-0 fill-height">
-        <v-row class="no-gutters elevation-4">
+
+        <v-row class="no-gutters elevation-4 fill-height">
             <v-col cols="auto" class="flex-grow-1 flex-shrink-0">
-                <v-responsive class="overflow-y-hidden">
-                    <v-card flat class="d-flex flex-column" :style="{height: `calc(100vh - ${appBarHeight}px)` }">
+                <v-responsive class="overflow-y-hidden fill-height">
+                    <v-card flat class="d-flex flex-column fill-height">
 
 
                         <v-card-text :class="'flex-grow-1 overflow-y-auto ' + scrollbarTheme">
@@ -78,9 +80,7 @@ import { io } from "socket.io-client";
 
 export default {
     name: 'MetubotChat',
-    props: {
-        appBarHeight: Number,
-    },
+    props: {},
     data() {
         return {
             messages: [

@@ -1,5 +1,5 @@
 <template>
-    <metubot-chat :app-bar-height="appBarHeight"/>
+    <metubot-chat :style="fillScreen"/>
 </template>
 
 <script>
@@ -13,11 +13,23 @@ export default {
     components: {
         MetubotChat,
     },
+    data() {
+        return {
+            fillScreen: {
+                position: 'fixed',
+                top: this.appBarHeight + 'px',
+                left: '50%',
+                transform: 'translate(-50%)',
+                width: '100%',
+                height: `calc(100% - ${this.appBarHeight}px)`,
+                overflow: 'auto',
+            },
+        }
+    },
 }
 </script>
 
 <style scoped>
-
 
 
 </style>

@@ -8,7 +8,7 @@ Vue.use(Vuetify);
 new Vue({
   router,
   vuetify: new Vuetify({
-    theme: { dark: true },
+    theme: { dark: false },
   }),
   render: h => h(App)
 }).$mount('#app')
