@@ -1,15 +1,15 @@
 {
     "categories":[
-        {
+        0:{
             "name" : "category1",
-            "subcategories":[
+            0:"subcategories":[
                 {
                     "name" : "subcategory1",
                     "questions":[
-                        1,2,3,4
+                        0,1,3,4
                     ],
                     "answers":[
-                        1,2,1,3
+                        0,1,3,3
                     ]
                 }
             ],
@@ -25,15 +25,15 @@ Sample categories object, (for now subcategory level is 1, in the future it can 
 
 {
     "questions":[
-        1:"this is question1",
-        2:"this is question2"
+        "0":"this is question0",
+        "1":"this is question1"
     ]
 }
 
 {
     "answers:[
-        1:"this is answer1",
-        2:"this is answer2",
+        "0":"this is answer0",
+        "1":"this is answer1",
     ]
 }
 

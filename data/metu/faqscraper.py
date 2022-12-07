@@ -25,7 +25,7 @@ def get_subcategories(category):
         subcategory_dict["name"] = c
         subcategory_dict["questions"] = []
         subcategory_dict["answers"] = []
-        subcategories.append(subcategory_dict)
+        subcategories.append({i:subcategory_dict})
     return subcategories
 
 def get_categories(soup):
@@ -43,7 +43,7 @@ def get_categories(soup):
         s_list = get_subcategories(b[i])
         category_dict["subcategories"] = s_list
         category_dict["subcategory_count"] = len(s_list)
-        categories.append(category_dict)
+        categories.append({i:category_dict})
     return categories #is a list of dictionaries
     
 
@@ -68,3 +68,4 @@ soup = initialize(URL)
 
 cate_dict = fill_cate_dict(soup) 
 write_json(cate_dict,json_path)
+print(cate_dict)
