@@ -53,7 +53,6 @@ def get_categories(soup):
 def get_questions(para):
     sub_url = "https://faq.cc.metu.edu.tr/tr/groups/ip-ve-mac"
     sub_url = URL + para.get("href")
-    print(sub_url)
     sub_soup = initialize(sub_url)
     a = sub_soup.find(class_="view-content")
     b = a.find_all(href=True)
