@@ -39,7 +39,9 @@ io.on("connection", (socket) => {
                 data = data.replace(/^"(.*)"$/, '$1'); // remove string quotes
                 socket.emit('chat answer', data);
             });
-        })
+        }).on('error', (e) => {
+            console.error(`Got error: ${e.message}. Make sure NLP API server is running.`);
+        });
 
     }).on("error", (err) => {
         console.log("Error: " + err.message);
