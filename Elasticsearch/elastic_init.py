@@ -16,7 +16,7 @@ mapping_properties = {
 
 es = Elasticsearch("http://localhost:9200")
 
-#es.indices.create(index="question-answer")
+es.indices.create(index="question-answer")
 es.indices.put_mapping(index="question-answer", properties=mapping_properties)
 
 index_ctr=0
