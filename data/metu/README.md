@@ -1,10 +1,10 @@
 {
     "categories":[
-        0:{
-            "name" : "category1",
-            0:"subcategories":[
+        {
+            "name": category1,
+            "subcategories":[
                 {
-                    "name" : "subcategory1",
+                    name: subcategory1,
                     "questions":[
                         0,1,3,4
                     ],

@@ -5,6 +5,10 @@ import json
 #kodumu türkçe anlatıyorum arkadaşlar hazır mıyız?
 #request ve soup'a ihtiyaç var
 #sonra soruları çekip dictionarye atıp yazdıracağız
+questions = []
+answers = []
+URL = "https://faq.cc.metu.edu.tr/tr"
+
 
 def initialize(url):
     page = requests.get(url)
@@ -23,9 +27,9 @@ def get_subcategories(category):
         #c is the name of the subcategory
         subcategory_dict = {}
         subcategory_dict["name"] = c
-        subcategory_dict["questions"] = []
-        subcategory_dict["answers"] = []
-        subcategories.append({i:subcategory_dict})
+        subcategory_dict["questions"] = get_questions(b[0])
+        subcategory_dict["answers"] = get_answer(b[0])
+        subcategories.append(subcategory_dict)
     return subcategories
 
 def get_categories(soup):
@@ -43,9 +47,24 @@ def get_categories(soup):
         s_list = get_subcategories(b[i])
         category_dict["subcategories"] = s_list
         category_dict["subcategory_count"] = len(s_list)
-        categories.append({i:category_dict})
+        categories.append(category_dict)
     return categories #is a list of dictionaries
     
+def get_questions(para):
+    sub_url = "https://faq.cc.metu.edu.tr/tr/groups/ip-ve-mac"
+    sub_url = URL + para.get("href")
+    print(sub_url)
+    sub_soup = initialize(sub_url)
+    a = sub_soup.find(class_="view-content")
+    b = a.find_all(href=True)
+    for quest in b:
+        url_quest = quest.get("href")
+        q = quest.text.strip()
+        questions.append(q) 
+        #answers.append(get_answer(url_quest))
+    return []
+def get_answer(b):
+    return "answer"
 
 def fill_cate_dict(soup):
     l = get_categories(soup)
@@ -53,7 +72,7 @@ def fill_cate_dict(soup):
 
 def write_json(dict,jsonfilepath):
     json_string = json.dumps(dict)
-    f = open(jsonfilepath, "a")
+    f = open(jsonfilepath, "w")
     f.write(json_string)
     f.close()
     return
@@ -61,11 +80,20 @@ def write_json(dict,jsonfilepath):
 
 
 #MAIN BURADAN BAŞLIYOR
-json_path = "./faq_categories.json"
+cate_json_path = "./faq_categories.json"
+question_json_path = "./faq_questions.json"
+answer_json_path = "./faq_answers.json"
 
-URL = "https://faq.cc.metu.edu.tr/tr"
+
+
+
 soup = initialize(URL)
 
 cate_dict = fill_cate_dict(soup) 
-write_json(cate_dict,json_path)
-print(cate_dict)
+write_json(cate_dict,cate_json_path)
+
+""" question_dict = fill_question_dict(soup)
+write_json(question_dict,question_json_path)
+
+answer_dict = fill_answer_dict(soup)
+write_json(answer_dict,answer_json_path) """
