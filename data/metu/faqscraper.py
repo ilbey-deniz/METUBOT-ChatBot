@@ -27,8 +27,8 @@ def get_subcategories(category):
         #c is the name of the subcategory
         subcategory_dict = {}
         subcategory_dict["name"] = c
-        subcategory_dict["questions"] = get_questions(b[0])
-        subcategory_dict["answers"] = get_answer(b[0])
+        subcategory_dict["questions"] = [] #get_questions(b[0])
+        subcategory_dict["answers"] = [] #get_answers(b[0])
         subcategories.append(subcategory_dict)
     return subcategories
 
@@ -64,7 +64,8 @@ def get_questions(para):
         #answers.append(get_answer(url_quest))
     return []
 def get_answer(b):
-    return "answer"
+    ...
+    return
 
 def fill_cate_dict(soup):
     l = get_categories(soup)
@@ -91,9 +92,3 @@ soup = initialize(URL)
 
 cate_dict = fill_cate_dict(soup) 
 write_json(cate_dict,cate_json_path)
-
-""" question_dict = fill_question_dict(soup)
-write_json(question_dict,question_json_path)
-
-answer_dict = fill_answer_dict(soup)
-write_json(answer_dict,answer_json_path) """
