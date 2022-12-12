@@ -24,8 +24,7 @@ pm2 start index.js
 ```
 #### Python
 ```
-cd backend
-pm2 start mainAPI.py
+pm2 start index.py
 ```
 # Sunucuda Değişiklik Yapma
 ## Sunucu: Nginx
