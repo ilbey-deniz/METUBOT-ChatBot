@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
     socket.emit('chat answer', 'Sizlere nasıl yardımcı olabilirim?');
     socket.on('chat question', (msg) => {
         console.log('question: ' + msg);
-        http.get(process.env.FLASK_URL + "/metubot/v1/example/sentence/?sentence=" + msg, (res) => {
+        http.get(process.env.FLASK_URL + "/ask", params = { 'question': msg }, (res) => {
             let data = '';
             res.setEncoding('utf8');
 
@@ -39,7 +39,9 @@ io.on("connection", (socket) => {
                 data = data.replace(/^"(.*)"$/, '$1'); // remove string quotes
                 socket.emit('chat answer', data);
             });
-        })
+        }).on('error', (e) => {
+            console.error(`Got error: ${e.message}. Make sure NLP API server is running.`);
+        });
 
     }).on("error", (err) => {
         console.log("Error: " + err.message);
