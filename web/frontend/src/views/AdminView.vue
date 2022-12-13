@@ -1,25 +1,55 @@
 <template>
-    <div>
-        <v-container class="pa-0 fill-height">
-            <v-row>
-                <v-col>
-                    <metubot-asked-questions class="mt-5"/>
-                </v-col>
-            </v-row>
+	<div class="app">
+		<!-- Sidebar -->
+		<Sidebar />
 
-        </v-container>
-
-    </div>
+		<!-- Content -->
+		<router-view />
+	</div>
 </template>
 
-<script>
-import MetubotAskedQuestions from '@/components/MetubotAskedQuestions.vue'
+<script setup>
+import Sidebar from '../components/Sidebar.vue'
+</script>
 
-export default {
-    name: 'AdminView',
-    components: {
-        MetubotAskedQuestions,
-    },
+<style lang="scss">
+:root {
+	--primary: #de4a4a;
+	--primary-alt: #c52222;
+	--grey: #64748b;
+	--dark: #1e293b;
+	--dark-alt: #334155;
+	--light: #f1f5f9;
+	--sidebar-width: 300px;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Fira sans', sans-serif;
+}
+body {
+	background: var(--light);
+}
+button {
+	cursor: pointer;
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+}
+.app {
+	display: flex;
+	height: 100%;
+	
+	main {
+		
+		flex: 1 1 0;
+		padding: 2rem;
+		@media (max-width: 1024px) {
+			padding-left: 6rem;
+		}
+	}
 }
 
-</script>
+</style>

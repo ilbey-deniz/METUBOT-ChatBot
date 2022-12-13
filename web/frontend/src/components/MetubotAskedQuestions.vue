@@ -1,5 +1,20 @@
-<template>
-    <v-card >
+<!-- <template>
+    
+    <div>
+        <v-container class="pa-0 fill-height">
+            <v-row>
+                <v-col>
+                    <admin-view class="mt-5"/>
+                </v-col>
+            </v-row>
+
+        </v-container>
+
+    </div>
+</template> -->
+<template class="main">
+    <!-- <AdminView /> -->
+    <v-card class="card">
         <v-card-title>
             Sorulan Sorular
             <v-spacer></v-spacer>
@@ -30,12 +45,16 @@
             </template>
         </v-data-table>
     </v-card>
-
 </template>
 
 <script>
+import AdminView from '../views/AdminView.vue'
+
 export default {
     name: "MetubotAskedQuestions",
+    components: {
+        AdminView,
+    },
     data() {
         return {
             search: '',
@@ -101,5 +120,14 @@ export default {
 </script>
 
 <style scoped>
-
+    /* .main {
+        justify-content: center;
+    } */
+    .card {
+        margin-left: 3%;
+        margin-right: 3%;
+        margin-top: 3%;
+        height: fit-content;
+        width: 100%;
+    }
 </style>

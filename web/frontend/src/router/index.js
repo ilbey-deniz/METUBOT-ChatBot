@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MetuBotView from '../views/MetuBotView.vue'
 import AdminView from '../views/AdminView.vue'
+import MetubotAskedQuestions from '../components/MetubotAskedQuestions.vue'
 
 Vue.use(VueRouter)
 
@@ -15,9 +16,15 @@ const routes = [
   {
     path: '/yonetim',
     name: 'admin',
+    children: [
+
+      { path: 'tables', component: MetubotAskedQuestions },
+
+
+    ],
     component: AdminView,
     meta: { title: 'METUBOT Yönetim' }
-  }
+  },
 ]
 
 const router = new VueRouter({
