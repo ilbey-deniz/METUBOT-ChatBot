@@ -21,11 +21,10 @@ def add_questions_manually(path, question, answer):
     ...
 
 def write_json(dict,jsonfilepath):
-    json_string = json.dumps(dict)
-    f = open(jsonfilepath, "w")
-    f.write(json_string)
-    f.close()
-    return
+	f = open(jsonfilepath, "w")
+	json.dump(dict, f, indent=4)
+	f.close()
+	return
 
 path = "../../Elasticsearch/qa_pairs.json"
 q_path = "./questions.txt"
