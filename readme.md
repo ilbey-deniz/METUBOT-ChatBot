@@ -20,7 +20,7 @@ Sunucuya giriş yaptıktan sonra root kullanıcısına geçilmelidir çünkü i�
 ```
 cd web/backend
 npm install
-pm2 start index.js
+pm2 start node.js
 ```
 #### Python
 ```
