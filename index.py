@@ -3,14 +3,15 @@ from ElasticAnswerer import ElasticAnswerer
 from FasttextAnswerer import FasttextAnswerer
 app = Flask(__name__)
 
+elastic_answerer = ElasticAnswerer()
+fasttext_answerer = FasttextAnswerer()
+
 @app.route('/ask')
 def get_incomes():
-    elastic_answerer = ElasticAnswerer()
     return elastic_answerer.answer(request.args.get('question'))
 
 @app.route('/askFast')
 def get_incomes_fast():
-    fasttext_answerer = FasttextAnswerer()
     return fasttext_answerer.answer(request.args.get('question'))
 
 if __name__ == "__main__":
