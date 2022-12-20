@@ -26,6 +26,11 @@ pm2 start node.js
 ```
 pm2 start index.py --interpreter python3
 ```
+Veya aşağıdaki script ile ikisi birden çalıştırılabilir:
+```
+./start.sh
+```
+
 # Sunucuda Değişiklik Yapma
 ## Sunucu: Nginx
 Sunucuya istek gelince ufw güvenlik duvarından geçerek nginx'e gelir, oradan reverse proxy ile web/backend/node.js'e aktarılır. Node.js python ile iletişime geçer, sonucu geri istemciye yollar.
