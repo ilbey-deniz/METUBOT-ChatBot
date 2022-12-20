@@ -24,7 +24,7 @@ pm2 start node.js
 ```
 #### Python
 ```
-pm2 start index.py
+pm2 start index.py --interpreter python3
 ```
 # Sunucuda Değişiklik Yapma
 ## Sunucu: Nginx
