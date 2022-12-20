@@ -15,7 +15,7 @@ committed because it is dependent on the server and may contain classified infor
 Run the backend/frontend bundle
 
 ```
-cd backend; node index;
+cd backend; node node.js;
 ```
 
 

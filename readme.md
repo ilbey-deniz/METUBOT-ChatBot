@@ -1,7 +1,7 @@
 # Sunucu ayağa kaldırma
 ## Bağlanma
 ```
-ssh metubot@metubot.ceng.metu.edu.tr -P 8085
+ssh metubot@metubot.ceng.metu.edu.tr -p 8085
 sudo su
 ```
 Sunucuya giriş yaptıktan sonra root kullanıcısına geçilmelidir çünkü işlemler orda çalıştırılıyor (node.js, python vs.).
@@ -20,7 +20,7 @@ Sunucuya giriş yaptıktan sonra root kullanıcısına geçilmelidir çünkü i�
 ```
 cd web/backend
 npm install
-pm2 start index.js
+pm2 start node.js
 ```
 #### Python
 ```

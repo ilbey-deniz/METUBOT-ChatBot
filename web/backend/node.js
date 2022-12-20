@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
     socket.emit('chat answer', 'Sizlere nasıl yardımcı olabilirim?');
     socket.on('chat question', (msg) => {
         console.log('question: ' + msg);
-        http.get(process.env.FLASK_URL + "/ask", params = { 'question': msg }, (res) => {
+        http.get(process.env.FLASK_URL + `/ask?question=${msg}`, (res) => {
             let data = '';
             res.setEncoding('utf8');
 
