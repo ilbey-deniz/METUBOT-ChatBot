@@ -1,7 +1,7 @@
 <template>
     <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
 	    <div class="logo">
-	    	<img :src="logoURL" alt="Vue" /> 
+	    	<img :src="logoURL" alt="Vue" />
 	    </div>
 	    <div class="menu-toggle-wrap">
 	    	<button class="menu-toggle" @click="ToggleMenu">
@@ -28,7 +28,7 @@
 	    	</router-link>
 	    </div>
 	    <div class="flex"></div>
-    
+
 	    <div class="menu">
 	    	<router-link to="/settings" class="button">
 	    		<span class="material-icons">settings</span>
@@ -58,7 +58,7 @@ const ToggleMenu = () => {
 
 export default {
     name: 'AdminView',
-    
+
 }
 </script> -->
 
@@ -68,7 +68,6 @@ export default {
 aside {
 	display: flex;
 	flex-direction: column;
-	background-color: var(--grey);
 	// background-color: rgb(59, 56, 56);
 	color: var(--light);
 	// color: wheat;
@@ -101,7 +100,7 @@ aside {
 				// color: wheat;
 				transition: 0.2s ease-out;
 			}
-			
+
 			&:hover {
 				.material-icons {
 					color: var(--primary);
@@ -166,7 +165,7 @@ aside {
 		width: var(--sidebar-width);
 		.menu-toggle-wrap {
 			top: -3rem;
-			
+
 			.menu-toggle {
 				transform: rotate(-180deg);
 			}

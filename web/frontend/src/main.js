@@ -19,8 +19,11 @@ new Vue({
             themes: {
                 light: {
                     background: '#f5f0f1', // Not automatically applied
-
+                    bg2: '#64748b',
                 },
+                dark: {
+                    bg2: '#2c2a2a',
+                }
 
             },
         },
