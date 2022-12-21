@@ -41,9 +41,9 @@ button {
 .app {
 	display: flex;
 	height: 100%;
-	
+
 	main {
-		
+
 		flex: 1 1 0;
 		padding: 2rem;
 		@media (max-width: 1024px) {

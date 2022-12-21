@@ -72,7 +72,6 @@ export default {
 aside {
 	display: flex;
 	flex-direction: column;
-	background-color: var(--grey);
 	// background-color: rgb(59, 56, 56);
 	color: var(--light);
 	// color: wheat;
