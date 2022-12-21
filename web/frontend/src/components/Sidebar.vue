@@ -1,41 +1,44 @@
 <template>
-    <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
-	    <div class="logo">
-	    	<img :src="logoURL" alt="Vue" /> 
-	    </div>
-	    <div class="menu-toggle-wrap">
-	    	<button class="menu-toggle" @click="ToggleMenu">
-	    		<span class="material-icons">keyboard_double_arrow_right</span>
-	    	</button>
-	    </div>
-	    <h3>Menu</h3>
-	    <div class="menu">
-	    	<router-link to="/" class="button">
-	    		<span class="material-icons">home</span>
-	    		<span class="text">Home</span>
-	    	</router-link>
-	    	<router-link to="/yonetim/dashboards" class="button">
-	    		<span class="material-icons">dashboard</span>
-	    		<span class="text">Dashboard</span>
-	    	</router-link>
-	    	<router-link to="/yonetim/tables" class="button">
-	    		<span class="material-icons">table_chart</span>
-	    		<span class="text">Tables</span>
-	    	</router-link>
-	    	<router-link to="/yonetim/charts" class="button">
-	    		<span class="material-icons">pie_chart</span>
-	    		<span class="text">Charts</span>
-	    	</router-link>
-	    </div>
-	    <div class="flex"></div>
-    
-	    <div class="menu">
-	    	<router-link to="/settings" class="button">
-	    		<span class="material-icons">settings</span>
-	    		<span class="text">Settings</span>
-	    	</router-link>
-	    </div>
-	</aside>
+    <v-sheet color="bg2">
+        <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
+            <div class="logo">
+                <img :src="logoURL" alt="Vue"/>
+            </div>
+            <div class="menu-toggle-wrap">
+                <button class="menu-toggle" @click="ToggleMenu">
+                    <span class="material-icons">keyboard_double_arrow_right</span>
+                </button>
+            </div>
+            <h3>Menu</h3>
+            <div class="menu">
+                <router-link to="/" class="button">
+                    <span class="material-icons">home</span>
+                    <span class="text">Home</span>
+                </router-link>
+                <router-link to="/yonetim/dashboards" class="button">
+                    <span class="material-icons">dashboard</span>
+                    <span class="text">Dashboard</span>
+                </router-link>
+                <router-link to="/yonetim/tables" class="button">
+                    <span class="material-icons">table_chart</span>
+                    <span class="text">Tables</span>
+                </router-link>
+                <router-link to="/yonetim/charts" class="button">
+                    <span class="material-icons">pie_chart</span>
+                    <span class="text">Charts</span>
+                </router-link>
+            </div>
+            <div class="flex"></div>
+
+            <div class="menu">
+                <router-link to="/settings" class="button">
+                    <span class="material-icons">settings</span>
+                    <span class="text">Settings</span>
+                </router-link>
+            </div>
+        </aside>
+    </v-sheet>
+
 </template>
 
 
@@ -58,7 +61,7 @@ const ToggleMenu = () => {
 
 export default {
     name: 'AdminView',
-    
+
 }
 </script> -->
 
@@ -68,7 +71,6 @@ export default {
 aside {
 	display: flex;
 	flex-direction: column;
-	background-color: var(--grey);
 	// background-color: rgb(59, 56, 56);
 	color: var(--light);
 	// color: wheat;
@@ -101,7 +103,7 @@ aside {
 				// color: wheat;
 				transition: 0.2s ease-out;
 			}
-			
+
 			&:hover {
 				.material-icons {
 					color: var(--primary);
@@ -166,7 +168,7 @@ aside {
 		width: var(--sidebar-width);
 		.menu-toggle-wrap {
 			top: -3rem;
-			
+
 			.menu-toggle {
 				transform: rotate(-180deg);
 			}
