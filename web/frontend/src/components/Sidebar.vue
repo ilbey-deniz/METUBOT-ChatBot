@@ -27,6 +27,10 @@
                     <span class="material-icons">pie_chart</span>
                     <span class="text">Charts</span>
                 </router-link>
+                <router-link to="/yonetim/ssh" class="button">
+                    <span class="material-icons">terminal</span>
+                    <span class="text">Charts</span>
+                </router-link>
             </div>
             <div class="flex"></div>
 

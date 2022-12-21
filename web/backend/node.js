@@ -1,5 +1,17 @@
+// not: exit denmediği için shell açık kalabilir node.js sona erse de.
+// (belki de çocuk olduğu için otomatik olarak öldürülebilir)
+
 const express = require('express')
 const fs = require('fs')
+const { exec } = require("child_process");
+const {getPersistentShell, getShellProc} = require('./DangerousSSH');
+
+
+// End
+/* todo:
+spawnedShell.stdin.end();
+*/
+
 
 if (!fs.existsSync('.env')) {
     fs.copyFileSync('.env.example', '.env');
@@ -17,8 +29,28 @@ app.use(express.json())
 
 app.use(cors());
 
+const spawnedShell = getShellProc();
 const io = require("socket.io")(httpServer, {});
-
+let sshSeqNum = 0;
+// Capture stdout
+spawnedShell.stdout.on('data', d => {
+    let out = d.toString();
+    console.log('ssh out: ', out);
+    io.emit('ssh out', {
+        content: out,
+        dateMs: Date.now(),
+        sshSeqNum: sshSeqNum++
+    });
+});
+spawnedShell.stderr.on('data', d => {
+    let out = d.toString();
+    console.log('ssh err: ', out);
+    io.emit('ssh out', {
+        content: out,
+        dateMs: Date.now(),
+        sshSeqNum: sshSeqNum++
+    });
+});
 io.on("connection", (socket) => {
     console.log('socket io connected.');
     socket.emit('chat answer', 'Merhaba, ben Metubot 🤖');
@@ -46,7 +78,19 @@ io.on("connection", (socket) => {
     }).on("error", (err) => {
         console.log("Error: " + err.message);
     });
-    ;
+    socket.on('ssh in', (msg) => {
+        console.log('ssh in: ' + msg);
+        spawnedShell.stdin.write(`${msg}\n`);
+        /*io.emit('ssh out', {
+            content: `>${msg}`,
+            dateMs: Date.now(),
+            sshSeqNum: sshSeqNum++
+        });*/
+
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+    });
+
 
 });
 
@@ -63,6 +107,8 @@ const PORT = process.env.PORT || 3000;
 httpServer.listen(PORT, () => {
     console.log(`listening at http://localhost:${PORT}`);
 });
+
+
 
 
 
