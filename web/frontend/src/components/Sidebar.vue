@@ -1,7 +1,7 @@
 <template>
     <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
 	    <div class="logo">
-	    	<img :src="logoURL" alt="Vue" /> 
+	    	<img :src="logoURL" alt="Vue" />
 	    </div>
 	    <div class="menu-toggle-wrap">
 	    	<button class="menu-toggle" @click="ToggleMenu">
@@ -26,9 +26,13 @@
 	    		<span class="material-icons">pie_chart</span>
 	    		<span class="text">Charts</span>
 	    	</router-link>
+            <router-link to="/yonetim/ssh" class="button">
+                <v-icon>mdi-danger</v-icon>
+                <span class="text">Tehlikeli SSH</span>
+            </router-link>
 	    </div>
 	    <div class="flex"></div>
-    
+
 	    <div class="menu">
 	    	<router-link to="/settings" class="button">
 	    		<span class="material-icons">settings</span>
@@ -58,7 +62,7 @@ const ToggleMenu = () => {
 
 export default {
     name: 'AdminView',
-    
+
 }
 </script> -->
 
@@ -101,7 +105,7 @@ aside {
 				// color: wheat;
 				transition: 0.2s ease-out;
 			}
-			
+
 			&:hover {
 				.material-icons {
 					color: var(--primary);
@@ -166,7 +170,7 @@ aside {
 		width: var(--sidebar-width);
 		.menu-toggle-wrap {
 			top: -3rem;
-			
+
 			.menu-toggle {
 				transform: rotate(-180deg);
 			}
