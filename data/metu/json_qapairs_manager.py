@@ -9,7 +9,9 @@ def file_to_list(file):
     with open(file) as f:
         return [line.rstrip('\n') for line in f]
 
-def add_questions_from_files(path, q_path, a_path):
+def add_questions_from_files(path, q_path, a_path, overwrite):
+    if overwrite:
+        reset_and_initialize_json(path)
     questions = file_to_list(q_path)
     answers = file_to_list(a_path)
     dict = json.load(open(path))
@@ -29,4 +31,4 @@ def write_json(dict,jsonfilepath):
 path = "../../Elasticsearch/qa_pairs.json"
 q_path = "./questions.txt"
 a_path = "./answers.txt"
-add_questions_from_files(path,q_path,a_path)
+add_questions_from_files(path,q_path,a_path, True)
