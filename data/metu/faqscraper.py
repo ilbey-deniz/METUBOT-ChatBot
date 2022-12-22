@@ -71,12 +71,10 @@ def fill_cate_dict(soup):
     return {"categories": l, "category_count": len(l)}
 
 def write_json(dict,jsonfilepath):
-    json_string = json.dumps(dict)
-    f = open(jsonfilepath, "w")
-    f.write(json_string)
-    f.close()
-    return
-
+	f = open(jsonfilepath, "w")
+	json.dump(dict, f, indent=4)
+	f.close()
+	return
 
 
 #MAIN BURADAN BAŞLIYOR
