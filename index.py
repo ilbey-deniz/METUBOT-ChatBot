@@ -1,10 +1,12 @@
 from flask import Flask, jsonify, request
 from ElasticAnswerer import ElasticAnswerer
 from FasttextAnswerer import FasttextAnswerer
+from AnswerGeneratorMetu import AnswerGeneratorMetu
 app = Flask(__name__)
 
-elastic_answerer = ElasticAnswerer()
-fasttext_answerer = FasttextAnswerer()
+answer_generator = AnswerGeneratorMetu()
+elastic_answerer = ElasticAnswerer(answer_generator)
+fasttext_answerer = FasttextAnswerer(answer_generator)
 
 @app.route('/ask')
 def get_incomes():
