@@ -9,6 +9,7 @@ class AnswerGeneratorMetu(AnswerGenerator):
         # This is dict of keywords to generate dynamic answers.
         self.answerGenerations['GET_METU_FOOD'] = self.getMetuFood
         self.answerGenerations['GET_TODAYS_DATE'] = self.getTodaysDate
+        self.answerGenerations['GET_CENG_CURRICULUM'] = self.getCengCurriculum
         # new answerGenerations can be added here
 
     # todo: implement this
