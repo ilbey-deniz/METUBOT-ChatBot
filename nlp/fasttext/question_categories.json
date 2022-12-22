@@ -1,4 +1,4 @@
-{
+{{
     "sifre":[
         "Ogrenci sifremi unuttum, nasil yenileyebilirim?",
         "ODTU kullanici sifremi hatirlamiyorum, ne yapmam lazim?",
@@ -7,7 +7,7 @@
         "metumail sifrem neydi"
         ],
     "lisansli yazilimlar": [
-        "Microsoft Office'i orenci mailimle nasil kullanabilirim?",
+        "Microsoft Office'i ogitrenci mailimle nasil kullanabilirim?",
         "Ucretsiz Autocad kullanmak icin ne yapmam lazim",
         "exceli metu mailimle nasil kullanabilirim?"
         ],
@@ -19,5 +19,11 @@
     ],
     "yemek": [
         "bugun yemekte ne var"
+    ],
+    "cengcurriculum": [
+    	"ceng zorunlu dersler neler",
+    	"ceng müfredatı nedir",
+    	"cengde hangi dersler veriliyor",
+    	"cengde hangi dersleri almam gerekli" 
     ]
 }

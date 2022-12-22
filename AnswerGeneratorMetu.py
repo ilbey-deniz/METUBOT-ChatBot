@@ -1,4 +1,6 @@
 from AnswerGenerator import AnswerGenerator
+import data.metu.catering.cafeteria as cf
+import data.metu.departments.ceng as ceng
 
 
 class AnswerGeneratorMetu(AnswerGenerator):
@@ -11,8 +13,12 @@ class AnswerGeneratorMetu(AnswerGenerator):
 
     # todo: implement this
     def getMetuFood(self):
-        return 'Metu food'
+        return cf.yemek()
 
     # todo: implement this
     def getTodaysDate(self):
         return 'Todays date'
+
+    def getCengCurriculum(self):
+        return ceng.curriculum()
+

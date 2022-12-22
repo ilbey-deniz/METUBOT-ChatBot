@@ -2,5 +2,6 @@
     "sifre":"Sign in to User Account Management web page with your user code and password from the address below https://useraccount.metu.edu.tr Then click Change Password.",
     "lisansli yazilimlar": "The licensed software web page can be accessed at https://yazilim.cc.metu.edu.tr.",
     "wifi":"Detalied information can be found at https://faq.cc.metu.edu.tr/groups/wireless-network",
-    "yemek": "Bugün yemekte GET_METU_FOOD var."
+    "yemek": "GET_METU_FOOD",
+    "cengcurriculum": "GET_CENG_CURRICULUM"
 }
