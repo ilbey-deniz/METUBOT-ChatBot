@@ -18,7 +18,7 @@
                                                 <v-chip
                                                         :color="msg.isUser ? 'primary' : 'red'"
                                                         dark
-                                                        style="height:auto;white-space: normal;"
+                                                        style="height:auto;white-space: normal; white-space: pre;"
                                                         class="pa-4 mb-2"
                                                         v-on="on"
                                                 >
