@@ -1,5 +1,6 @@
 import json
 from elasticsearch import Elasticsearch
+from TurkishStemmer import TurkishStemmer
 
 # Converting these functions into a class may be a good idea
 
@@ -9,8 +10,10 @@ def initQAIndex():
     es = Elasticsearch("http://localhost:9200")
     
     mapping_properties = {
-        "question": {"type": "text"},
-        "answer": {"type": "text"},
+        "body": {
+            "type": "text",
+            "analyzer": "turkish"
+        },
         "join": {
             "type": "join",
             "relations": {"answer": "question"}
@@ -36,13 +39,13 @@ def fillQAIndex(qa_file):
                 "name": "question",
                 "parent": str(index_ctr)
             },
-            "body": i["question"]
+            "body": i["question"][0]
         }
         a = {
             "join": {
                 "name": "answer",
             },
-            "body": i["answer"]
+            "body": i["answer"][0]
         }
         es.index(index="question-answer", document=a, id=index_ctr)
         index_ctr = index_ctr + 1
