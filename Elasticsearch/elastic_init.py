@@ -11,7 +11,8 @@ def initQAIndex():
     mapping_properties = {
         "body": {
             "type": "text",
-            "analyzer": "turkish"
+            "analyzer": "turkish",
+            "search_analyzer": "turkish" #unless specified analyzer is used for both
         },
         "join": {
             "type": "join",
@@ -19,8 +20,43 @@ def initQAIndex():
         }
     }
 
+    settings = {
+        "analysis": {
+            "filter": {
+                "turkish_stop": {
+                    "type":       "stop",
+                    "stopwords":  "_turkish_" 
+                },
+                "turkish_lowercase": {
+                    "type":       "lowercase",
+                    "language":   "turkish"
+                },
+                "turkish_keywords": {
+                    "type":       "keyword_marker",
+                    "keywords":   ["örnek"] #check this 
+                },
+                "turkish_stemmer": {
+                    "type":       "stemmer",
+                    "language":   "turkish"
+                }
+            },
+            "analyzer": {
+                "rebuilt_turkish": {
+                    "tokenizer":  "standard",
+                    "filter": [
+                        "apostrophe",
+                        "turkish_lowercase",
+                        "turkish_stop",
+                        "turkish_keywords",
+                        "turkish_stemmer"
+                    ]
+                }
+            }
+        }
+    }
+
     # To delete index: curl -X DELETE "localhost:9200/question-answer"
-    es.indices.create(index="question-answer")
+    es.indices.create(index="question-answer", settings=settings)
     es.indices.put_mapping(index="question-answer", properties=mapping_properties)
 
 # Fill from file, overwrites starting from index 0
