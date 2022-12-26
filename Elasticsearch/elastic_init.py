@@ -1,6 +1,5 @@
 import json
 from elasticsearch import Elasticsearch
-from TurkishStemmer import TurkishStemmer
 
 # Converting these functions into a class may be a good idea
 
