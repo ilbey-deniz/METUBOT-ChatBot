@@ -5,3 +5,4 @@ mail
 mail
 kimlik kart
 kimlik kart
+sınav
