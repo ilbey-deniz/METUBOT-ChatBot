@@ -25,8 +25,11 @@ QUESTIONS = json.load(f)
 
 QUESTION_VECTORS = {}
 
-f = open("../../Elasticsearch/qa_pairs.json")
+f = open("/home/metubot/metubot/Elasticsearch/qa_pairs.json")
 QA = json.load(f)["qa-pairs"]
+
+THRESHOLD = 0.4
+DEFAULT_ANSWER = "Üzgünüm, ne sormak istediğinizi anlayamadım. sorunuzu bildirmek ister misiniz?"
 
 # preprocessor for question strings to transform strings to word arrays.
 # TODO: a better alternative than snowball stemmer should be used.
@@ -203,7 +206,9 @@ def NEWquestionClassifier(ft, user_question, questions_answers):
     print("Soru kategorisi: %s" % most_similar_category)
     print("En yakin soru: %s" % most_similar_question)
 
-    return most_similar_category, most_similar_question, most_similar_indice
+    if max_similarity < THRESHOLD:
+        return None
+    return most_similar_indice
 
 def getAnswer(ft, user_question):
     global QUESTION_VECTORS
@@ -217,6 +222,8 @@ def getAnswer(ft, user_question):
 def NEWgetAnswer(ft, user_question):
     global QA
     QA = NEWgetQuestionVectors(ft, QA)
-    category, question, q_index = NEWquestionClassifier(ft, user_question, questions_answers=QA)
+    q_index = NEWquestionClassifier(ft, user_question, questions_answers=QA)
+    if not q_index:
+        return DEFAULT_ANSWER
     ans = random.choice(QA[q_index]["answer"])
     return ans
