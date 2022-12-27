@@ -47,6 +47,49 @@ io.on("connection", (socket) => {
         console.log("Error: " + err.message);
     });
     ;
+    socket.on('add question', (msg) => {
+        console.log('question: ' + msg.category + msg.question + msg.answer);
+        http.get(process.env.FLASK_URL + `/addQuestion?category=${msg.category}&question=${msg.question}&answer=${msg.answer}`, (res) => {
+            let data = '';
+
+
+            res.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            // The whole response has been received. Print out the result.
+            res.on('end', () => {
+                console.log('received answer:', data);
+            });
+        }).on('error', (e) => {
+            console.error(`Got error: ${e.message}. Make sure NLP API server is running.`);
+        });
+
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+    });
+
+    socket.on('report question', (msg) => {
+        console.log('question: ' + msg.question + msg.answer + msg.created_at);
+        http.get(process.env.FLASK_URL + `/reportQuestion?question=${msg.question}&answer=${msg.answer}&created_at=${msg.created_at}`, (res) => {
+            let data = '';
+
+
+            res.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            // The whole response has been received. Print out the result.
+            res.on('end', () => {
+                console.log('received answer:', data);
+            });
+        }).on('error', (e) => {
+            console.error(`Got error: ${e.message}. Make sure NLP API server is running.`);
+        });
+
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+    });
 
 });
 
