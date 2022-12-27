@@ -9,16 +9,54 @@ def initQAIndex():
     es = Elasticsearch("http://localhost:9200")
     
     mapping_properties = {
-        "question": {"type": "text"},
-        "answer": {"type": "text"},
+        "body": {
+            "type": "text",
+            "analyzer": "turkish",
+            "search_analyzer": "turkish" #unless specified analyzer is used for both
+        },
         "join": {
             "type": "join",
             "relations": {"answer": "question"}
         }
     }
 
+    settings = {
+        "analysis": {
+            "filter": {
+                "turkish_stop": {
+                    "type":       "stop",
+                    "stopwords":  "_turkish_" 
+                },
+                "turkish_lowercase": {
+                    "type":       "lowercase",
+                    "language":   "turkish"
+                },
+                "turkish_keywords": {
+                    "type":       "keyword_marker",
+                    "keywords":   ["örnek"] #check this 
+                },
+                "turkish_stemmer": {
+                    "type":       "stemmer",
+                    "language":   "turkish"
+                }
+            },
+            "analyzer": {
+                "rebuilt_turkish": {
+                    "tokenizer":  "standard",
+                    "filter": [
+                        "apostrophe",
+                        "turkish_lowercase",
+                        "turkish_stop",
+                        "turkish_keywords",
+                        "turkish_stemmer"
+                    ]
+                }
+            }
+        }
+    }
+
     # To delete index: curl -X DELETE "localhost:9200/question-answer"
-    es.indices.create(index="question-answer")
+    es.indices.create(index="question-answer", settings=settings)
     es.indices.put_mapping(index="question-answer", properties=mapping_properties)
 
 # Fill from file, overwrites starting from index 0
@@ -36,13 +74,13 @@ def fillQAIndex(qa_file):
                 "name": "question",
                 "parent": str(index_ctr)
             },
-            "body": i["question"]
+            "body": i["question"][0]
         }
         a = {
             "join": {
                 "name": "answer",
             },
-            "body": i["answer"]
+            "body": i["answer"][0]
         }
         es.index(index="question-answer", document=a, id=index_ctr)
         index_ctr = index_ctr + 1

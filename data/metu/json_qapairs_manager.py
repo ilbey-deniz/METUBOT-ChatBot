@@ -45,7 +45,7 @@ def add_alternative_question(question, answer):
 
 def write_json(dict,jsonfilepath):
 	f = open(jsonfilepath, "w")
-	json.dump(dict, f, indent=4)
+	json.dump(dict, f, indent=4, ensure_ascii=False)
 	f.close()
 	return
 

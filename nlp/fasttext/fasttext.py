@@ -1,4 +1,3 @@
-
 import fasttext
 import fasttext.util
 import json
@@ -8,6 +7,7 @@ from snowballstemmer import TurkishStemmer
 import numpy as np
 from numpy.linalg import norm
 from pathlib import Path
+import random
 # fasttext.util.download_model('tr', if_exists='ignore')
 
 
@@ -23,7 +23,10 @@ ANSWERS = json.load(f)
 f = Path(__file__).with_name('question_categories.json').open()
 QUESTIONS = json.load(f)
 
-QUESTION_VECTORS= {}
+QUESTION_VECTORS = {}
+
+f = open("../../Elasticsearch/qa_pairs.json")
+QA = json.load(f)["qa-pairs"]
 
 # preprocessor for question strings to transform strings to word arrays.
 # TODO: a better alternative than snowball stemmer should be used.
@@ -43,6 +46,9 @@ def preProcessor(sentence):
     return result
 
 
+# IMPORTANT
+# current methods starting with NEW does not use TFxIDF methods as 
+# they are not implemented for the new common json format yet .
 
 # Gets the questions dictionary and returns dictionary of dictionaries
 # where subdictionaries consists of keys as each term and values as
@@ -122,6 +128,16 @@ def getQuestionVectors(ft, raw_questions):
             question_vectors[key].append(ft.get_sentence_vector(q))
     return question_vectors
 
+# adds a new field 'q_vectors' 
+# that stores sentence vectors of each question.
+# IMPORTANT: assign the result to QA constant array  
+def NEWgetQuestionVectors(ft, questions_answers):
+    for qa_pair in questions_answers:
+        if "q_vectors" not in qa_pair:
+            qa_pair["q_vectors"] = []
+        for q in range(len(qa_pair["question"])):
+            qa_pair["q_vectors"].append(ft.get_sentence_vector(qa_pair["question"][q]))
+    return questions_answers  
 
 def questionClassifier(ft, user_question, question_vectors, raw_questions):
     q_vector = ft.get_sentence_vector(user_question)
@@ -165,6 +181,30 @@ def questionClassifier(ft, user_question, question_vectors, raw_questions):
     return (most_similar_category, most_similar_question)
 
 
+def NEWquestionClassifier(ft, user_question, questions_answers):
+    q_vector = ft.get_sentence_vector(user_question)
+
+    most_similar_question = ""
+    most_similar_category = ""
+    most_similar_indice = 0
+
+    max_similarity = 0
+
+    for qa in questions_answers:
+        for q in range(len(qa["q_vectors"])):
+            sim = cos_sim(q_vector, qa["q_vectors"][q])
+            if sim > max_similarity:
+                max_similarity = sim
+                most_similar_question = qa["question"][q]
+                most_similar_category = qa["category"]
+                most_similar_indice = questions_answers.index(qa)
+    
+    print("Benzerlik skoru: " + str(max_similarity))
+    print("Soru kategorisi: %s" % most_similar_category)
+    print("En yakin soru: %s" % most_similar_question)
+
+    return most_similar_category, most_similar_question, most_similar_indice
+
 def getAnswer(ft, user_question):
     global QUESTION_VECTORS
 
@@ -174,3 +214,9 @@ def getAnswer(ft, user_question):
     ans = ANSWERS[category]
     return ans
 
+def NEWgetAnswer(ft, user_question):
+    global QA
+    QA = NEWgetQuestionVectors(ft, QA)
+    category, question, q_index = NEWquestionClassifier(ft, user_question, questions_answers=QA)
+    ans = random.choice(QA[q_index]["answer"])
+    return ans

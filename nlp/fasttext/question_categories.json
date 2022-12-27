@@ -25,5 +25,25 @@
     	"ceng müfredatı nedir",
     	"cengde hangi dersler veriliyor",
     	"cengde hangi dersleri almam gerekli" 
+    ],
+    "zaman": [
+    	"saat kaç",
+    	"bugün hangi gün",
+    	"tarih ne",
+    	"bugün ayın kaçı" 
+    ],
+    "akademik takvim": [
+    	"takvime nereden ulaşabilirim",
+    	"okul ne zaman bitiyor",
+    	"okul kaçında açılıyor",
+    	"dersler ne zaman başlıyor",
+    	"withdraw kaçıncı hafta",
+    	"final haftası ne zaman",
+    	"tatil ne zaman basliyor"
+    ],
+    "ringler": [
+    	"ringler hangi saatler arasında hizmet veriyor",
+    	"sarı-kırmızı ring ne zaman faaliyet vermekte",
+    	"kahverengi ring ne zaman çalışmayı durduruyor"
     ]
 }
