@@ -11,8 +11,8 @@ def initQAIndex():
     mapping_properties = {
         "body": {
             "type": "text",
-            "analyzer": "turkish",
-            "search_analyzer": "turkish" #unless specified analyzer is used for both
+            "analyzer": "custom_turkish",
+            "search_analyzer": "custom_turkish" #unless specified analyzer is used for both
         },
         "join": {
             "type": "join",
@@ -41,8 +41,8 @@ def initQAIndex():
                 }
             },
             "analyzer": {
-                "rebuilt_turkish": {
-                    "tokenizer":  "standard",
+                "custom_turkish": {
+                    "tokenizer":  "letter",
                     "filter": [
                         "apostrophe",
                         "turkish_lowercase",
@@ -92,26 +92,55 @@ def getResponse(question):
 
     es = Elasticsearch("http://localhost:9200")
 
+    # Search questions
     response = es.search(index="question-answer", query={
-        "has_child": {
-            "type": "question",
-            "query": {
+        #"has_child": {
+        #    "type": "question",
+        #    "query": {
                 "more_like_this": {
                     "fields": ["body"],
                     "like": question,
+                    "analyzer": "custom_turkish",
                     "min_term_freq": 1,
                     "min_doc_freq": 1,
                     "max_query_terms": 12
-                }
-            }
+        #        }
+        #    }
         }
     })
 
-    if(len(response["hits"]["hits"]) > 0):
-        return response["hits"]["hits"][0]["_source"]["body"]
+    if len(response["hits"]["hits"]) > 0:
+        answer_resp = es.search(index="question-answer", query={
+            "has_child": {
+                "type": "question",
+                "query": {
+                    "ids": {
+                        "values": [response["hits"]["hits"][0]["_id"]]
+                    }
+                }
+            }    
+        })
+        return answer_resp["hits"]["hits"][0]["_source"]["body"]
     else:
-        return "Hata"
+        # Also search answers if no match found
+        response = es.search(index="question-answer", query={
+            "more_like_this": {
+                "fields": ["body"],
+                "like": question,
+                "analyzer": "custom_turkish",
+                "min_term_freq": 1,
+                "min_doc_freq": 1,
+                "max_query_terms": 12
+            }
+        })
+        
+        if len(response["hits"]["hits"]) > 0:
+            return response["hits"]["hits"][0]["_source"]["body"]
+        else:
+            # No hit
+            return "Üzgünüm, ne sormak istediğinizi anlayamadım."
 
+# Not up-to-date
 # For test purposes, returns all together with results
 def getSimiliarQuestion(question):
 
