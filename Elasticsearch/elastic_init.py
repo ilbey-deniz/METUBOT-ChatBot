@@ -42,7 +42,7 @@ def initQAIndex():
             },
             "analyzer": {
                 "custom_turkish": {
-                    "tokenizer":  "letter",
+                    "tokenizer":  "standard",
                     "filter": [
                         "apostrophe",
                         "turkish_lowercase",
@@ -94,51 +94,37 @@ def getResponse(question):
 
     # Search questions
     response = es.search(index="question-answer", query={
-        #"has_child": {
-        #    "type": "question",
-        #    "query": {
-                "more_like_this": {
-                    "fields": ["body"],
-                    "like": question,
-                    "analyzer": "custom_turkish",
-                    "min_term_freq": 1,
-                    "min_doc_freq": 1,
-                    "max_query_terms": 12
-        #        }
-        #    }
+        "more_like_this": {
+            "fields": ["body"],
+            "like": question,
+            "analyzer": "custom_turkish",
+            "min_term_freq": 1,
+            "min_doc_freq": 1,
+            "max_query_terms": 12
         }
     })
 
     if len(response["hits"]["hits"]) > 0:
-        answer_resp = es.search(index="question-answer", query={
-            "has_child": {
-                "type": "question",
-                "query": {
-                    "ids": {
-                        "values": [response["hits"]["hits"][0]["_id"]]
+        temp = response["hits"]["hits"][0]["_source"]
+
+        if temp["join"]["name"] == "question":
+            answer_resp = es.search(index="question-answer", query={
+                "has_child": {
+                    "type": "question",
+                    "query": {
+                        "ids": {
+                            "values": [response["hits"]["hits"][0]["_id"]]
+                        }
                     }
                 }
-            }    
-        })
-        return answer_resp["hits"]["hits"][0]["_source"]["body"]
-    else:
-        # Also search answers if no match found
-        response = es.search(index="question-answer", query={
-            "more_like_this": {
-                "fields": ["body"],
-                "like": question,
-                "analyzer": "custom_turkish",
-                "min_term_freq": 1,
-                "min_doc_freq": 1,
-                "max_query_terms": 12
-            }
-        })
+            })
+
+            temp = answer_resp["hits"]["hits"][0]["_source"]
         
-        if len(response["hits"]["hits"]) > 0:
-            return response["hits"]["hits"][0]["_source"]["body"]
-        else:
-            # No hit
-            return "Üzgünüm, ne sormak istediğinizi anlayamadım."
+        return temp["body"]
+    else:
+        # No hit
+        return "Üzgünüm, ne sormak istediğinizi anlayamadım."
 
 # Not up-to-date
 # For test purposes, returns all together with results
