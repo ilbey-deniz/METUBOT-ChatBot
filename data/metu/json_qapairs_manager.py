@@ -53,5 +53,5 @@ a_path = "./answers.txt"
 c_path = "./categories.txt"
 
 if __name__ == "__main__":
-    add_questions_from_files(path,q_path,a_path,c_path)
+    add_questions_from_files(path,q_path,a_path,c_path, True)
 
