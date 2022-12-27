@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import MetuBotView from '../views/MetuBotView.vue'
 import AdminView from '../views/AdminView.vue'
 import MetubotAskedQuestions from '../components/MetubotAskedQuestions.vue'
+import MetubotAddQuestion from '../components/MetubotAddQuestion.vue'
 
 Vue.use(VueRouter)
 
@@ -18,8 +19,10 @@ const routes = [
     name: 'admin',
     children: [
 
+      { path: 'dashboard'},
       { path: 'tables', component: MetubotAskedQuestions },
-
+      { path: 'charts'},
+      { path: 'addquestion', component: MetubotAddQuestion },
 
     ],
     component: AdminView,

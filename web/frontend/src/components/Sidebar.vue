@@ -15,7 +15,7 @@
                     <span class="material-icons">home</span>
                     <span class="text">Home</span>
                 </router-link>
-                <router-link to="/yonetim/dashboards" class="button">
+                <router-link to="/yonetim/dashboard" class="button">
                     <span class="material-icons">dashboard</span>
                     <span class="text">Dashboard</span>
                 </router-link>
@@ -27,6 +27,11 @@
                     <span class="material-icons">pie_chart</span>
                     <span class="text">Charts</span>
                 </router-link>
+				<router-link to="/yonetim/addquestion" class="button">
+                    <span class="material-icons">note_add</span>
+                    <span class="text">Add Question</span>
+                </router-link>
+
             </div>
             <div class="flex"></div>
 
