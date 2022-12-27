@@ -50,7 +50,7 @@
                 "Akıllı kartıma online bakiye yükleme sisteminden (odtucard) para yükledim, yüklediğim bakiye kartıma aktarılmadı. Ne yapmalıyım?"
             ],
             "answer": [
-                "Akıllı kartınıza yemek saatlerinde (11:00 dan sonra) yüklediğiniz bakiyeyi aktarabilmek için kartınızı yükleme/güncelleme terminaline veya Kiosk’a okutmanız gerekmektedir. Kartınızı bu cihazlara okuttuğunuz halde bakiyeniz aktarılmamışsa https://bilisimdestek.metu.edu.tr/ adresi üzerinden kullanıcı hesabınız ile giriş yaparak sorununuzu bildirebilirsiniz."
+                "Akıllı kartınıza yemek saatlerinde (11:00 dan sonra) yüklediğiniz bakiyeyi aktarabilmek için kartınızı yükleme/güncelleme terminaline veya Kiosk'a okutmanız gerekmektedir. Kartınızı bu cihazlara okuttuğunuz halde bakiyeniz aktarılmamışsa https://bilisimdestek.metu.edu.tr/ adresi üzerinden kullanıcı hesabınız ile giriş yaparak sorununuzu bildirebilirsiniz."
             ],
             "category": "kimlik kart"
         },
@@ -59,7 +59,7 @@
                 "Akıllı kimlik kartımı kaybettim/çalındı, ne yapmalıyım?"
             ],
             "answer": [
-                "Akıllı kimlik kartınızı kaybettiğinizi/çalındığını fark ettiğinizde, cardinfo.metu.edu.tr adresinden kartınızı iptal etmelisiniz. Bu durumda akıllı kimlik kartınız sistem tarafından “iptal” edilir."
+                "Akıllı kimlik kartınızı kaybettiğinizi/çalındığını fark ettiğinizde, cardinfo.metu.edu.tr adresinden kartınızı iptal etmelisiniz. Bu durumda akıllı kimlik kartınız sistem tarafından “iptal” edilir."
             ],
             "category": "kimlik kart"
         },
@@ -80,7 +80,7 @@
             "question": [
                 "Microsoft Office'i öğrenci mailimle nasil kullanabilirim?",
                 "Ücretsiz Autocad kullanmak için ne yapmam lazım",
-                "exceli metu mailimle nasıl kullanabilirim?\""
+                "exceli metu mailimle nasıl kullanabilirim?"
             ],
             "answer": [
                 "Lisanlı yazılımlar hakkında bilgi edinmek için https://yazilim.cc.metu.edu.tr adresine gidebilirsiniz."
@@ -145,9 +145,9 @@
                 "tatil ne zaman başlıyor"
             ],
             "answer": [
-                "GET_RING_TIMES"
+                "GET_CALENDAR"
             ],
-            "category": "ring"
+            "category": "zaman"
         },
         {
             "question": [
@@ -156,9 +156,9 @@
                 "kahverengi ring ne zaman çalışmayı durduruyor"
             ],
             "answer": [
-                "GET_CALENDAR"
+                "GET_RING_TIMES"
             ],
-            "category": "zaman"
+            "category": "ring"
         },
         {
             "question": [
@@ -166,7 +166,7 @@
                 "öğle yemeği ne zaman",
                 "akşam yemeği ne zaman",
                 "yemekhane kaçta açılıyor",
-                "yemekhanenin kapanış saati nedir  "
+                "yemekhanenin kapanış saati nedir"
             ],
             "answer": [
                 "GET_CAFETERIA_TIMES"

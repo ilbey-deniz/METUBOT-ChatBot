@@ -11,6 +11,6 @@ wifi
 kafeterya
 ceng
 zaman
-ring
 zaman
+ring
 kafeterya
