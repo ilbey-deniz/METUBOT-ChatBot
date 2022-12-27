@@ -2,64 +2,64 @@
     "qa-pairs": [
         {
             "question": [
-                "Etkile\u015fimli Kay\u0131tlarda neden Captcha uygulamas\u0131 kullan\u0131lmaktad\u0131r?"
+                "Etkileşimli Kayıtlarda neden Captcha uygulaması kullanılmaktadır?"
             ],
             "answer": [
-                "Kay\u0131t uygulamas\u0131nda bulunan captchay\u0131 \u00e7\u00f6zd\u00fc\u011f\u00fcn\u00fc ileri s\u00fcrerek ders kay\u0131tlar\u0131nda haks\u0131z kazan\u00e7 sa\u011flamak ve kay\u0131t \u00f6nceli\u011fi elde etmek isteyen baz\u0131 ki\u015filer oldu\u011fu g\u00f6r\u00fclm\u00fc\u015ft\u00fcr. Ders kay\u0131tlar\u0131n\u0131n e\u015fit ko\u015fullarda ger\u00e7ekle\u015fmesi i\u00e7in captcha uygulamas\u0131 g\u00fcncellenmi\u015ftir."
+                "Kayıt uygulamasında bulunan captchayı çözdüğünü ileri sürerek ders kayıtlarında haksız kazanç sağlamak ve kayıt önceliği elde etmek isteyen bazı kişiler olduğu görülmüştür. Ders kayıtlarının eşit koşullarda gerçekleşmesi için captcha uygulaması güncellenmiştir."
             ],
-            "category": "kay\u0131t"
+            "category": "kayıt"
         },
         {
             "question": [
-                "B\u00f6l\u00fcm koordinat\u00f6r\u00fcne nas\u0131l ula\u015fabilirim?"
+                "Bölüm koordinatörüne nasıl ulaşabilirim?"
             ],
             "answer": [
-                "B\u00f6l\u00fcm/birim koordinat\u00f6rlerinin listesine http://coordinators.metu.edu.tr/ adresinden eri\u015febilirsiniz."
+                "Bölüm/birim koordinatörlerinin listesine http://coordinators.metu.edu.tr/ adresinden erişebilirsiniz."
             ],
-            "category": "koordinat\u00f6r"
+            "category": "koordinatör"
         },
         {
             "question": [
-                "Lojmanlardan \u0130nternet'e nas\u0131l ba\u011flanabilirim?"
+                "Lojmanlardan İnternet'e nasıl bağlanabilirim?"
             ],
             "answer": [
-                "Bu lojmanlarda kalan ODT\u00dc personeli 3378 numaral\u0131 telefondan ya da lkoord@metu.edu.tr e-posta adresinden lojman koordinat\u00f6r\u00fcne merkezi sistem kullan\u0131c\u0131 ad\u0131 bilgisini ileterek lojmanlardan internete ba\u011flanmak i\u00e7in gerekli kay\u0131t i\u015fleminin yap\u0131lmas\u0131n\u0131 talep etmelidir."
+                "Bu lojmanlarda kalan ODTÜ personeli 3378 numaralı telefondan ya da lkoord@metu.edu.tr e-posta adresinden lojman koordinatörüne merkezi sistem kullanıcı adı bilgisini ileterek lojmanlardan internete bağlanmak için gerekli kayıt işleminin yapılmasını talep etmelidir."
             ],
             "category": "internet"
         },
         {
             "question": [
-                "ODT\u00dc'de \u00f6grenciyim; genel-duyuru listesine \u00fcye olabilir miyim?"
+                "ODTÜ'de ögrenciyim; genel-duyuru listesine üye olabilir miyim?"
             ],
             "answer": [
-                "genel-duyuru listesine ODT\u00dc personeli olan kisiler kullanici_adimetu.edu.tr seklindeki e-posta adresleri ile otomatik olarak kaydedilmektedir. \u00d6grencilerin \u00fcyelik talepleri kabul edilmemektedir."
+                "genel-duyuru listesine ODTÜ personeli olan kisiler kullanici_adimetu.edu.tr seklindeki e-posta adresleri ile otomatik olarak kaydedilmektedir. Ögrencilerin üyelik talepleri kabul edilmemektedir."
             ],
             "category": "mail"
         },
         {
             "question": [
-                "Horde ile t\u00fcm e-postalar\u0131m\u0131 nas\u0131l indirebilirim?"
+                "Horde ile tüm e-postalarımı nasıl indirebilirim?"
             ],
             "answer": [
-                "Horde kullanarak bir posta kutusundaki t\u00fcm epostalar\u0131 tek bir dosya ile bilgisayar\u0131n\u0131za indirebilirsiniz. Bunun i\u00e7in horde web uygulamas\u0131na D\u0130NAM\u0130K modda giri\u015f yapt\u0131ktan sonra sol tarafta listelenen posta kutular\u0131ndan indirmek istedi\u011finize sa\u011f t\u0131klayarak Export / D\u0131\u015fa aktar se\u00e7ene\u011fini i\u015faretleyiniz."
+                "Horde kullanarak bir posta kutusundaki tüm epostaları tek bir dosya ile bilgisayarınıza indirebilirsiniz. Bunun için horde web uygulamasına DİNAMİK modda giriş yaptıktan sonra sol tarafta listelenen posta kutularından indirmek istediğinize sağ tıklayarak Export / Dışa aktar seçeneğini işaretleyiniz."
             ],
             "category": "mail"
         },
         {
             "question": [
-                "Ak\u0131ll\u0131 kart\u0131ma online bakiye y\u00fckleme sisteminden (odtucard) para y\u00fckledim, y\u00fckledi\u011fim bakiye kart\u0131ma aktar\u0131lmad\u0131. Ne yapmal\u0131y\u0131m?"
+                "Akıllı kartıma online bakiye yükleme sisteminden (odtucard) para yükledim, yüklediğim bakiye kartıma aktarılmadı. Ne yapmalıyım?"
             ],
             "answer": [
-                "Ak\u0131ll\u0131 kart\u0131n\u0131za yemek saatlerinde (11:00 dan sonra) y\u00fckledi\u011finiz bakiyeyi aktarabilmek i\u00e7in kart\u0131n\u0131z\u0131 y\u00fckleme/g\u00fcncelleme terminaline veya Kiosk\u2019a okutman\u0131z gerekmektedir. Kart\u0131n\u0131z\u0131 bu cihazlara okuttu\u011funuz halde bakiyeniz aktar\u0131lmam\u0131\u015fsa\u00a0https://bilisimdestek.metu.edu.tr/ adresi \u00fczerinden kullan\u0131c\u0131 hesab\u0131n\u0131z ile giri\u015f yaparak sorununuzu bildirebilirsiniz."
+                "Akıllı kartınıza yemek saatlerinde (11:00 dan sonra) yüklediğiniz bakiyeyi aktarabilmek için kartınızı yükleme/güncelleme terminaline veya Kiosk’a okutmanız gerekmektedir. Kartınızı bu cihazlara okuttuğunuz halde bakiyeniz aktarılmamışsa https://bilisimdestek.metu.edu.tr/ adresi üzerinden kullanıcı hesabınız ile giriş yaparak sorununuzu bildirebilirsiniz."
             ],
             "category": "kimlik kart"
         },
         {
             "question": [
-                "Ak\u0131ll\u0131 kimlik kart\u0131m\u0131 kaybettim/\u00e7al\u0131nd\u0131, ne yapmal\u0131y\u0131m?"
+                "Akıllı kimlik kartımı kaybettim/çalındı, ne yapmalıyım?"
             ],
             "answer": [
-                "Ak\u0131ll\u0131 kimlik kart\u0131n\u0131z\u0131 kaybetti\u011finizi/\u00e7al\u0131nd\u0131\u011f\u0131n\u0131 fark etti\u011finizde, cardinfo.metu.edu.tr adresinden kart\u0131n\u0131z\u0131 iptal etmelisiniz.\u00a0Bu durumda ak\u0131ll\u0131 kimlik kart\u0131n\u0131z sistem taraf\u0131ndan \u201ciptal\u201d edilir."
+                "Akıllı kimlik kartınızı kaybettiğinizi/çalındığını fark ettiğinizde, cardinfo.metu.edu.tr adresinden kartınızı iptal etmelisiniz. Bu durumda akıllı kimlik kartınız sistem tarafından “iptal” edilir."
             ],
             "category": "kimlik kart"
         }
