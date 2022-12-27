@@ -5,4 +5,12 @@ mail
 mail
 kimlik kart
 kimlik kart
-sınav
+şifre
+lisanslı yazılımlar
+wifi
+kafeterya
+ceng
+zaman
+ring
+zaman
+kafeterya

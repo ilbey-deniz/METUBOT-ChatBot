@@ -22,7 +22,6 @@ def add_questions_from_files(path, q_path, a_path, c_path, overwrite):
         dict["qa-pairs"].append({"question":questions[i].split("#"),"answer":answers[i].split("#"),"category":categories[i]})
     write_json(dict,path)
 
-<<<<<<< HEAD
 def add_questions_manually(questions, answers, category, path=admin_json_path):
 
     with open(path) as fp:
@@ -35,15 +34,7 @@ def add_questions_manually(questions, answers, category, path=admin_json_path):
     }
     dict_obj["qa-pairs"].append(qa_pair)
 
-    with open(path, 'w') as json_file:
-        json.dump(dict_obj, json_file,
-                  indent=4,
-                  separators=(',', ': '))
-=======
-def add_questions_manually(path, question, answer, category): 
-    #TODO:
-    ...
->>>>>>> 43403dc (bir soru daha ve textten sorular tokenli çekiliyor artık)
+    write_json(dict_obj,path)
 
 def add_alternative_question(question, answer):
     #TODO:
@@ -63,3 +54,4 @@ c_path = "./categories.txt"
 
 if __name__ == "__main__":
     add_questions_from_files(path,q_path,a_path,c_path)
+
