@@ -1,5 +1,7 @@
 import json 
 
+admin_json_path = "./questions_from_admin.json"
+
 def reset_and_initialize_json(path):
     dict = {"qa-pairs":[]}
     write_json(dict,path)
@@ -20,8 +22,22 @@ def add_questions_from_files(path, q_path, a_path, c_path, overwrite):
         dict["qa-pairs"].append({"question":[questions[i]],"answer":[answers[i]],"category":categories[i]})
     write_json(dict,path)
 
-def add_questions_manually(path, question, answer, category):
-    ...
+def add_questions_manually(questions, answers, category, path=admin_json_path):
+
+    with open(path) as fp:
+        dict_obj = json.load(fp)
+
+    qa_pair = {
+        "question": questions,
+        "answer": answers,
+        "category": category
+    }
+    dict_obj["qa-pairs"].append(qa_pair)
+
+    with open(path, 'w') as json_file:
+        json.dump(dict_obj, json_file,
+                  indent=4,
+                  separators=(',', ': '))
 
 def add_alternative_question(question, answer):
     dict = json.load(open(path))
@@ -37,4 +53,6 @@ path = "../../Elasticsearch/qa_pairs.json"
 q_path = "./questions.txt"
 a_path = "./answers.txt"
 c_path = "./categories.txt"
-add_questions_from_files(path,q_path,a_path,c_path,True)
+
+if __name__ == "__main__":
+    add_questions_from_files(path,q_path,a_path,c_path)
