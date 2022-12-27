@@ -24,7 +24,7 @@ def saat():
         min = "0" + str(min)
     if sec<10:
         sec = "0" + str(sec)
-    tarih = "Bugünün tarihi: " + str(d.day) + " " + aylar[d.month-1] + " " + str(d.year) + ", " + str(h) + ":" + str(min) + ":" + str(sec) + "."
+    tarih = "Bugünün tarihi: " + str(d.day+1) + " " + aylar[d.month-1] + " " + str(d.year) + ", " + str(h) + ":" + str(min) + ":" + str(sec) + "."
     return tarih
 
 
