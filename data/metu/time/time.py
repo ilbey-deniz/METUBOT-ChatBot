@@ -1,8 +1,9 @@
 from bs4 import BeautifulSoup
-from datetime import datetime
+import time 
 import requests
 
-aylar = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"]
+months = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"]
+weekdays = ["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"]
 
 def initialize(url):
     page = requests.get(url)
@@ -13,27 +14,25 @@ def initialize(url):
 
 
 def saat():
-    now = datetime.now()
-    d = now.date()
-    h = now.hour
-    min = now.minute
-    sec = now.second
-    if h<10:
-        h = "0" + str(h)
-    if min<10:
-        min = "0" + str(min)
-    if sec<10:
-        sec = "0" + str(sec)
-    tarih = "Bugünün tarihi: " + str(d.day+1) + " " + aylar[d.month-1] + " " + str(d.year) + ", " + str(h) + ":" + str(min) + ":" + str(sec) + "."
-    return tarih
+    now = time.localtime()
+    md = str(now.tm_mday)
+    wd = weekdays[now.tm_wday]
+    mon = months[now.tm_mon-1]
+    y = str(now.tm_year)
+    h = "0" + str(now.tm_hour) if now.tm_hour<10 else str(now.tm_hour)
+    m = "0" + str(now.tm_min) if now.tm_min<10 else str(now.tm_min)
+    s = "0" + str(now.tm_sec) if now.tm_sec<10 else str(now.tm_sec)
+    return "Bugünün tarihi: " + md + " " + mon + " " + y + ", " + wd + " " + h + ":" + m + ":" + s + "."
 
 
 def takvim():
-    d = datetime.now().date()
+    d = time.localtime()
     url = ""
-    if d.month < 10:
-        url = "http://oidb.metu.edu.tr/tr/odtu-ankara-ve-erdemli-kampuslari-" + str(d.year-1) +  "-"  + str(d.year) + "-akademik-takvim"
+    if d.tm_mon < 10:
+        url = "http://oidb.metu.edu.tr/tr/odtu-ankara-ve-erdemli-kampuslari-" + str(d.tm_year-1) +  "-"  + str(d.tm_year) + "-akademik-takvim"
     else:
-        url = "http://oidb.metu.edu.tr/tr/odtu-ankara-ve-erdemli-kampuslari-" + str(d.year) +  "-"  + str(d.year+1) + "-akademik-takvim"
+        url = "http://oidb.metu.edu.tr/tr/odtu-ankara-ve-erdemli-kampuslari-" + str(d.tm_year) +  "-"  + str(d.tm_year+1) + "-akademik-takvim"
     
     return "Akademik takvim için " + url + " inceleyebilirsiniz."
+
+print(saat())
