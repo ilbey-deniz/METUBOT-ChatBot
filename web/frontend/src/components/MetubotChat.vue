@@ -139,6 +139,9 @@ export default {
             this.scrollMessagesToBottom();
         })
     },
+    destroyed() {
+        this.socketIoSocket.disconnect();
+    },
     methods: {
         sendMessageToServer() {
             axios.post(`/`, {
