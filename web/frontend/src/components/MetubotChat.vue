@@ -102,14 +102,14 @@ export default {
                 isUser: true,
                 created_at: "11:11am",
             },
-            qa_pair:{
+            qa_pair: {
                 question: "",
                 answer: "",
-                created_at: "11:11am"
+                created_at: "11:11am",
             },
             waitingForAnswer: true,
             socketIoSocket: null,
-            reported_question_index: -1
+            reported_question_index: -1,
         }
     },
     mounted() {
@@ -124,6 +124,7 @@ export default {
                 isUser: false,
                 created_at: this.getClock(),
             });
+            this.scrollMessagesToBottom();
         })
     },
     methods: {
@@ -149,29 +150,29 @@ export default {
                     created_at: null,
                 };
                 this.waitingForAnswer = true;
-                this.scrollElmToBottomOfElm(this.$refs['message-div']);
+                this.scrollMessagesToBottom();
 
             }
 
         },
-        reportQuestion(question_index){
+        reportQuestion(question_index) {
             // Do not take the first 2 message. Directly ignore them.
             // metubot respond the user message
             // hence, if reported message from metubot and not first 2 message it is an answer to question its above.
             // if reported message from user it is an question the below answer.
-            this.reported_question_index = question_index; 
-            if(question_index > 1 && !this.messages[question_index].isUser){ // it is from metubot
+            this.reported_question_index = question_index;
+            if (question_index > 1 && !this.messages[question_index].isUser) { // it is from metubot
                 this.qa_pair.created_at = this.getClock();
                 this.qa_pair.answer = this.messages[this.reported_question_index].content;
-                if(this.messages[question_index-1].isUser){
-                    this.qa_pair.question = this.messages[this.reported_question_index-1].content;
+                if (this.messages[question_index - 1].isUser) {
+                    this.qa_pair.question = this.messages[this.reported_question_index - 1].content;
                 }
             }
-            if(question_index > 1 && this.messages[question_index].isUser){ // it is from user
+            if (question_index > 1 && this.messages[question_index].isUser) { // it is from user
                 this.qa_pair.created_at = this.getClock();
                 this.qa_pair.question = this.messages[this.reported_question_index].content;
-                if( question_index+1 < this.messages.length && !this.messages[question_index+1].isUser){
-                    this.qa_pair.answer = this.messages[this.reported_question_index+1].content;
+                if (question_index + 1 < this.messages.length && !this.messages[question_index + 1].isUser) {
+                    this.qa_pair.answer = this.messages[this.reported_question_index + 1].content;
                 }
             }
             console.log(this.qa_pair.question)
@@ -180,13 +181,23 @@ export default {
             this.qa_pair = {
                 question: "",
                 answer: "",
-                created_at: null
+                created_at: null,
             };
+        },
+        scrollMessagesToBottom() {
+            this.scrollElmToBottomOfElm(this.$refs['message-div']);
         },
         scrollElmToBottomOfElm(element) {
             /* iki next tick gerekti çalışması için. settimeout(, 0) olabilirdi de ama kötü gözüktü */
             Vue.nextTick(() => Vue.nextTick(() => {element.scrollTop = element.scrollHeight;}));
         },
+        messagesAtBottom() {
+            return this.elmAtBottom(this.$refs['message-div']);
+        },
+        elmAtBottom(element) {
+            return element.scrollHeight - element.scrollTop === element.clientHeight;
+        },
+
 
     },
     computed: {
@@ -218,5 +229,6 @@ export default {
 {
     opacity: 0;
 }
+
 
 </style>
