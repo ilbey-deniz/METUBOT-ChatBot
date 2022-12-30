@@ -18,8 +18,8 @@
                                                 :color="msg.isUser ? 'primary' : 'red'"
                                                 dark
                                                 style="height:auto;white-space: pre-wrap; position: relative; cursor: auto;"
-                                                class="pa-4 mb-2"
-                                        >{{ msg.content }}<sub class="ml-2"
+                                                class="pa-4 mb-2 message-box"
+                                        ><span v-html="sanitizeExceptBoldItalicCode(msg.content)" v-linkified /><sub class="ml-2"
                                                                style="font-size: 0.6rem; margin-top: auto;">{{
                                                 addPadding(msg.created_at)
                                             }}</sub>
@@ -224,6 +224,9 @@ export default {
             }
             return hour + ":" + minute;
         },
+        sanitizeExceptBoldItalicCode(str) {
+            return this.$sanitize(str);
+        }
 
     },
     computed: {
@@ -235,7 +238,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
 @use 'three-dots' with (
     $dot-width: 8px,
     $dot-height: 8px,
@@ -256,5 +259,8 @@ export default {
     opacity: 0;
 }
 
+.message-box a {
+    color: white !important;
+}
 
 </style>
