@@ -17,7 +17,7 @@
                                         <v-chip
                                                 :color="msg.isUser ? 'primary' : 'red'"
                                                 dark
-                                                style="height:auto;white-space: pre-wrap; position: relative;"
+                                                style="height:auto;white-space: pre-wrap; position: relative; cursor: auto;"
                                                 class="pa-4 mb-2"
                                         >{{ msg.content }}<sub class="ml-2"
                                                                style="font-size: 0.6rem; margin-top: auto;">{{
@@ -78,7 +78,7 @@
                             >
                                 <template v-slot:append-outer>
                                     <!-- touchend.prevent reason is not hiding the keyboard on mobile -->
-                                    <v-icon @click="sendMessage" @touchend.prevent="sendMessage">
+                                    <v-icon  color="blue" @click="sendMessage" @touchend.prevent="sendMessage">
                                         mdi-send
                                     </v-icon>
 
