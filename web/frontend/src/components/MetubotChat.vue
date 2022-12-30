@@ -18,14 +18,12 @@
                                                 <v-chip
                                                         :color="msg.isUser ? 'primary' : 'red'"
                                                         dark
-                                                        style="height:auto;white-space: normal; white-space: pre-wrap;"
+                                                        style="height:auto;white-space: pre-wrap;"
                                                         class="pa-4 mb-2"
                                                         v-on="on"
-                                                >
-                                                    {{ msg.content }}
-                                                    <sub class="ml-2" style="font-size: 0.5rem;">
-                                                        {{ msg.created_at }}
-                                                    </sub>
+                                                >{{ msg.content }}<sub class="ml-2" style="font-size: 0.5rem;">
+                                                    {{ msg.created_at }}
+                                                </sub>
                                                     <v-icon v-if="hover" small>mdi-chevron-down</v-icon>
                                                 </v-chip>
                                             </v-hover>
