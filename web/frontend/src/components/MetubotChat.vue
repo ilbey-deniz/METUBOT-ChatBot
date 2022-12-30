@@ -7,9 +7,9 @@
             <v-col cols="auto" class="flex-grow-1 flex-shrink-0">
                 <v-responsive class="overflow-y-hidden fill-height">
                     <v-card flat class="d-flex flex-column fill-height">
-
-
-                        <v-card-text :class="'flex-grow-1 overflow-y-auto ' + scrollbarTheme">
+                        <!-- height: 1px deyince tüm problemlerim çözüldü. nasıl bilmiyorum.-->
+                        <v-card-text :class="'flex-grow-1 overflow-y-auto ' + scrollbarTheme" ref="message-div"
+                                     style="height: 1px;">
                             <template v-for="(msg, i) in messages">
                                 <div :class="{ 'd-flex flex-row-reverse': msg.isUser }">
                                     <v-menu offset-y>
@@ -31,9 +31,9 @@
                                         <v-list>
                                             <v-list-item>
                                                 <v-list-item-title
-                                                style="cursor:pointer"
-                                                @click="reportQuestion(i)"> 
-                                                    <span class="material-icons">bug_report</span> 
+                                                        style="cursor:pointer"
+                                                        @click="reportQuestion(i)">
+                                                    <span class="material-icons">bug_report</span>
                                                     <span class="text">Report Question</span>
                                                 </v-list-item-title>
                                             </v-list-item>
@@ -49,8 +49,6 @@
                                         class="pa-4 mb-2 d-flex justify-center"
                                 >
                                     <div class="dot-typing"></div>
-                                    <!--                                <div class="dot-typing"></div>
-                                                                    <div class="dot-elastic"></div>-->
                                 </v-chip>
                             </transition>
 
@@ -59,7 +57,7 @@
                         <v-card-text class="flex-shrink-1">
                             <v-text-field
                                     v-model="messageForm.content"
-                                    label="Mesaj"
+                                    label="Bir mesaj yazın"
                                     type="text"
                                     no-details
                                     outlined
@@ -151,6 +149,7 @@ export default {
                     created_at: null,
                 };
                 this.waitingForAnswer = true;
+                this.scrollElmToBottomOfElm(this.$refs['message-div']);
 
             }
 
@@ -183,7 +182,11 @@ export default {
                 answer: "",
                 created_at: null
             };
-        }
+        },
+        scrollElmToBottomOfElm(element) {
+            /* iki next tick gerekti çalışması için. settimeout(, 0) olabilirdi de ama kötü gözüktü */
+            Vue.nextTick(() => Vue.nextTick(() => {element.scrollTop = element.scrollHeight;}));
+        },
 
     },
     computed: {
