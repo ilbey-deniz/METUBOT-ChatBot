@@ -10,35 +10,47 @@
                         <!-- height: 1px deyince tüm problemlerim çözüldü. nasıl bilmiyorum.-->
                         <v-card-text :class="'flex-grow-1 overflow-y-auto ' + scrollbarTheme" ref="message-div"
                                      style="height: 1px;">
+
                             <template v-for="(msg, i) in messages">
                                 <div :class="{ 'd-flex flex-row-reverse': msg.isUser }">
-                                    <v-menu offset-y>
-                                        <template v-slot:activator="{ on }">
-                                            <v-hover v-slot:default="{ hover }">
-                                                <v-chip
-                                                        :color="msg.isUser ? 'primary' : 'red'"
-                                                        dark
-                                                        style="height:auto;white-space: pre-wrap;"
-                                                        class="pa-4 mb-2"
-                                                        v-on="on"
-                                                >{{ msg.content }}<sub class="ml-2" style="font-size: 0.5rem;">
-                                                    {{ msg.created_at }}
-                                                </sub>
-                                                    <v-icon v-if="hover" small>mdi-chevron-down</v-icon>
-                                                </v-chip>
-                                            </v-hover>
-                                        </template>
-                                        <v-list>
-                                            <v-list-item>
-                                                <v-list-item-title
-                                                        style="cursor:pointer"
-                                                        @click="reportQuestion(i)">
-                                                    <span class="material-icons">bug_report</span>
-                                                    <span class="text">Report Question</span>
-                                                </v-list-item-title>
-                                            </v-list-item>
-                                        </v-list>
-                                    </v-menu>
+                                    <v-hover v-slot:default="{ hover }">
+                                        <v-chip
+                                                :color="msg.isUser ? 'primary' : 'red'"
+                                                dark
+                                                style="height:auto;white-space: pre-wrap; position: relative;"
+                                                class="pa-4 mb-2"
+                                        >{{ msg.content }}<sub class="ml-2"
+                                                               style="font-size: 0.6rem; margin-top: auto;">{{
+                                                addPadding(msg.created_at)
+                                            }}</sub>
+                                            <v-menu bottom right>
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-btn
+                                                            style="position: absolute; right: 5px; top: 5px;"
+                                                            dark
+                                                            icon
+                                                            v-bind="attrs"
+                                                            v-on="on"
+                                                    >
+                                                        <v-icon v-if="hover">mdi-chevron-down</v-icon>
+                                                    </v-btn>
+                                                </template>
+
+                                                <v-list>
+                                                    <v-list-item>
+                                                        <v-list-item-title
+                                                                style="cursor:pointer"
+                                                                @click="reportQuestion(i)">
+                                                            <span class="material-icons">bug_report</span>
+                                                            <span class="text">Report Question</span>
+                                                        </v-list-item-title>
+                                                    </v-list-item>
+                                                </v-list>
+                                            </v-menu>
+
+                                        </v-chip>
+                                    </v-hover>
+
                                 </div>
                             </template>
                             <transition name="fade">
@@ -197,7 +209,18 @@ export default {
         elmAtBottom(element) {
             return element.scrollHeight - element.scrollTop === element.clientHeight;
         },
-
+        addPadding(hourAndMinuteStr) {
+            let hourAndMinute = hourAndMinuteStr.split(":");
+            let hour = hourAndMinute[0];
+            let minute = hourAndMinute[1];
+            if (hour.length === 1) {
+                hour = "0" + hour;
+            }
+            if (minute.length === 1) {
+                minute = "0" + minute;
+            }
+            return hour + ":" + minute;
+        },
 
     },
     computed: {
