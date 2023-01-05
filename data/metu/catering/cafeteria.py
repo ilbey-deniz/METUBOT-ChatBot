@@ -49,5 +49,3 @@ def fiyat(role="Öğrenci"):
     prompt += c[1] + ": " + c[4*diff+1] + "\n"
     prompt += c[2] + ": " + c[4*diff+2]
     return prompt
-
-print(fiyat())

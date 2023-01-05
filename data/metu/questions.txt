@@ -1,12 +1,12 @@
-Etkileşimli Kayıtlarda neden Captcha uygulaması kullanılmaktadır?
-Bölüm koordinatörüne nasıl ulaşabilirim?
-Lojmanlardan İnternet'e nasıl bağlanabilirim?
-ODTÜ'de ögrenciyim; genel-duyuru listesine üye olabilir miyim?
-Horde ile tüm e-postalarımı nasıl indirebilirim?
-Akıllı kartıma online bakiye yükleme sisteminden (odtucard) para yükledim, yüklediğim bakiye kartıma aktarılmadı. Ne yapmalıyım?
-Akıllı kimlik kartımı kaybettim/çalındı, ne yapmalıyım?
-Ögrenci şifremi unuttum, nasil yenileyebilirim?#ODTÜ kullanıcı şifremi hatırlamıyorum, ne yapmam lazım?#metu mail şifremi kaybettim, nasıl sıfırlarım?#parolamı unuttum#metumail şifrem neydi
-Microsoft Office'i öğrenci mailimle nasil kullanabilirim?#Ücretsiz Autocad kullanmak için ne yapmam lazım#exceli metu mailimle nasıl kullanabilirim?
+etkileşimli kayıtlarda neden captcha uygulaması kullanılmaktadır?
+bölüm koordinatörüne nasıl ulaşabilirim
+lojmanlardan internet'e nasıl bağlanabilirim
+genel-duyuru listesine üye olabilir miyim?
+horde ile tüm e-postalarımı nasıl indirebilirim
+akıllı kartıma online bakiye yükleme sisteminden (odtucard) para yükledim, yüklediğim bakiye kartıma aktarılmadı. Ne yapmalıyım
+akıllı kimlik kartımı kaybettim/çalındı, ne yapmalıyım
+ögrenci şifremi unuttum, nasil yenileyebilirim?#ODTÜ kullanıcı şifremi hatırlamıyorum, ne yapmam lazım?#metu mail şifremi kaybettim, nasıl sıfırlarım?#parolamı unuttum#metumail şifrem neydi
+microsoft office'i öğrenci mailimle nasil kullanabilirim?#ücretsiz autocad kullanmak için ne yapmam lazım#exceli metu mailimle nasıl kullanabilirim
 wifi a nasıl bağlanabilirim#meturoam wifi nasıl bağlanırım#hangi wifi a bağlanmam gerek#eduroam wifi şifresi neydi
 bugun yemekte ne var#acıktım, ne yiyebilirim#bugün yemekhanede hangi yemek çıktı
 ceng zorunlu dersler neler#ceng müfredatı nedir#cengde hangi dersler veriliyor#cengde hangi dersleri almam gerekli
@@ -14,3 +14,4 @@ saat kaç#bugün hangi gün#tarih ne#bugün ayın kaçı
 takvime nereden ulaşabilirim#okul ne zaman bitiyor#okul kaçında açılıyor#dersler ne zaman başlıyor#withdraw kaçıncı hafta#final haftası ne zaman#tatil ne zaman başlıyor
 ringler hangi saatler arasında hizmet veriyor#sarı-kırmızı ring ne zaman faaliyet vermekte#kahverengi ring ne zaman çalışmayı durduruyor
 yemekhane kaçta açık#öğle yemeği ne zaman#akşam yemeği ne zaman#yemekhane kaçta açılıyor#yemekhanenin kapanış saati nedir
+yemekhane kaç lira#yemek ücreti ne kadar#öğrenciler yemeğe kaç para veriyor

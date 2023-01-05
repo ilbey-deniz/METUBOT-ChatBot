@@ -2,7 +2,7 @@
     "qa-pairs": [
         {
             "question": [
-                "Etkileşimli Kayıtlarda neden Captcha uygulaması kullanılmaktadır?"
+                "etkileşimli kayıtlarda neden captcha uygulaması kullanılmaktadır?"
             ],
             "answer": [
                 "Kayıt uygulamasında bulunan captchayı çözdüğünü ileri sürerek ders kayıtlarında haksız kazanç sağlamak ve kayıt önceliği elde etmek isteyen bazı kişiler olduğu görülmüştür. Ders kayıtlarının eşit koşullarda gerçekleşmesi için captcha uygulaması güncellenmiştir."
@@ -11,7 +11,7 @@
         },
         {
             "question": [
-                "Bölüm koordinatörüne nasıl ulaşabilirim?"
+                "bölüm koordinatörüne nasıl ulaşabilirim"
             ],
             "answer": [
                 "Bölüm/birim koordinatörlerinin listesine http://coordinators.metu.edu.tr/ adresinden erişebilirsiniz."
@@ -20,7 +20,7 @@
         },
         {
             "question": [
-                "Lojmanlardan İnternet'e nasıl bağlanabilirim?"
+                "lojmanlardan internet'e nasıl bağlanabilirim"
             ],
             "answer": [
                 "Bu lojmanlarda kalan ODTÜ personeli 3378 numaralı telefondan ya da lkoord@metu.edu.tr e-posta adresinden lojman koordinatörüne merkezi sistem kullanıcı adı bilgisini ileterek lojmanlardan internete bağlanmak için gerekli kayıt işleminin yapılmasını talep etmelidir."
@@ -29,7 +29,7 @@
         },
         {
             "question": [
-                "ODTÜ'de ögrenciyim; genel-duyuru listesine üye olabilir miyim?"
+                "genel-duyuru listesine üye olabilir miyim?"
             ],
             "answer": [
                 "genel-duyuru listesine ODTÜ personeli olan kisiler kullanici_adimetu.edu.tr seklindeki e-posta adresleri ile otomatik olarak kaydedilmektedir. Ögrencilerin üyelik talepleri kabul edilmemektedir."
@@ -38,7 +38,7 @@
         },
         {
             "question": [
-                "Horde ile tüm e-postalarımı nasıl indirebilirim?"
+                "horde ile tüm e-postalarımı nasıl indirebilirim"
             ],
             "answer": [
                 "Horde kullanarak bir posta kutusundaki tüm epostaları tek bir dosya ile bilgisayarınıza indirebilirsiniz. Bunun için horde web uygulamasına DİNAMİK modda giriş yaptıktan sonra sol tarafta listelenen posta kutularından indirmek istediğinize sağ tıklayarak Export / Dışa aktar seçeneğini işaretleyiniz."
@@ -47,7 +47,7 @@
         },
         {
             "question": [
-                "Akıllı kartıma online bakiye yükleme sisteminden (odtucard) para yükledim, yüklediğim bakiye kartıma aktarılmadı. Ne yapmalıyım?"
+                "akıllı kartıma online bakiye yükleme sisteminden (odtucard) para yükledim, yüklediğim bakiye kartıma aktarılmadı. Ne yapmalıyım"
             ],
             "answer": [
                 "Akıllı kartınıza yemek saatlerinde (11:00 dan sonra) yüklediğiniz bakiyeyi aktarabilmek için kartınızı yükleme/güncelleme terminaline veya Kiosk'a okutmanız gerekmektedir. Kartınızı bu cihazlara okuttuğunuz halde bakiyeniz aktarılmamışsa https://bilisimdestek.metu.edu.tr/ adresi üzerinden kullanıcı hesabınız ile giriş yaparak sorununuzu bildirebilirsiniz."
@@ -56,16 +56,16 @@
         },
         {
             "question": [
-                "Akıllı kimlik kartımı kaybettim/çalındı, ne yapmalıyım?"
+                "akıllı kimlik kartımı kaybettim/çalındı, ne yapmalıyım"
             ],
             "answer": [
-                "Akıllı kimlik kartınızı kaybettiğinizi/çalındığını fark ettiğinizde, cardinfo.metu.edu.tr adresinden kartınızı iptal etmelisiniz. Bu durumda akıllı kimlik kartınız sistem tarafından “iptal” edilir."
+                "Akıllı kimlik kartınızı kaybettiğinizi/çalındığını fark ettiğinizde, cardinfo.metu.edu.tr adresinden kartınızı iptal etmelisiniz.Bu durumda akıllı kimlik kartınız sistem tarafından “iptal” edilir."
             ],
             "category": "kimlik kart"
         },
         {
             "question": [
-                "Ögrenci şifremi unuttum, nasil yenileyebilirim?",
+                "ögrenci şifremi unuttum, nasil yenileyebilirim?",
                 "ODTÜ kullanıcı şifremi hatırlamıyorum, ne yapmam lazım?",
                 "metu mail şifremi kaybettim, nasıl sıfırlarım?",
                 "parolamı unuttum",
@@ -78,9 +78,9 @@
         },
         {
             "question": [
-                "Microsoft Office'i öğrenci mailimle nasil kullanabilirim?",
-                "Ücretsiz Autocad kullanmak için ne yapmam lazım",
-                "exceli metu mailimle nasıl kullanabilirim?"
+                "microsoft office'i öğrenci mailimle nasil kullanabilirim?",
+                "ücretsiz autocad kullanmak için ne yapmam lazım",
+                "exceli metu mailimle nasıl kullanabilirim"
             ],
             "answer": [
                 "Lisanlı yazılımlar hakkında bilgi edinmek için https://yazilim.cc.metu.edu.tr adresine gidebilirsiniz."
@@ -170,6 +170,17 @@
             ],
             "answer": [
                 "GET_CAFETERIA_TIMES"
+            ],
+            "category": "kafeterya"
+        },
+        {
+            "question": [
+                "yemekhane kaç lira",
+                "yemek ücreti ne kadar",
+                "öğrenciler yemeğe kaç para veriyor"
+            ],
+            "answer": [
+                "GET_CAFETERIA_PRICE"
             ],
             "category": "kafeterya"
         }
