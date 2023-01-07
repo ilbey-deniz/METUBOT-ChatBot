@@ -7,14 +7,16 @@ def initialize(url):
     return soup
 
 def yemek():
-    soup= initialize("https://kafeterya.metu.edu.tr/")
-    b = soup.find_all(class_ = "rdf-meta element-hidden")
-    vej = soup.find_all(class_ = "vejeteryan")
-    prompt = "Öğle yemeği:\n\t"+ str(b[0].get("content")) + ", " + str(b[1].get("content")) + ", " + str(b[2].get("content")) + " ve " + str(b[3].get("content")) +  "\n"
-    prompt += "\t" + vej[0].text.strip() + "\n"
-    prompt += "Akşam yemeği:\n\t"+ str(b[4].get("content")) + ", " + str(b[5].get("content")) + ", " + str(b[6].get("content")) + " ve " + str(b[7].get("content")) +  "\n"
-    prompt += "\t" + vej[1].text.strip()
-
+    try:
+        soup= initialize("https://kafeterya.metu.edu.tr/")
+        b = soup.find_all(class_ = "rdf-meta element-hidden")
+        vej = soup.find_all(class_ = "vejeteryan")
+        prompt = "Öğle yemeği:\n\t"+ str(b[0].get("content")) + ", " + str(b[1].get("content")) + ", " + str(b[2].get("content")) + " ve " + str(b[3].get("content")) +  "\n"
+        prompt += "\t" + vej[0].text.strip() + "\n"
+        prompt += "Akşam yemeği:\n\t"+ str(b[4].get("content")) + ", " + str(b[5].get("content")) + ", " + str(b[6].get("content")) + " ve " + str(b[7].get("content")) +  "\n"
+        prompt += "\t" + vej[1].text.strip()
+    except:
+        prompt = "BUgün yemekhanede yemek çıkmıyor."
 
     return prompt
 
@@ -49,3 +51,5 @@ def fiyat(role="Öğrenci"):
     prompt += c[1] + ": " + c[4*diff+1] + "\n"
     prompt += c[2] + ": " + c[4*diff+2]
     return prompt
+
+print(yemek())
