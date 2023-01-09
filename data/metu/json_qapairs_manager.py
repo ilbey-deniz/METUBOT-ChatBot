@@ -1,7 +1,9 @@
-import json 
+import json
+from anyascii import anyascii 
 
 admin_json_path = "./questions_from_admin.json"
 qapairs_path = "../../Elasticsearch/qa_pairs.json"
+qapairs_ascii_path = "../../nlp/fasttext/qa_pairs_ascii.json"
 q_path = "./questions.txt"
 a_path = "./answers.txt"
 c_path = "./categories.txt"
@@ -21,16 +23,24 @@ def write_json(dict,jsonfilepath):
 	f.close()
 	return
 
-def add_questions_from_files(path=qapairs_path, overwrite=True, q_path=q_path, a_path=a_path, c_path=c_path):
+def add_questions_from_files(path=qapairs_path, path2=qapairs_ascii_path, overwrite=True, q_path=q_path, a_path=a_path, c_path=c_path):
     if overwrite:
         reset_and_initialize_json(path)
+        reset_and_initialize_json(path2)
+
     questions = file_to_list(q_path)
     answers = file_to_list(a_path)
     categories = file_to_list(c_path)
+
     dict = json.load(open(path))
+    dict2 = json.load(open(path2))
+
     for i in range(len(questions)):
         dict["qa-pairs"].append({"question":questions[i].split("#"),"answer":answers[i].split("#"),"category":categories[i]})
+        dict2["qa-pairs"].append({"question":anyascii(questions[i]).split("#"),"answer":anyascii(answers[i]).split("#"),"category":anyascii(categories[i])})
     write_json(dict,path)
+    write_json(dict2,path2)
+
 
 def add_questions_from_csv(path=qapairs_path, overwrite=True, q_path=q_path, a_path=a_path, c_path=c_path):
     #TODO:
@@ -51,13 +61,21 @@ def add_questions_manually(questions, answers, category, path=admin_json_path):
 
     write_json(dict_obj,path)
 
-def remove_single_question(question): #removes first occurence of the question
-    #TODO:
-    ...
+def remove_single_question(question, path=qapairs_path): 
+    with open(path) as f:
+        dict = json.load(f)
+    for pair in dict["qa_pairs"]:
+        if question in pair["question"]:
+            pair["question"].remove(question)
+            return #only removes the first occurence
 
-def remove_single_answer(answer):  #removes first occurence of the answer
-    #TODO:
-    ...
+def remove_single_answer(answer, path=qapairs_path):  #removes first occurence of the answer
+    with open(path) as f:
+        dict = json.load(f)
+    for pair in dict["qa_pairs"]:
+        if answer in pair["answer"]:
+            pair["answer"].remove(answer)
+            return #only removes the first occurence
 
 def remove_pair(): #removes the qa-pair
     #TODO:

@@ -25,7 +25,9 @@ QUESTIONS = json.load(f)
 
 QUESTION_VECTORS = {}
 
-f = open("/home/metubot/metubot/Elasticsearch/qa_pairs.json")
+#f = open("/home/metubot/metubot/Elasticsearch/qa_pairs.json")
+#ILBEY BURAYA BAK: ascii yaptım senin klasöre, geçici çözüm
+f = open("../qa_pairs_ascii.json")
 QA = json.load(f)["qa-pairs"]
 
 THRESHOLD = 0.4

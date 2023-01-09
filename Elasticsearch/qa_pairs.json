@@ -2,7 +2,7 @@
     "qa-pairs": [
         {
             "question": [
-                "etkileşimli kayıtlarda neden captcha uygulaması kullanılmaktadır?"
+                "etkileşimli kayıtlarda neden captcha uygulaması kullanılmaktadır"
             ],
             "answer": [
                 "Kayıt uygulamasında bulunan captchayı çözdüğünü ileri sürerek ders kayıtlarında haksız kazanç sağlamak ve kayıt önceliği elde etmek isteyen bazı kişiler olduğu görülmüştür. Ders kayıtlarının eşit koşullarda gerçekleşmesi için captcha uygulaması güncellenmiştir."
@@ -29,7 +29,7 @@
         },
         {
             "question": [
-                "genel-duyuru listesine üye olabilir miyim?"
+                "genel-duyuru listesine üye olabilir miyim"
             ],
             "answer": [
                 "genel-duyuru listesine ODTÜ personeli olan kisiler kullanici_adimetu.edu.tr seklindeki e-posta adresleri ile otomatik olarak kaydedilmektedir. Ögrencilerin üyelik talepleri kabul edilmemektedir."
@@ -47,7 +47,7 @@
         },
         {
             "question": [
-                "akıllı kartıma online bakiye yükleme sisteminden (odtucard) para yükledim, yüklediğim bakiye kartıma aktarılmadı. Ne yapmalıyım"
+                "akıllı kartıma online bakiye yükleme sisteminden (odtucard) para yükledim, yüklediğim bakiye kartıma aktarılmadı. ne yapmalıyım"
             ],
             "answer": [
                 "Akıllı kartınıza yemek saatlerinde (11:00 dan sonra) yüklediğiniz bakiyeyi aktarabilmek için kartınızı yükleme/güncelleme terminaline veya Kiosk'a okutmanız gerekmektedir. Kartınızı bu cihazlara okuttuğunuz halde bakiyeniz aktarılmamışsa https://bilisimdestek.metu.edu.tr/ adresi üzerinden kullanıcı hesabınız ile giriş yaparak sorununuzu bildirebilirsiniz."
@@ -65,7 +65,7 @@
         },
         {
             "question": [
-                "ögrenci şifremi unuttum, nasil yenileyebilirim?",
+                "ögrenci şifremi unuttum, nasil yenileyebilirim",
                 "ODTÜ kullanıcı şifremi hatırlamıyorum, ne yapmam lazım?",
                 "metu mail şifremi kaybettim, nasıl sıfırlarım?",
                 "parolamı unuttum",
@@ -101,7 +101,7 @@
         },
         {
             "question": [
-                "bugun yemekte ne var",
+                "bugün yemekte ne var",
                 "acıktım, ne yiyebilirim",
                 "bugün yemekhanede hangi yemek çıktı"
             ],
