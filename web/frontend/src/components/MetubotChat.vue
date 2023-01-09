@@ -122,21 +122,27 @@ export default {
             waitingForAnswer: true,
             socketIoSocket: null,
             reported_question_index: -1,
+            answerSoundsEnabled: true,
         }
     },
     mounted() {
         this.socketIoSocket = io();
         this.socketIoSocket.on('chat answer', (msg) => {
-            this.waitingForAnswer = false;
-            if (msg === "") {
-                msg = "Sualinize maalesef mütenasip bir yanıt bulamamaktayım. Başka sorunuz varsa lütfen sakınmayınız.";
-            }
-            this.messages.push({
-                content: msg,
-                isUser: false,
-                created_at: this.getClock(),
-            });
-            this.scrollMessagesToBottom();
+            setTimeout(() => {
+                this.waitingForAnswer = false;
+                if (msg === "") {
+                    msg = "Sualinize maalesef mütenasip bir yanıt bulamamaktayım. Başka sorunuz varsa lütfen sakınmayınız.";
+                }
+                this.messages.push({
+                    content: msg,
+                    isUser: false,
+                    created_at: this.getClock(),
+                });
+                this.scrollMessagesToBottom();
+                if (this.answerSoundsEnabled) {
+                    new Audio(require('@/assets/chat-sound-bubble-pop.mp3')).play();
+                }
+            }, 571); // set fake waiting to make chat more human-like
         })
     },
     destroyed() {
