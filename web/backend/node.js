@@ -21,8 +21,11 @@ const io = require("socket.io")(httpServer, {});
 
 io.on("connection", (socket) => {
     console.log('socket io connected.');
-    socket.emit('chat answer', 'Merhaba, ben Metubot 🤖');
-    socket.emit('chat answer', 'Sizlere nasıl yardımcı olabilirim?');
+    socket.emit('chat answer', { answer: 'Merhaba, ben Metubot 🤖', finished: false });
+    setTimeout(() => {
+        socket.emit('chat answer', { answer: 'Sizlere nasıl yardımcı olabilirim?', finished: true });
+    }, 777);
+
     socket.on('chat question', (msg) => {
         console.log('question: ' + msg);
         http.get(process.env.FLASK_URL + `/ask?question=${msg}`, (res) => {
@@ -37,7 +40,7 @@ io.on("connection", (socket) => {
             res.on('end', () => {
                 console.log('received answer:', data);
                 data = data.replace(/^"(.*)"$/, '$1'); // remove string quotes
-                socket.emit('chat answer', data);
+                socket.emit('chat answer', { answer: data, finished: true });
             });
         }).on('error', (e) => {
             console.error(`Got error: ${e.message}. Make sure NLP API server is running.`);
@@ -46,12 +49,12 @@ io.on("connection", (socket) => {
     }).on("error", (err) => {
         console.log("Error: " + err.message);
     });
-    ;
+
     socket.on('add question', (msg) => {
         console.log('question: ' + msg.category + msg.question + msg.answer);
-        http.get(process.env.FLASK_URL + `/addQuestion?category=${msg.category}&question=${msg.question}&answer=${msg.answer}`, (res) => {
+        http.get(process.env.FLASK_URL +
+            `/addQuestion?category=${msg.category}&question=${msg.question}&answer=${msg.answer}`, (res) => {
             let data = '';
-
 
             res.on('data', (chunk) => {
                 data += chunk;
@@ -71,9 +74,9 @@ io.on("connection", (socket) => {
 
     socket.on('report question', (msg) => {
         console.log('question: ' + msg.question + msg.answer + msg.created_at);
-        http.get(process.env.FLASK_URL + `/reportQuestion?question=${msg.question}&answer=${msg.answer}&created_at=${msg.created_at}`, (res) => {
+        http.get(process.env.FLASK_URL +
+            `/reportQuestion?question=${msg.question}&answer=${msg.answer}&created_at=${msg.created_at}`, (res) => {
             let data = '';
-
 
             res.on('data', (chunk) => {
                 data += chunk;

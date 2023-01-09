@@ -19,8 +19,9 @@
                                                 dark
                                                 style="height:auto;white-space: pre-wrap; position: relative; cursor: auto;"
                                                 class="pa-4 mb-2 message-box"
-                                        ><span v-html="sanitizeExceptBoldItalicCode(msg.content)" v-linkified /><sub class="ml-2"
-                                                               style="font-size: 0.6rem; margin-top: auto;">{{
+                                        ><span v-html="sanitizeExceptBoldItalicCode(msg.content)" v-linkified/><sub
+                                                class="ml-2"
+                                                style="font-size: 0.6rem; margin-top: auto;">{{
                                                 addPadding(msg.created_at)
                                             }}</sub>
                                             <v-menu bottom right>
@@ -53,16 +54,16 @@
 
                                 </div>
                             </template>
-                            <transition name="fade">
-                                <v-chip v-if="waitingForAnswer"
-                                        color="red"
-                                        dark
-                                        style="height:auto; white-space: normal; width: 70px;"
-                                        class="pa-4 mb-2 d-flex justify-center"
-                                >
-                                    <div class="dot-typing"></div>
-                                </v-chip>
-                            </transition>
+
+                            <v-chip v-if="waitingForAnswer"
+                                    color="red"
+                                    dark
+                                    style="height:52px; white-space: normal; width: 70px;"
+                                    class="pa-4 mb-2 d-flex justify-center"
+                            >
+                                <div class="dot-typing"></div>
+                            </v-chip>
+
 
                         </v-card-text>
                         <v-divider></v-divider>
@@ -78,7 +79,7 @@
                             >
                                 <template v-slot:append-outer>
                                     <!-- touchend.prevent reason is not hiding the keyboard on mobile -->
-                                    <v-icon  color="blue" @click="sendMessage" @touchend.prevent="sendMessage">
+                                    <v-icon color="blue" @click="sendMessage" @touchend.prevent="sendMessage">
                                         mdi-send
                                     </v-icon>
 
@@ -93,7 +94,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Vue from 'vue'
 import { io } from "socket.io-client";
 
@@ -127,33 +127,13 @@ export default {
     },
     mounted() {
         this.socketIoSocket = io();
-        this.socketIoSocket.on('chat answer', (msg) => {
-            setTimeout(() => {
-                this.waitingForAnswer = false;
-                if (msg === "") {
-                    msg = "Sualinize maalesef mütenasip bir yanıt bulamamaktayım. Başka sorunuz varsa lütfen sakınmayınız.";
-                }
-                this.messages.push({
-                    content: msg,
-                    isUser: false,
-                    created_at: this.getClock(),
-                });
-                this.scrollMessagesToBottom();
-                if (this.answerSoundsEnabled) {
-                    new Audio(require('@/assets/chat-sound-bubble-pop.mp3')).play();
-                }
-            }, 571); // set fake waiting to make chat more human-like
-        })
+        this.socketIoSocket.on('chat answer',
+                msg => setTimeout(() => this.addBotMessage(msg), 777))
     },
     destroyed() {
         this.socketIoSocket.disconnect();
     },
     methods: {
-        sendMessageToServer() {
-            axios.post(`/`, {
-                question: this.chatMessage,
-            });
-        },
         getClock() {
             let date = new Date();
             let hour = date.getHours();
@@ -175,6 +155,23 @@ export default {
 
             }
 
+        },
+        addBotMessage(msg) {
+            if (msg.finished) {
+                this.waitingForAnswer = false;
+            }
+            if (msg.answer === "") {
+                msg.answer = "Sualinize maalesef mütenasip bir yanıt bulamamaktayım. Başka sorunuz varsa lütfen sakınmayınız.";
+            }
+            this.messages.push({
+                content: msg.answer,
+                isUser: false,
+                created_at: this.getClock(),
+            });
+            this.scrollMessagesToBottom();
+            if (this.answerSoundsEnabled) {
+                new Audio(require('@/assets/chat-sound-bubble-pop.mp3')).play();
+            }
         },
         reportQuestion(question_index) {
             // Do not take the first 2 message. Directly ignore them.
@@ -232,7 +229,7 @@ export default {
         },
         sanitizeExceptBoldItalicCode(str) {
             return this.$sanitize(str);
-        }
+        },
 
     },
     computed: {
