@@ -19,7 +19,7 @@ const routes = [
     name: 'admin',
     children: [
 
-      { path: 'dashboard'},
+      { path: 'dashboard'}, //dashboarda soruları koyalım ne dersiniz
       { path: 'tables', component: MetubotAskedQuestions },
       { path: 'charts'},
       { path: 'addquestion', component: MetubotAddQuestion },
