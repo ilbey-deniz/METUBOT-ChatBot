@@ -34,5 +34,3 @@ def takvim():
         url = "http://oidb.metu.edu.tr/tr/odtu-ankara-ve-erdemli-kampuslari-" + str(d.tm_year) +  "-"  + str(d.tm_year+1) + "-akademik-takvim"
     
     return "Akademik takvim için " + url + " inceleyebilirsiniz."
-
-print(saat())

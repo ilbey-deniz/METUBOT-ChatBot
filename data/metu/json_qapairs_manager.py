@@ -8,21 +8,20 @@ q_path = "./questions.txt"
 a_path = "./answers.txt"
 c_path = "./categories.txt"
 
+#THREE HELPERS
 def reset_and_initialize_json(path):
     dict = {"qa-pairs":[]}
-    write_json(dict,path)
-
-    
+    write_json(dict,path)    
 def file_to_list(file):
     with open(file) as f:
         return [line.rstrip('\n') for line in f]
-
 def write_json(dict,jsonfilepath):
 	f = open(jsonfilepath, "w")
 	json.dump(dict, f, indent=4, ensure_ascii=False)
 	f.close()
 	return
 
+#FILL JSON VIA DIFFERENT METHODS
 def add_questions_from_files(path=qapairs_path, path2=qapairs_ascii_path, overwrite=True, q_path=q_path, a_path=a_path, c_path=c_path):
     if overwrite:
         reset_and_initialize_json(path)
@@ -40,12 +39,9 @@ def add_questions_from_files(path=qapairs_path, path2=qapairs_ascii_path, overwr
         dict2["qa-pairs"].append({"question":anyascii(questions[i]).split("#"),"answer":anyascii(answers[i]).split("#"),"category":anyascii(categories[i])})
     write_json(dict,path)
     write_json(dict2,path2)
-
-
 def add_questions_from_csv(path=qapairs_path, overwrite=True, q_path=q_path, a_path=a_path, c_path=c_path):
     #TODO:
     ...
-
 def add_questions_manually(questions, answers, category, path=admin_json_path):
     #add new question with 1 question 1 answer and category.
     #for adding more questions and answers to the same pair, use add_alternative_question function
@@ -58,58 +54,99 @@ def add_questions_manually(questions, answers, category, path=admin_json_path):
         "category": category
     }
     dict_obj["qa-pairs"].append(qa_pair)
-
     write_json(dict_obj,path)
 
-def remove_single_question(question, path=qapairs_path): 
+#A COMPREHENSIVE FUNCTION TO ALLOW ADMIN TO MANIPUATE QUESTION
+def edit_questions(mode, structure_type, old=None, new=None, path=qapairs_path):
     with open(path) as f:
         dict = json.load(f)
-    for pair in dict["qa_pairs"]:
-        if question in pair["question"]:
-            pair["question"].remove(question)
-            return #only removes the first occurence
 
-def remove_single_answer(answer, path=qapairs_path):  #removes first occurence of the answer
-    with open(path) as f:
-        dict = json.load(f)
-    for pair in dict["qa_pairs"]:
-        if answer in pair["answer"]:
-            pair["answer"].remove(answer)
-            return #only removes the first occurence
+    def remove_single_question(question): 
+        for pair in dict["qa_pairs"]:
+            if question in pair["question"]:
+                pair["question"].remove(question)
+                print("SUCCESS")
+                return #only removes the first occurence
+        print("There's no such question to remove question")
+    def remove_single_answer(answer):  #removes first occurence of the answer
+        for pair in dict["qa_pairs"]:
+            if answer in pair["answer"]:
+                pair["answer"].remove(answer)
+                print("SUCCESS")
+                return #only removes the first occurence
+        print("There's no such answer to remove answer")
+    def remove_pair(questionorpair): #removes the qa-pair
+        for pair in dict["qa_pairs"]:
+            if questionorpair is pair or questionorpair in pair["question"]:
+                dict["qa_pairs"].remove(pair)
+                print("SUCCESS")
+                return
+        print("There's no such pair/question to remove pair")
+    def change_single_question(oldquestion, newquestion): 
+        for pair in dict["qa_pairs"]:
+            if oldquestion in pair["question"]:
+                pair["question"].remove(oldquestion)
+                pair["question"].remove(newquestion)
+                print("SUCCESS")
+                return #only removes the first occurence
+        print("There's no such old question to change")
+    def change_single_answer(oldanswer, newanswer):
+        for pair in dict["qa_pairs"]:
+            if oldanswer in pair["answer"]:
+                pair["answer"].remove(oldanswer)
+                pair["answer"].append(newanswer)
+                print("SUCCESS")
+                return #only removes the first occurence
+        print("There's no such old answer to change")
+    def change_category(questionorpair, newcategory):
+        for pair in dict["qa_pairs"]:
+            if questionorpair is pair or questionorpair in pair["question"]:
+                pair["category"] = newcategory
+                print("SUCCESS")
+                return #only changes the first occurence
+        print("There's no such pair/question to change its category")
+    def add_alternative_question(answer, newquestion): #to an existing qa-pair
+        for pair in dict["qa_pairs"]:
+            if answer in pair["answer"]:
+                pair["question"].append(newquestion)
+                print("SUCCESS")
+                return #only adds into first occurence
+        print("There's no such old answer to add its question")
+    def add_alternative_answer(question, newanswer): #to an existing qa-pair
+        for pair in dict["qa_pairs"]:
+            if question in pair["question"]:
+                pair["answer"].append(newanswer)
+                print("SUCCESS")
+                return #only adds into first occurence
+        print("There's no such old question to add its answer")
 
-def remove_pair(): #removes the qa-pair
-    #TODO:
-    ...
-
-def change_single_question(oldquestion, newquestion): 
-    #TODO:
-    ...
-
-def change_single_answer(oldanswer, newanswer):
-    #TODO:
-    ...
-
-def change_category(questionorpair, oldcategory, newcategory):
-    #TODO:
-    ...
-
-
-
-def add_alternative_question(new_question, answer, path=qapairs_path): #to an existing qa-pair
-    with open(path) as f:
-        dict = json.load(f)
-    for pair in dict["qa_pairs"]:
-        if answer in pair["answer"]:
-            pair["question"].append(new_question)
-            return #only adds into first occurence
-
-def add_alternative_answer(question, new_answer, path=qapairs_path): #to an existing qa-pair
-    with open(path) as f:
-        dict = json.load(f)
-    for pair in dict["qa_pairs"]:
-        if question in pair["question"]:
-            pair["answer"].append(new_answer)
-            return #only adds into first occurence
+    if mode is "change" or mode is "swap" or mode is "replace":
+        if structure_type is "question":
+            change_single_question(old, new)
+        elif structure_type is "answer":
+            change_single_answer(old, new)
+        elif structure_type is "category":
+            change_category(old, new) #note that old should be a question (str) or a pair (dict)
+        else:
+            print("UNKNOWN STRUCTURE TYPE, NOTHING WAS REPLACED")
+    elif mode is "add" or mode is "insert" or mode is "append":
+        if structure_type is "question":
+            add_alternative_question(old,new) #note that old should be an answer (str)
+        elif structure_type is "answer":
+            add_alternative_answer(old,new)#note that old should be a question (str)
+        else:
+            print("UNKNOWN STRUCTURE TYPE, NOTHING WAS ADDED")
+    elif mode is "remove" or mode is "delete":
+        if structure_type is "question":
+            remove_single_question(old)
+        elif structure_type is "answer":
+            remove_single_answer(old)
+        elif structure_type is "pair":
+            remove_pair(old) #note that old should be a question (str) or a pair (dict)
+        else:
+            print("UNKNOWN STRUCTURE TYPE, NOTHING WAS REMOVED")
+    else:
+        print("UNKNOWN MODE, NOTHING WAS EDITED")
 
 
 
