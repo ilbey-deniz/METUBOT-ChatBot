@@ -151,18 +151,20 @@ export default {
         this.socketIoSocket = io();
         this.socketIoSocket.on('chat answer',
                 msg => setTimeout(() => this.addBotMessage(msg), 777))
-        // todo: sil
-        this.addBotMessage({
-            answer: 'Sorunuzu tam anlayamamakla birlikte ileri düzey yöntemlerimiz sayesinde ' +
-                    'size şu soruyu yönlendirebiliyoruz:\nŞunlardan birini mi demek istediniz?',
-            finished: true,
-            didYouMeanThisQuestions: [
-                'Şifremi nasıl şifreleyebilirim?',
-                'Odtüde verilen dersleri öğrenebilir miyim?',
-                'Zart zurt şifremi değiştirmek istiyorum lakin email adresimi sormasına rağmen email adresimin şifresini de bilmiyorum. Ne yapabilirim?',
-            ],
-            selectedDYMTQuestion: null,
-        })
+
+        if (this.enableDidYouMeanThis) {
+            this.addBotMessage({
+                answer: 'Sorunuzu tam anlayamamakla birlikte ileri düzey yöntemlerimiz sayesinde ' +
+                        'size şu soruyu yönlendirebiliyoruz:\nŞunlardan birini mi demek istediniz?',
+                finished: true,
+                didYouMeanThisQuestions: [
+                    'Şifremi nasıl şifreleyebilirim?',
+                    'Odtüde verilen dersleri öğrenebilir miyim?',
+                    'Zart zurt şifremi değiştirmek istiyorum lakin email adresimi sormasına rağmen email adresimin şifresini de bilmiyorum. Ne yapabilirim?',
+                ],
+                selectedDYMTQuestion: null,
+            })
+        }
     },
     destroyed() {
         this.socketIoSocket.disconnect();
