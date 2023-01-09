@@ -1,5 +1,5 @@
 <template>
-    <metubot-chat :style="fillScreen"/>
+    <metubot-chat :enable-did-you-mean-this="enableDidYouMeanThis" :style="fillScreen"/>
 </template>
 
 <script>
@@ -9,6 +9,12 @@ export default {
     name: 'Home',
     props: {
         appBarHeight: Number,
+        enableDidYouMeanThis: {
+            type: Boolean,
+            default() {
+                return false;
+            }
+        }
     },
     components: {
         MetubotChat,

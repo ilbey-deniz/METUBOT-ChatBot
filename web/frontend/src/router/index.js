@@ -15,6 +15,13 @@ const routes = [
     component: MetuBotView,
     meta: { title: 'METUBOT' }
   },
+  { // todo: sil
+    path: '/deney',
+    name: 'metubotDeney',
+    component: MetuBotView,
+    meta: { title: '??????' },
+    props: { enableDidYouMeanThis: true }
+  },
   {
     path: '/yonetim',
     name: 'admin',

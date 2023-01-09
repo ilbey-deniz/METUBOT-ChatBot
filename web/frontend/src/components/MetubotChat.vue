@@ -14,16 +14,34 @@
                             <template v-for="(msg, i) in messages">
                                 <div :class="{ 'd-flex flex-row-reverse': msg.isUser }">
                                     <v-hover v-slot:default="{ hover }">
-                                        <v-chip
+                                        <v-sheet
                                                 :color="msg.isUser ? 'primary' : 'red'"
                                                 dark
-                                                style="height:auto;white-space: pre-wrap; position: relative; cursor: auto;"
-                                                class="pa-4 mb-2 message-box"
-                                        ><span v-html="sanitizeExceptBoldItalicCode(msg.content)" v-linkified/><sub
-                                                class="ml-2"
-                                                style="font-size: 0.6rem; margin-top: auto;">{{
-                                                addPadding(msg.created_at)
-                                            }}</sub>
+                                                style="height:auto; position: relative; width: fit-content; border-radius: 19px;"
+                                                class="pa-4 mb-4 message-box"
+                                        >
+                                            <span v-html="sanitizeExceptBoldItalicCode(msg.content)" v-linkified
+                                                  style="white-space: pre-wrap;"/>
+                                            <span v-if="enableDidYouMeanThis">
+                                                <template v-if="!msg.selectedDYMTQuestion">
+                                                    <v-alert
+                                                            v-for="question in msg.didYouMeanThisQuestions"
+                                                            color="indigo"
+                                                            icon="mdi-send"
+                                                            border="left"
+                                                            @click="selectDYMTQuestion(question)"
+                                                            dense
+                                                            style="cursor: pointer; font-size:0.875rem; width:fit-content"
+                                                            class="mt-3"
+                                                    >
+                                                        {{ question }}
+                                                    </v-alert>
+                                                </template>
+                                            </span>
+                                            <sub class="ml-2"
+                                                 style="font-size: 0.6rem; display: block; text-align: right; color: #ddd">{{
+                                                    addPadding(msg.created_at)
+                                                }}</sub>
                                             <v-menu bottom right>
                                                 <template v-slot:activator="{ on, attrs }">
                                                     <v-btn
@@ -49,7 +67,8 @@
                                                 </v-list>
                                             </v-menu>
 
-                                        </v-chip>
+
+                                        </v-sheet>
                                     </v-hover>
 
                                 </div>
@@ -99,20 +118,23 @@ import { io } from "socket.io-client";
 
 export default {
     name: 'MetubotChat',
-    props: {},
+    props: {
+        enableDidYouMeanThis: {
+            type: Boolean,
+            default() {
+                return false;
+            },
+        },
+    },
     data() {
         return {
-            messages: [
-                /*{
-                    content: "Merhaba, ben Metubot 🤖",
-                    isUser: false,
-                    created_at: this.getClock(),
-                },*/
-            ],
+            messages: [],
             messageForm: {
                 content: "",
                 isUser: true,
                 created_at: "11:11am",
+                didYouMeanThisQuestions: [],
+                selectedDYMTQuestion: null,
             },
             qa_pair: {
                 question: "",
@@ -129,6 +151,18 @@ export default {
         this.socketIoSocket = io();
         this.socketIoSocket.on('chat answer',
                 msg => setTimeout(() => this.addBotMessage(msg), 777))
+        // todo: sil
+        this.addBotMessage({
+            answer: 'Sorunuzu tam anlayamamakla birlikte ileri düzey yöntemlerimiz sayesinde ' +
+                    'size şu soruyu yönlendirebiliyoruz:\nŞunlardan birini mi demek istediniz?',
+            finished: true,
+            didYouMeanThisQuestions: [
+                'Şifremi nasıl şifreleyebilirim?',
+                'Odtüde verilen dersleri öğrenebilir miyim?',
+                'Zart zurt şifremi değiştirmek istiyorum lakin email adresimi sormasına rağmen email adresimin şifresini de bilmiyorum. Ne yapabilirim?',
+            ],
+            selectedDYMTQuestion: null,
+        })
     },
     destroyed() {
         this.socketIoSocket.disconnect();
@@ -140,6 +174,11 @@ export default {
             let minutes = date.getMinutes();
             return `${hour}:${minutes}`;
         },
+        selectDYMTQuestion(questionStr) {
+            this.messageForm.content = questionStr;
+            this.messages[this.messages.length - 1].selectedDYMTQuestion = questionStr;
+            this.sendMessage();
+        },
         sendMessage() {
             if (this.messageForm.content !== "" && !this.waitingForAnswer) {
                 this.messageForm.created_at = this.getClock();
@@ -149,6 +188,8 @@ export default {
                     content: "",
                     isUser: true,
                     created_at: null,
+                    didYouMeanThisQuestions: [],
+                    selectedDYMTQuestion: null,
                 };
                 this.waitingForAnswer = true;
                 this.scrollMessagesToBottom();
@@ -167,6 +208,8 @@ export default {
                 content: msg.answer,
                 isUser: false,
                 created_at: this.getClock(),
+                didYouMeanThisQuestions: msg.didYouMeanThisQuestions,
+                selectedDYMTQuestion: null,
             });
             this.scrollMessagesToBottom();
             if (this.answerSoundsEnabled) {
