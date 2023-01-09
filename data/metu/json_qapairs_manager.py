@@ -1,5 +1,4 @@
 import json
-from anyascii import anyascii 
 
 admin_json_path = "./questions_from_admin.json"
 qapairs_path = "../../Elasticsearch/qa_pairs.json"
@@ -22,23 +21,19 @@ def write_json(dict,jsonfilepath):
 	return
 
 #FILL JSON VIA DIFFERENT METHODS
-def add_questions_from_files(path=qapairs_path, path2=qapairs_ascii_path, overwrite=True, q_path=q_path, a_path=a_path, c_path=c_path):
+def add_questions_from_files(path=qapairs_path, overwrite=True, q_path=q_path, a_path=a_path, c_path=c_path):
     if overwrite:
         reset_and_initialize_json(path)
-        reset_and_initialize_json(path2)
 
     questions = file_to_list(q_path)
     answers = file_to_list(a_path)
     categories = file_to_list(c_path)
 
     dict = json.load(open(path))
-    dict2 = json.load(open(path2))
 
     for i in range(len(questions)):
         dict["qa-pairs"].append({"question":questions[i].split("#"),"answer":answers[i].split("#"),"category":categories[i]})
-        dict2["qa-pairs"].append({"question":anyascii(questions[i]).split("#"),"answer":anyascii(answers[i]).split("#"),"category":anyascii(categories[i])})
     write_json(dict,path)
-    write_json(dict2,path2)
 def add_questions_from_csv(path=qapairs_path, overwrite=True, q_path=q_path, a_path=a_path, c_path=c_path):
     #TODO:
     ...
