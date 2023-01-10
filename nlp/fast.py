@@ -8,7 +8,7 @@ import numpy as np
 from numpy.linalg import norm
 from pathlib import Path
 import random
-execfile()
+
 # fasttext.util.download_model('tr', if_exists='ignore')
 
 
@@ -18,11 +18,11 @@ cos_sim = lambda q_vector, vector : np.dot(q_vector, vector)/(norm(q_vector)*nor
 #STOPWORD_LIST = nltk.corpus.stopwords.words('turkish')
 CUSTOMWORD_LIST = ["wifi", "section", "metu", "office"] # custom word list
 
-f = Path(__file__).with_name('answers.json').open()
-ANSWERS = json.load(f)
+#f = Path(__file__).with_name('answers.json').open()
+#ANSWERS = json.load(f)
 
-f = Path(__file__).with_name('question_categories.json').open(encoding='utf-8')
-QUESTIONS = json.load(f)
+#f = Path(__file__).with_name('question_categories.json').open(encoding='utf-8')
+#QUESTIONS = json.load(f)
 
 QUESTION_VECTORS = {}
 
