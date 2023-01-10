@@ -26,16 +26,11 @@
             <v-spacer></v-spacer>
             <router-link class="mr-2 grey--text text-decoration-none" to="/yonetim">Yönetim</router-link>
             <router-link class="mr-2 grey--text text-decoration-none" to="/">Metubot</router-link>
-            <v-icon v-if="$vuetify.theme.dark"
-                    @click="$vuetify.theme.dark = false"
-            >
+            <v-icon v-if="$vuetify.theme.dark" @click="setDarkMode(false)">
                 mdi-weather-sunny
             </v-icon>
-            <v-icon v-else
-                    @click="$vuetify.theme.dark = true"
-            >
+            <v-icon v-else @click="setDarkMode(true)">
                 mdi-weather-night
-
             </v-icon>
 
         </v-app-bar>
@@ -62,9 +57,19 @@ export default {
     data: () => ({
         appBarHeight: 64,
     }),
-    computed:{
-        theme(){
+    computed: {
+        theme() {
             return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+        },
+    },
+    mounted() {
+        // load dark mode from local storage
+        this.$vuetify.theme.dark = localStorage.getItem('darkMode') === 'true';
+    },
+    methods: {
+        setDarkMode(darkMode) {
+            this.$vuetify.theme.dark = darkMode;
+            localStorage.setItem('darkMode', darkMode ? 'true' : 'false');
         }
     }
 };
@@ -74,6 +79,7 @@ export default {
 html {
     overflow-y: auto !important;
 }
+
 * {
     box-sizing: border-box;
 }
@@ -87,6 +93,7 @@ html {
 .fade-leave-to {
     opacity: 0
 }
+
 .light-scrollbar::-webkit-scrollbar {
     width: 15px;
 }

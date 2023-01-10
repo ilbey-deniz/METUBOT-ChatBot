@@ -3,5 +3,15 @@ Bölüm/birim koordinatörlerinin listesine http://coordinators.metu.edu.tr/ adr
 Bu lojmanlarda kalan ODTÜ personeli 3378 numaralı telefondan ya da lkoord@metu.edu.tr e-posta adresinden lojman koordinatörüne merkezi sistem kullanıcı adı bilgisini ileterek lojmanlardan internete bağlanmak için gerekli kayıt işleminin yapılmasını talep etmelidir.
 genel-duyuru listesine ODTÜ personeli olan kisiler kullanici_adimetu.edu.tr seklindeki e-posta adresleri ile otomatik olarak kaydedilmektedir. Ögrencilerin üyelik talepleri kabul edilmemektedir.
 Horde kullanarak bir posta kutusundaki tüm epostaları tek bir dosya ile bilgisayarınıza indirebilirsiniz. Bunun için horde web uygulamasına DİNAMİK modda giriş yaptıktan sonra sol tarafta listelenen posta kutularından indirmek istediğinize sağ tıklayarak Export / Dışa aktar seçeneğini işaretleyiniz.
-Akıllı kartınıza yemek saatlerinde (11:00 dan sonra) yüklediğiniz bakiyeyi aktarabilmek için kartınızı yükleme/güncelleme terminaline veya Kiosk’a okutmanız gerekmektedir. Kartınızı bu cihazlara okuttuğunuz halde bakiyeniz aktarılmamışsa https://bilisimdestek.metu.edu.tr/ adresi üzerinden kullanıcı hesabınız ile giriş yaparak sorununuzu bildirebilirsiniz.
-Akıllı kimlik kartınızı kaybettiğinizi/çalındığını fark ettiğinizde, cardinfo.metu.edu.tr adresinden kartınızı iptal etmelisiniz. Bu durumda akıllı kimlik kartınız sistem tarafından “iptal” edilir.
+Akıllı kartınıza yemek saatlerinde (11:00 dan sonra) yüklediğiniz bakiyeyi aktarabilmek için kartınızı yükleme/güncelleme terminaline veya Kiosk'a okutmanız gerekmektedir. Kartınızı bu cihazlara okuttuğunuz halde bakiyeniz aktarılmamışsa https://bilisimdestek.metu.edu.tr/ adresi üzerinden kullanıcı hesabınız ile giriş yaparak sorununuzu bildirebilirsiniz.
+Akıllı kimlik kartınızı kaybettiğinizi/çalındığını fark ettiğinizde, cardinfo.metu.edu.tr adresinden kartınızı iptal etmelisiniz.Bu durumda akıllı kimlik kartınız sistem tarafından “iptal” edilir.
+https://useraccount.metu.edu.tr adresinden kullanıcı adı ve şifrenizle giriş yaptıktan sonra "Change Password" butonundan işleminizi gerçekleştirebilirsiniz.
+Lisanlı yazılımlar hakkında bilgi edinmek için https://yazilim.cc.metu.edu.tr adresine gidebilirsiniz.
+WIFI ile ilgili sorularınız için https://faq.cc.metu.edu.tr/groups/wireless-network adresine gidebilirsiniz.
+GET_METU_FOOD
+GET_CENG_CURRICULUM
+GET_TODAYS_DATE
+GET_CALENDAR
+GET_RING_TIMES
+GET_CAFETERIA_TIMES
+GET_CAFETERIA_PRICE

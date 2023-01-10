@@ -4,6 +4,7 @@ import MetuBotView from '../views/MetuBotView.vue'
 import AdminView from '../views/AdminView.vue'
 import MetubotAskedQuestions from '../components/MetubotAskedQuestions.vue'
 import MetubotAddQuestion from '../components/MetubotAddQuestion.vue'
+import MetubotDashboard from '../components/MetubotDashboard.vue'
 
 Vue.use(VueRouter)
 
@@ -14,12 +15,19 @@ const routes = [
     component: MetuBotView,
     meta: { title: 'METUBOT' }
   },
+  { // todo: sil
+    path: '/deney',
+    name: 'metubotDeney',
+    component: MetuBotView,
+    meta: { title: '??????' },
+    props: { enableDidYouMeanThis: true }
+  },
   {
     path: '/yonetim',
     name: 'admin',
     children: [
 
-      { path: 'dashboard'},
+      { path: 'dashboard', component: MetubotDashboard}, //dashboarda soruları koyalım ne dersiniz
       { path: 'tables', component: MetubotAskedQuestions },
       { path: 'charts'},
       { path: 'addquestion', component: MetubotAddQuestion },

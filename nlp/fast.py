@@ -8,42 +8,39 @@ import numpy as np
 from numpy.linalg import norm
 from pathlib import Path
 import random
+
 # fasttext.util.download_model('tr', if_exists='ignore')
 
 
 cos_sim = lambda q_vector, vector : np.dot(q_vector, vector)/(norm(q_vector)*norm(vector))
 
 
-STOPWORD_LIST = nltk.corpus.stopwords.words('turkish')
+#STOPWORD_LIST = nltk.corpus.stopwords.words('turkish')
 CUSTOMWORD_LIST = ["wifi", "section", "metu", "office"] # custom word list
 
-f = Path(__file__).with_name('answers.json').open()
-ANSWERS = json.load(f)
+#f = Path(__file__).with_name('answers.json').open()
+#ANSWERS = json.load(f)
 
-f = Path(__file__).with_name('question_categories.json').open()
-QUESTIONS = json.load(f)
+#f = Path(__file__).with_name('question_categories.json').open(encoding='utf-8')
+#QUESTIONS = json.load(f)
 
 QUESTION_VECTORS = {}
 
-f = open("../../Elasticsearch/qa_pairs.json")
+f = Path(__file__).with_name('qa_pairs.json').open()
 QA = json.load(f)["qa-pairs"]
+
+THRESHOLD = 0.4
+DEFAULT_ANSWER = "Üzgünüm, ne sormak istediğinizi anlayamadım. sorunuzu bildirmek ister misiniz?"
 
 # preprocessor for question strings to transform strings to word arrays.
 # TODO: a better alternative than snowball stemmer should be used.
 def preProcessor(sentence):
     sentence = sentence.lower()
-    tokenizer = RegexpTokenizer(r'\w+') # removes all punctuation
-    words = tokenizer.tokenize(sentence)
+    return sentence
 
-    ts = TurkishStemmer()
-    result = []
-    for word in words:
-        if word not in STOPWORD_LIST:
-            if word in CUSTOMWORD_LIST:
-                result.append(word)
-            else:
-                result.append(ts.stemWord(word))
-    return result
+def embed(sentence):
+    sentence = preProcessor(sentence)
+    return get_sentence_vector(sentence)
 
 
 # IMPORTANT
@@ -119,7 +116,6 @@ def categoryHeuristic(query, questions):
     return max_category
 
 
-
 def getQuestionVectors(ft, raw_questions):
     question_vectors = {}
     for key in raw_questions:
@@ -175,8 +171,8 @@ def questionClassifier(ft, user_question, question_vectors, raw_questions):
                 most_similar_question = question
 
     else:
-        print("Soru kategorisi: %s" % most_similar_category)
-        print("En yakin soru: %s" % most_similar_question)
+        print("Soru kategorisi: %s" % most_similar_category).encode()
+        print("En yakin soru: %s" % most_similar_question).encode()
 
     return (most_similar_category, most_similar_question)
 
@@ -200,10 +196,12 @@ def NEWquestionClassifier(ft, user_question, questions_answers):
                 most_similar_indice = questions_answers.index(qa)
     
     print("Benzerlik skoru: " + str(max_similarity))
-    print("Soru kategorisi: %s" % most_similar_category)
-    print("En yakin soru: %s" % most_similar_question)
+    print("Soru kategorisi: %s" % most_similar_category).encode()
+    print("En yakin soru: %s" % most_similar_question).encode()
 
-    return most_similar_category, most_similar_question, most_similar_indice
+    if max_similarity < THRESHOLD:
+        return None
+    return most_similar_indice
 
 def getAnswer(ft, user_question):
     global QUESTION_VECTORS
@@ -217,6 +215,8 @@ def getAnswer(ft, user_question):
 def NEWgetAnswer(ft, user_question):
     global QA
     QA = NEWgetQuestionVectors(ft, QA)
-    category, question, q_index = NEWquestionClassifier(ft, user_question, questions_answers=QA)
+    q_index = NEWquestionClassifier(ft, user_question, questions_answers=QA)
+    if not q_index:
+        return DEFAULT_ANSWER
     ans = random.choice(QA[q_index]["answer"])
     return ans

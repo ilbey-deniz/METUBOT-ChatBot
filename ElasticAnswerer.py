@@ -1,5 +1,5 @@
 from Answerer import Answerer
-import Elasticsearch.elastic_init as elastic
+import nlp.elastic_init as elastic
 
 
 class ElasticAnswerer(Answerer):

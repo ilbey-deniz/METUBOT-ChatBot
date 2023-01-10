@@ -1,0 +1,10 @@
+node_modules
+__pycache__/
+*.pyc
+__init__.py
+package-lock.json
+package.json
+cc.tr.300.bin
+cc.tr.300.bin.gz
+.vscode
+package-lock.json

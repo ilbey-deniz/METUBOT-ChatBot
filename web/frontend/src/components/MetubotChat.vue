@@ -7,61 +7,89 @@
             <v-col cols="auto" class="flex-grow-1 flex-shrink-0">
                 <v-responsive class="overflow-y-hidden fill-height">
                     <v-card flat class="d-flex flex-column fill-height">
+                        <!-- height: 1px deyince tüm problemlerim çözüldü. nasıl bilmiyorum.-->
+                        <v-card-text :class="'flex-grow-1 overflow-y-auto ' + scrollbarTheme" ref="message-div"
+                                     style="height: 1px;">
 
-
-                        <v-card-text :class="'flex-grow-1 overflow-y-auto ' + scrollbarTheme">
                             <template v-for="(msg, i) in messages">
                                 <div :class="{ 'd-flex flex-row-reverse': msg.isUser }">
-                                    <v-menu offset-y>
-                                        <template v-slot:activator="{ on }">
-                                            <v-hover v-slot:default="{ hover }">
-                                                <v-chip
-                                                        :color="msg.isUser ? 'primary' : 'red'"
-                                                        dark
-                                                        style="height:auto;white-space: normal; white-space: pre-wrap;"
-                                                        class="pa-4 mb-2"
-                                                        v-on="on"
-                                                >
-                                                    {{ msg.content }}
-                                                    <sub class="ml-2" style="font-size: 0.5rem;">
-                                                        {{ msg.created_at }}
-                                                    </sub>
-                                                    <v-icon v-if="hover" small>mdi-chevron-down</v-icon>
-                                                </v-chip>
-                                            </v-hover>
-                                        </template>
-                                        <v-list>
-                                            <v-list-item>
-                                                <v-list-item-title
-                                                style="cursor:pointer"
-                                                @click="reportQuestion(i)"> 
-                                                    <span class="material-icons">bug_report</span> 
-                                                    <span class="text">Report Question</span>
-                                                </v-list-item-title>
-                                            </v-list-item>
-                                        </v-list>
-                                    </v-menu>
+                                    <v-hover v-slot:default="{ hover }">
+                                        <v-sheet
+                                                :color="msg.isUser ? 'primary' : 'red'"
+                                                dark
+                                                style="height:auto; position: relative; width: fit-content; border-radius: 19px;"
+                                                class="pa-4 mb-4 message-box"
+                                        >
+                                            <span v-html="sanitizeExceptBoldItalicCode(msg.content)" v-linkified
+                                                  style="white-space: pre-wrap;"/>
+                                            <span v-if="enableDidYouMeanThis">
+                                                <template v-if="!msg.selectedDYMTQuestion">
+                                                    <v-alert
+                                                            v-for="question in msg.didYouMeanThisQuestions"
+                                                            color="indigo"
+                                                            icon="mdi-send"
+                                                            border="left"
+                                                            @click="selectDYMTQuestion(question)"
+                                                            dense
+                                                            style="cursor: pointer; font-size:0.875rem; width:fit-content"
+                                                            class="mt-3"
+                                                    >
+                                                        {{ question }}
+                                                    </v-alert>
+                                                </template>
+                                            </span>
+                                            <sub class="ml-2"
+                                                 style="font-size: 0.6rem; display: block; text-align: right; color: #ddd">{{
+                                                    addPadding(msg.created_at)
+                                                }}</sub>
+                                            <v-menu bottom right>
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-btn
+                                                            style="position: absolute; right: 5px; top: 5px;"
+                                                            dark
+                                                            icon
+                                                            v-bind="attrs"
+                                                            v-on="on"
+                                                    >
+                                                        <v-icon v-if="hover">mdi-chevron-down</v-icon>
+                                                    </v-btn>
+                                                </template>
+
+                                                <v-list>
+                                                    <v-list-item>
+                                                        <v-list-item-title
+                                                                style="cursor:pointer"
+                                                                @click="reportQuestion(i)">
+                                                            <span class="material-icons">bug_report</span>
+                                                            <span class="text">Report Question</span>
+                                                        </v-list-item-title>
+                                                    </v-list-item>
+                                                </v-list>
+                                            </v-menu>
+
+
+                                        </v-sheet>
+                                    </v-hover>
+
                                 </div>
                             </template>
-                            <transition name="fade">
-                                <v-chip v-if="waitingForAnswer"
-                                        color="red"
-                                        dark
-                                        style="height:auto; white-space: normal; width: 70px;"
-                                        class="pa-4 mb-2 d-flex justify-center"
-                                >
-                                    <div class="dot-typing"></div>
-                                    <!--                                <div class="dot-typing"></div>
-                                                                    <div class="dot-elastic"></div>-->
-                                </v-chip>
-                            </transition>
+
+                            <v-chip v-if="waitingForAnswer"
+                                    color="red"
+                                    dark
+                                    style="height:52px; white-space: normal; width: 70px;"
+                                    class="pa-4 mb-2 d-flex justify-center"
+                            >
+                                <div class="dot-typing"></div>
+                            </v-chip>
+
 
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-text class="flex-shrink-1">
                             <v-text-field
                                     v-model="messageForm.content"
-                                    label="Mesaj"
+                                    label="Bir mesaj yazın"
                                     type="text"
                                     no-details
                                     outlined
@@ -70,7 +98,7 @@
                             >
                                 <template v-slot:append-outer>
                                     <!-- touchend.prevent reason is not hiding the keyboard on mobile -->
-                                    <v-icon @click="sendMessage" @touchend.prevent="sendMessage">
+                                    <v-icon color="blue" @click="sendMessage" @touchend.prevent="sendMessage">
                                         mdi-send
                                     </v-icon>
 
@@ -85,62 +113,73 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Vue from 'vue'
 import { io } from "socket.io-client";
 
 export default {
     name: 'MetubotChat',
-    props: {},
+    props: {
+        enableDidYouMeanThis: {
+            type: Boolean,
+            default() {
+                return false;
+            },
+        },
+    },
     data() {
         return {
-            messages: [
-                /*{
-                    content: "Merhaba, ben Metubot 🤖",
-                    isUser: false,
-                    created_at: this.getClock(),
-                },*/
-            ],
+            messages: [],
             messageForm: {
                 content: "",
                 isUser: true,
                 created_at: "11:11am",
+                didYouMeanThisQuestions: [],
+                selectedDYMTQuestion: null,
             },
-            qa_pair:{
+            qa_pair: {
                 question: "",
                 answer: "",
-                created_at: "11:11am"
+                created_at: "11:11am",
             },
             waitingForAnswer: true,
             socketIoSocket: null,
-            reported_question_index: -1
+            reported_question_index: -1,
+            answerSoundsEnabled: true,
         }
     },
     mounted() {
         this.socketIoSocket = io();
-        this.socketIoSocket.on('chat answer', (msg) => {
-            this.waitingForAnswer = false;
-            if (msg === "") {
-                msg = "Sualinize maalesef mütenasip bir yanıt bulamamaktayım. Başka sorunuz varsa lütfen sakınmayınız.";
-            }
-            this.messages.push({
-                content: msg,
-                isUser: false,
-                created_at: this.getClock(),
-            });
-        })
+        this.socketIoSocket.on('chat answer',
+                msg => setTimeout(() => this.addBotMessage(msg), 777))
+
+        if (this.enableDidYouMeanThis) {
+            this.addBotMessage({
+                answer: 'Sorunuzu tam anlayamamakla birlikte ileri düzey yöntemlerimiz sayesinde ' +
+                        'size şu soruyu yönlendirebiliyoruz:\nŞunlardan birini mi demek istediniz?',
+                finished: true,
+                didYouMeanThisQuestions: [
+                    'Şifremi nasıl şifreleyebilirim?',
+                    'Odtüde verilen dersleri öğrenebilir miyim?',
+                    'Zart zurt şifremi değiştirmek istiyorum lakin email adresimi sormasına rağmen email adresimin şifresini de bilmiyorum. Ne yapabilirim?',
+                ],
+                selectedDYMTQuestion: null,
+            })
+        }
+    },
+    destroyed() {
+        this.socketIoSocket.disconnect();
     },
     methods: {
-        sendMessageToServer() {
-            axios.post(`/`, {
-                question: this.chatMessage,
-            });
-        },
         getClock() {
             let date = new Date();
             let hour = date.getHours();
             let minutes = date.getMinutes();
             return `${hour}:${minutes}`;
+        },
+        selectDYMTQuestion(questionStr) {
+            this.messageForm.content = questionStr;
+            this.messages[this.messages.length - 1].selectedDYMTQuestion = questionStr;
+            this.sendMessage();
         },
         sendMessage() {
             if (this.messageForm.content !== "" && !this.waitingForAnswer) {
@@ -151,30 +190,52 @@ export default {
                     content: "",
                     isUser: true,
                     created_at: null,
+                    didYouMeanThisQuestions: [],
+                    selectedDYMTQuestion: null,
                 };
                 this.waitingForAnswer = true;
+                this.scrollMessagesToBottom();
 
             }
 
         },
-        reportQuestion(question_index){
+        addBotMessage(msg) {
+            if (msg.finished) {
+                this.waitingForAnswer = false;
+            }
+            if (msg.answer === "") {
+                msg.answer = "Sualinize maalesef mütenasip bir yanıt bulamamaktayım. Başka sorunuz varsa lütfen sakınmayınız.";
+            }
+            this.messages.push({
+                content: msg.answer,
+                isUser: false,
+                created_at: this.getClock(),
+                didYouMeanThisQuestions: msg.didYouMeanThisQuestions,
+                selectedDYMTQuestion: null,
+            });
+            this.scrollMessagesToBottom();
+            if (this.answerSoundsEnabled) {
+                new Audio(require('@/assets/chat-sound-bubble-pop.mp3')).play();
+            }
+        },
+        reportQuestion(question_index) {
             // Do not take the first 2 message. Directly ignore them.
             // metubot respond the user message
             // hence, if reported message from metubot and not first 2 message it is an answer to question its above.
             // if reported message from user it is an question the below answer.
-            this.reported_question_index = question_index; 
-            if(question_index > 1 && !this.messages[question_index].isUser){ // it is from metubot
+            this.reported_question_index = question_index;
+            if (question_index > 1 && !this.messages[question_index].isUser) { // it is from metubot
                 this.qa_pair.created_at = this.getClock();
                 this.qa_pair.answer = this.messages[this.reported_question_index].content;
-                if(this.messages[question_index-1].isUser){
-                    this.qa_pair.question = this.messages[this.reported_question_index-1].content;
+                if (this.messages[question_index - 1].isUser) {
+                    this.qa_pair.question = this.messages[this.reported_question_index - 1].content;
                 }
             }
-            if(question_index > 1 && this.messages[question_index].isUser){ // it is from user
+            if (question_index > 1 && this.messages[question_index].isUser) { // it is from user
                 this.qa_pair.created_at = this.getClock();
                 this.qa_pair.question = this.messages[this.reported_question_index].content;
-                if( question_index+1 < this.messages.length && !this.messages[question_index+1].isUser){
-                    this.qa_pair.answer = this.messages[this.reported_question_index+1].content;
+                if (question_index + 1 < this.messages.length && !this.messages[question_index + 1].isUser) {
+                    this.qa_pair.answer = this.messages[this.reported_question_index + 1].content;
                 }
             }
             console.log(this.qa_pair.question)
@@ -183,9 +244,37 @@ export default {
             this.qa_pair = {
                 question: "",
                 answer: "",
-                created_at: null
+                created_at: null,
             };
-        }
+        },
+        scrollMessagesToBottom() {
+            this.scrollElmToBottomOfElm(this.$refs['message-div']);
+        },
+        scrollElmToBottomOfElm(element) {
+            /* iki next tick gerekti çalışması için. settimeout(, 0) olabilirdi de ama kötü gözüktü */
+            Vue.nextTick(() => Vue.nextTick(() => {element.scrollTop = element.scrollHeight;}));
+        },
+        messagesAtBottom() {
+            return this.elmAtBottom(this.$refs['message-div']);
+        },
+        elmAtBottom(element) {
+            return element.scrollHeight - element.scrollTop === element.clientHeight;
+        },
+        addPadding(hourAndMinuteStr) {
+            let hourAndMinute = hourAndMinuteStr.split(":");
+            let hour = hourAndMinute[0];
+            let minute = hourAndMinute[1];
+            if (hour.length === 1) {
+                hour = "0" + hour;
+            }
+            if (minute.length === 1) {
+                minute = "0" + minute;
+            }
+            return hour + ":" + minute;
+        },
+        sanitizeExceptBoldItalicCode(str) {
+            return this.$sanitize(str);
+        },
 
     },
     computed: {
@@ -197,7 +286,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
 @use 'three-dots' with (
     $dot-width: 8px,
     $dot-height: 8px,
@@ -216,6 +305,10 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
 {
     opacity: 0;
+}
+
+.message-box a {
+    color: white !important;
 }
 
 </style>

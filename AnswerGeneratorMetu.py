@@ -14,6 +14,9 @@ class AnswerGeneratorMetu(AnswerGenerator):
         self.answerGenerations['GET_CENG_CURRICULUM'] = self.getCengCurriculum
         self.answerGenerations['GET_RING_TIMES'] = self.getRingTimes
         self.answerGenerations['GET_CALENDAR'] = self.getCalendar
+        self.answerGenerations['GET_CAFETERIA_TIMES'] = self.getCafeteriaTimes
+        self.answerGenerations['GET_CAFETERIA_PRICE'] = self.getCafeteriaPrice
+
         # new answerGenerations can be added here
 
     def getMetuFood(self):
@@ -30,3 +33,9 @@ class AnswerGeneratorMetu(AnswerGenerator):
 
     def getCalendar(self):
         return time.takvim()
+
+    def getCafeteriaTimes(self):
+        return cf.saatler()
+
+    def getCafeteriaPrice(self): #TODO: It has a a parameter.
+        return cf.fiyat()

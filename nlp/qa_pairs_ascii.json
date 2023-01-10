@@ -1,0 +1,188 @@
+{
+    "qa-pairs": [
+        {
+            "question": [
+                "etkilesimli kayitlarda neden captcha uygulamasi kullanilmaktadir"
+            ],
+            "answer": [
+                "Kayit uygulamasinda bulunan captchayi cozdugunu ileri surerek ders kayitlarinda haksiz kazanc saglamak ve kayit onceligi elde etmek isteyen bazi kisiler oldugu gorulmustur. Ders kayitlarinin esit kosullarda gerceklesmesi icin captcha uygulamasi guncellenmistir."
+            ],
+            "category": "kayit"
+        },
+        {
+            "question": [
+                "bolum koordinatorune nasil ulasabilirim"
+            ],
+            "answer": [
+                "Bolum/birim koordinatorlerinin listesine http://coordinators.metu.edu.tr/ adresinden erisebilirsiniz."
+            ],
+            "category": "koordinator"
+        },
+        {
+            "question": [
+                "lojmanlardan internet'e nasil baglanabilirim"
+            ],
+            "answer": [
+                "Bu lojmanlarda kalan ODTU personeli 3378 numarali telefondan ya da lkoord@metu.edu.tr e-posta adresinden lojman koordinatorune merkezi sistem kullanici adi bilgisini ileterek lojmanlardan internete baglanmak icin gerekli kayit isleminin yapilmasini talep etmelidir."
+            ],
+            "category": "internet"
+        },
+        {
+            "question": [
+                "genel-duyuru listesine uye olabilir miyim"
+            ],
+            "answer": [
+                "genel-duyuru listesine ODTU personeli olan kisiler kullanici_adimetu.edu.tr seklindeki e-posta adresleri ile otomatik olarak kaydedilmektedir. Ogrencilerin uyelik talepleri kabul edilmemektedir."
+            ],
+            "category": "mail"
+        },
+        {
+            "question": [
+                "horde ile tum e-postalarimi nasil indirebilirim"
+            ],
+            "answer": [
+                "Horde kullanarak bir posta kutusundaki tum epostalari tek bir dosya ile bilgisayariniza indirebilirsiniz. Bunun icin horde web uygulamasina DINAMIK modda giris yaptiktan sonra sol tarafta listelenen posta kutularindan indirmek istediginize sag tiklayarak Export / Disa aktar secenegini isaretleyiniz."
+            ],
+            "category": "mail"
+        },
+        {
+            "question": [
+                "akilli kartima online bakiye yukleme sisteminden (odtucard) para yukledim, yukledigim bakiye kartima aktarilmadi. ne yapmaliyim"
+            ],
+            "answer": [
+                "Akilli kartiniza yemek saatlerinde (11:00 dan sonra) yuklediginiz bakiyeyi aktarabilmek icin kartinizi yukleme/guncelleme terminaline veya Kiosk'a okutmaniz gerekmektedir. Kartinizi bu cihazlara okuttugunuz halde bakiyeniz aktarilmamissa https://bilisimdestek.metu.edu.tr/ adresi uzerinden kullanici hesabiniz ile giris yaparak sorununuzu bildirebilirsiniz."
+            ],
+            "category": "kimlik kart"
+        },
+        {
+            "question": [
+                "akilli kimlik kartimi kaybettim/calindi, ne yapmaliyim"
+            ],
+            "answer": [
+                "Akilli kimlik kartinizi kaybettiginizi/calindigini fark ettiginizde, cardinfo.metu.edu.tr adresinden kartinizi iptal etmelisiniz.Bu durumda akilli kimlik kartiniz sistem tarafindan \"iptal\" edilir."
+            ],
+            "category": "kimlik kart"
+        },
+        {
+            "question": [
+                "ogrenci sifremi unuttum, nasil yenileyebilirim",
+                "ODTU kullanici sifremi hatirlamiyorum, ne yapmam lazim?",
+                "metu mail sifremi kaybettim, nasil sifirlarim?",
+                "parolami unuttum",
+                "metumail sifrem neydi"
+            ],
+            "answer": [
+                "https://useraccount.metu.edu.tr adresinden kullanici adi ve sifrenizle giris yaptiktan sonra \"Change Password\" butonundan isleminizi gerceklestirebilirsiniz."
+            ],
+            "category": "sifre"
+        },
+        {
+            "question": [
+                "microsoft office'i ogrenci mailimle nasil kullanabilirim?",
+                "ucretsiz autocad kullanmak icin ne yapmam lazim",
+                "exceli metu mailimle nasil kullanabilirim"
+            ],
+            "answer": [
+                "Lisanli yazilimlar hakkinda bilgi edinmek icin https://yazilim.cc.metu.edu.tr adresine gidebilirsiniz."
+            ],
+            "category": "lisansli yazilimlar"
+        },
+        {
+            "question": [
+                "wifi a nasil baglanabilirim",
+                "meturoam wifi nasil baglanirim",
+                "hangi wifi a baglanmam gerek",
+                "eduroam wifi sifresi neydi"
+            ],
+            "answer": [
+                "WIFI ile ilgili sorulariniz icin https://faq.cc.metu.edu.tr/groups/wireless-network adresine gidebilirsiniz."
+            ],
+            "category": "wifi"
+        },
+        {
+            "question": [
+                "bugun yemekte ne var",
+                "aciktim, ne yiyebilirim",
+                "bugun yemekhanede hangi yemek cikti"
+            ],
+            "answer": [
+                "GET_METU_FOOD"
+            ],
+            "category": "kafeterya"
+        },
+        {
+            "question": [
+                "ceng zorunlu dersler neler",
+                "ceng mufredati nedir",
+                "cengde hangi dersler veriliyor",
+                "cengde hangi dersleri almam gerekli"
+            ],
+            "answer": [
+                "GET_CENG_CURRICULUM"
+            ],
+            "category": "ceng"
+        },
+        {
+            "question": [
+                "saat kac",
+                "bugun hangi gun",
+                "tarih ne",
+                "bugun ayin kaci"
+            ],
+            "answer": [
+                "GET_TODAYS_DATE"
+            ],
+            "category": "zaman"
+        },
+        {
+            "question": [
+                "takvime nereden ulasabilirim",
+                "okul ne zaman bitiyor",
+                "okul kacinda aciliyor",
+                "dersler ne zaman basliyor",
+                "withdraw kacinci hafta",
+                "final haftasi ne zaman",
+                "tatil ne zaman basliyor"
+            ],
+            "answer": [
+                "GET_CALENDAR"
+            ],
+            "category": "zaman"
+        },
+        {
+            "question": [
+                "ringler hangi saatler arasinda hizmet veriyor",
+                "sari-kirmizi ring ne zaman faaliyet vermekte",
+                "kahverengi ring ne zaman calismayi durduruyor"
+            ],
+            "answer": [
+                "GET_RING_TIMES"
+            ],
+            "category": "ring"
+        },
+        {
+            "question": [
+                "yemekhane kacta acik",
+                "ogle yemegi ne zaman",
+                "aksam yemegi ne zaman",
+                "yemekhane kacta aciliyor",
+                "yemekhanenin kapanis saati nedir"
+            ],
+            "answer": [
+                "GET_CAFETERIA_TIMES"
+            ],
+            "category": "kafeterya"
+        },
+        {
+            "question": [
+                "yemekhane kac lira",
+                "yemek ucreti ne kadar",
+                "ogrenciler yemege kac para veriyor"
+            ],
+            "answer": [
+                "GET_CAFETERIA_PRICE"
+            ],
+            "category": "kafeterya"
+        }
+    ]
+}

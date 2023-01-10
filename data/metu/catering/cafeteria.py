@@ -3,45 +3,51 @@ from bs4 import BeautifulSoup
 
 def initialize(url):
     page = requests.get(url)
-    #page'in class'ı <class 'requests.models.Response'> ve stringe çevirirsek html dosyası gibi oluyor.
     soup = BeautifulSoup(page.content, "html.parser")
-    #soup sayesinde page'i parse ediyoruz.
     return soup
 
-def turkify(prompt):
-    prompt = prompt.replace("\\" + "xc3" + "\\" + "x87","Ç")
-    prompt = prompt.replace("\\" + "xc4" + "\\" + "x9e","Ğ")
-    prompt = prompt.replace("\\" + "xc4" + "\\" + "xb0","İ")
-    prompt = prompt.replace("\\" + "xc3" + "\\" + "x96","Ö")
-    prompt = prompt.replace("\\" + "xc5" + "\\" + "x9e","Ş")
-    prompt = prompt.replace("\\" + "xc3" + "\\" + "x9c","Ü")
+def yemek():
+    try:
+        soup= initialize("https://kafeterya.metu.edu.tr/")
+        b = soup.find_all(class_ = "rdf-meta element-hidden")
+        vej = soup.find_all(class_ = "vejeteryan")
+        prompt = "Öğle yemeği:\n\t"+ str(b[0].get("content")) + ", " + str(b[1].get("content")) + ", " + str(b[2].get("content")) + " ve " + str(b[3].get("content")) +  "\n"
+        prompt += "\t" + vej[0].text.strip() + "\n"
+        prompt += "Akşam yemeği:\n\t"+ str(b[4].get("content")) + ", " + str(b[5].get("content")) + ", " + str(b[6].get("content")) + " ve " + str(b[7].get("content")) +  "\n"
+        prompt += "\t" + vej[1].text.strip()
+    except:
+        prompt = "BUgün yemekhanede yemek çıkmıyor."
+
     return prompt
 
-""" def yemek(): #bugün yemekhanede ne var
-    r = requests.get("https://kafeterya.metu.edu.tr/")
-    key = '<span property="dc:title" content="'
-    c = str(r.content)
-    i1 = c.find(key)
-    s1 = c.find('"',i1+len(key))
-    i2 = c.find(key,i1+len(key))
-    s2 = c.find('"',i2+len(key))
-    i3 = c.find(key,i2+len(key))
-    s3 = c.find('"',i3+len(key))
-    i4 = c.find(key,i3+len(key))
-    s4 = c.find('"',i4+len(key))
-    yemek1 = c[i1+len(key):s1]
-    yemek2 = c[i2+len(key):s2] 
-    yemek3 = c[i3+len(key):s3]
-    yemek4 = c[i4+len(key):s4]
-    prompt = "Bugün yemekhanede "+ yemek1 + ", " + yemek2 + ", " + yemek3 + " ve " + yemek4 +  " var."
-    prompt = turkify(prompt)
-    return prompt """
+def saatler():
+    soup = initialize("https://kafeterya.metu.edu.tr/yemek-saatleri")
+    a = soup.find(class_="field-items")
+    return a.text.strip()
 
-def yemek():
-    soup= initialize("https://kafeterya.metu.edu.tr/")
-    a = soup.find(class_="view-content")
-    b = a.find_all(class_ = "rdf-meta element-hidden")
-    vej = a.find_all(class_ = "vejeteryan")
-    prompt = "Bugün yemekhanede "+ str(b[0].get("content")) + ", " + str(b[1].get("content")) + ", " + str(b[2].get("content")) + " ve " + str(b[3].get("content")) +  " var.\n"
-    prompt += vej[0].text.strip()
+def fiyat(role="Öğrenci"):
+    d = {
+        "Personel: Ek Göstergesiz (Ek:0)":1,
+        "Personel: Ek Göstergeli (0 üzeri ve 2200 dahil)":2,
+        "Personel: Ek Göstergeli (2200 üzeri ve 3000 dahil)":3,
+        "Personel: Ek Göstergeli (3600 dahil ve üzeri)":4,
+        "Personel: Sözleşmeli":5,
+        "Personel: İşçi":6,
+        "Öğrenci":7,
+        "Misafir":8,
+        "Diğer":9
+    }
+
+    diff = d[role]
+
+
+    soup = initialize("http://kafeterya.metu.edu.tr/tabldot-yemek-fiyatlari")
+    a = soup.find(property= "content:encoded")
+    prompt = a.p.strong.text.strip() + "\n"
+    b = a.find(class_ ="table")
+    c= list(filter(lambda x: x != "", b.text.strip().split("\n")))
+    prompt += role + "\n"
+    prompt += c[0] + ": " + c[4*diff] + "\n"
+    prompt += c[1] + ": " + c[4*diff+1] + "\n"
+    prompt += c[2] + ": " + c[4*diff+2]
     return prompt
