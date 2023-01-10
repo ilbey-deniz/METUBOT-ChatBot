@@ -20,7 +20,7 @@ CUSTOMWORD_LIST = ["wifi", "section", "metu", "office"] # custom word list
 f = Path(__file__).with_name('answers.json').open()
 ANSWERS = json.load(f)
 
-f = Path(__file__).with_name('question_categories.json').open()
+f = Path(__file__).with_name('question_categories.json').open(encoding='utf-8')
 QUESTIONS = json.load(f)
 
 QUESTION_VECTORS = {}
@@ -36,18 +36,11 @@ DEFAULT_ANSWER = "Üzgünüm, ne sormak istediğinizi anlayamadım. sorunuzu bil
 # TODO: a better alternative than snowball stemmer should be used.
 def preProcessor(sentence):
     sentence = sentence.lower()
-    tokenizer = RegexpTokenizer(r'\w+') # removes all punctuation
-    words = tokenizer.tokenize(sentence)
+    return sentence
 
-    ts = TurkishStemmer()
-    result = []
-    for word in words:
-        if word not in STOPWORD_LIST:
-            if word in CUSTOMWORD_LIST:
-                result.append(word)
-            else:
-                result.append(ts.stemWord(word))
-    return result
+def embed(sentence):
+    sentence = preProcessor(sentence)
+    return get_sentence_vector(sentence)
 
 
 # IMPORTANT
@@ -123,7 +116,6 @@ def categoryHeuristic(query, questions):
     return max_category
 
 
-
 def getQuestionVectors(ft, raw_questions):
     question_vectors = {}
     for key in raw_questions:
@@ -179,8 +171,8 @@ def questionClassifier(ft, user_question, question_vectors, raw_questions):
                 most_similar_question = question
 
     else:
-        print("Soru kategorisi: %s" % most_similar_category)
-        print("En yakin soru: %s" % most_similar_question)
+        print("Soru kategorisi: %s" % most_similar_category).encode()
+        print("En yakin soru: %s" % most_similar_question).encode()
 
     return (most_similar_category, most_similar_question)
 
@@ -204,8 +196,8 @@ def NEWquestionClassifier(ft, user_question, questions_answers):
                 most_similar_indice = questions_answers.index(qa)
     
     print("Benzerlik skoru: " + str(max_similarity))
-    print("Soru kategorisi: %s" % most_similar_category)
-    print("En yakin soru: %s" % most_similar_question)
+    print("Soru kategorisi: %s" % most_similar_category).encode()
+    print("En yakin soru: %s" % most_similar_question).encode()
 
     if max_similarity < THRESHOLD:
         return None
