@@ -12,39 +12,42 @@
 
     </div>
 </template> -->
-<template class="main">
+<template>
     <!-- <AdminView /> -->
-    <v-card class="card">
-        <v-card-title>
-            Sorulan Sorular
-            <v-spacer></v-spacer>
-            <v-text-field
-                    v-model="search"
-                    append-icon="mdi-magnify"
-                    label="Arama"
+    <div class="main">
+        <v-card class="card">
+            <v-card-title>
+                Sorulan Sorular
+                <v-spacer></v-spacer>
+                <v-text-field
+                        v-model="search"
+                        append-icon="mdi-magnify"
+                        label="Arama"
 
-            ></v-text-field>
-        </v-card-title>
+                ></v-text-field>
+            </v-card-title>
 
-        <v-data-table
-                :headers="headers"
-                :items="questions"
-                :search="search"
-                :items-per-page="5"
-                :items-per-page-text="'hl'"
-                no-results-text="Sonuç bulunamadı."
-                no-data-text="Soru bulunmamaktadır."
-                :footer-props="{
-                'items-per-page-text':'Sayfa başı gösterilecek soru sayısı:',
-              }"
-        >
+            <v-data-table
+                    :headers="headers"
+                    :items="questions"
+                    :search="search"
+                    :items-per-page="5"
+                    :items-per-page-text="'hl'"
+                    no-results-text="Sonuç bulunamadı."
+                    no-data-text="Soru bulunmamaktadır."
+                    :footer-props="{
+                    'items-per-page-text':'Sayfa başı gösterilecek soru sayısı:',
+                  }"
+            >
 
 
-            <template v-slot:[`footer.page-text`]="items">
-                {{ items.pageStart }} - {{ items.pageStop }} / {{ items.itemsLength }}
-            </template>
-        </v-data-table>
-    </v-card>
+                <template v-slot:[`footer.page-text`]="items">
+                    {{ items.pageStart }} - {{ items.pageStop }} / {{ items.itemsLength }}
+                </template>
+            </v-data-table>
+        </v-card>
+    </div>
+    
 </template>
 
 <script>
@@ -120,14 +123,21 @@ export default {
 </script>
 
 <style scoped>
-    /* .main {
-        justify-content: center;
-    } */
-    .card {
-        margin-left: 3%;
-        margin-right: 3%;
-        margin-top: 3%;
+    .main {
+        /* justify-content: center; */
+        padding-left: 3%;   
+        padding-top: 3%;   
+        padding-right: 3%;
         height: fit-content;
-        width: 100%;
+        width: 100%;   
     }
+    /* .card {
+        margin-left: 3%;
+        margin-right: 3%; 
+        margin-top: 3%;
+         margin: 3% 3% 3% 3%;
+        height: fit-content;
+        width: 94%;
+        
+    } */
 </style>

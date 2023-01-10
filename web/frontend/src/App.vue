@@ -4,6 +4,7 @@
                 app
                 elevation="4"
                 :height="appBarHeight"
+                style="position: absolute"
 
         >
             <div class="d-flex align-center">

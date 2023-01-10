@@ -1,5 +1,5 @@
 <template>
-    <v-sheet color="bg2">
+    <v-sheet class="sheet" color="bg2">
         <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
             <div class="logo">
                 <img :src="logoURL" alt="Vue"/>
@@ -190,9 +190,16 @@ aside {
 			opacity: 0;
 		}
 	}
+	// @media (max-width: 1028px) {
+	// 	// position: absolute;
+	// 	z-index: 99;
+	// }
+}
+.sheet{
 	@media (max-width: 1024px) {
 		position: absolute;
-		z-index: 99;
+		z-index: 100;
+		height: 100%;
 	}
 }
 </style>
