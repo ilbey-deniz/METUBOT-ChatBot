@@ -26,8 +26,7 @@ QUESTIONS = json.load(f)
 
 QUESTION_VECTORS = {}
 
-f = open("/home/metubot/metubot/Elasticsearch/qa_pairs.json")
-
+f = Path(__file__).with_name('qa_pairs.json').open()
 QA = json.load(f)["qa-pairs"]
 
 THRESHOLD = 0.4
