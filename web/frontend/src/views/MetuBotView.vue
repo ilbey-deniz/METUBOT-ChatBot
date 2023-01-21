@@ -13,8 +13,8 @@ export default {
             type: Boolean,
             default() {
                 return false;
-            }
-        }
+            },
+        },
     },
     components: {
         MetubotChat,
@@ -30,7 +30,32 @@ export default {
                 height: `calc(100% - ${this.appBarHeight}px)`,
                 overflow: 'auto',
             },
+            titleInterval: null,
+            TRU: true,
+            tabIsActive: !document.hidden,
         }
+    },
+    mounted() {
+        this.titleInterval = setInterval(() => {
+            this.tabIsActive = !document.hidden;
+            if (this.tabIsActive) {
+                document.title = 'METUBOT';
+            }
+            else {
+
+                if (this.TRU) {
+                    document.title = 'BENİ GÖRMEZDEN GELME 😠';
+                }
+                else {
+                    document.title = 'METUBOT';
+                }
+                this.TRU = !this.TRU;
+            }
+        }, 1453);
+    },
+    destroyed() {
+
+
     },
 }
 </script>
