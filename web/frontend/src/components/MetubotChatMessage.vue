@@ -1,65 +1,82 @@
 <template>
-    <v-hover v-slot:default="{ hover }">
-        <v-sheet
-                :color="msg.isUser ? 'primary' : 'red'"
-                dark
-                style="height:auto; position: relative; width: fit-content; border-radius: 19px;"
-                class="pa-4 mb-4 message-box"
-        >
-            <span v-html="sanitizeExceptBoldItalicCode(msg.content).trim()" v-linkified
-                  style="white-space: pre-wrap;"/>
-            <span v-if="enableDidYouMeanThis">
-                <template v-if="!msg.selectedDYMTQuestion">
-                    <v-alert
-                            v-for="question in msg.didYouMeanThisQuestions"
-                            color="indigo"
-                            icon="mdi-send"
-                            border="left"
-                            @click="$emit('select-dymt-question',question)"
-                            dense
-                            style="cursor: pointer; font-size:0.875rem; width:fit-content"
-                            class="mt-3"
-                    >
-                        {{ question }}
-                    </v-alert>
-                </template>
-            </span>
-
-            <sub class="ml-2"
-                 style="font-size: 0.6rem; display: block; text-align: right; color: #ddd">{{
-                    addPadding(msg.created_at)
-                }}</sub>
-
-
-
-            <v-menu bottom right>
-                <template v-slot:activator="{ on, attrs }">
+    <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+            <v-hover v-slot:default="{ hover }">
+                <v-sheet
+                        :color="msg.isUser ? 'primary' : 'red'"
+                        dark
+                        style="height:auto; position: relative; width: fit-content; border-radius: 19px;"
+                        class="pa-4 mb-4 message-box"
+                        v-bind="attrs"
+                        v-on="on"
+                >
                     <v-btn
                             style="position: absolute; right: 5px; top: 5px;"
                             dark
                             icon
-                            v-bind="attrs"
-                            v-on="on"
+
                     >
                         <v-icon v-if="hover">mdi-chevron-down</v-icon>
                     </v-btn>
-                </template>
+                    <span v-html="sanitizeExceptBoldItalicCode(msg.content).trim()" v-linkified
+                          style="white-space: pre-wrap;"/>
+                    <span v-if="enableDidYouMeanThis">
+                  <template v-if="!msg.selectedDYMTQuestion">
+                     <v-alert
+                             v-for="question in msg.didYouMeanThisQuestions"
+                             color="indigo"
+                             icon="mdi-send"
+                             border="left"
+                             @click="$emit('select-dymt-question',question)"
+                             dense
+                             style="cursor: pointer; font-size:0.875rem; width:fit-content"
+                             class="mt-3"
+                     >
+                        {{ question }}
+                     </v-alert>
+                  </template>
+               </span>
+                    <sub class="ml-2"
+                         style="font-size: 0.6rem; display: block; text-align: right; color: #ddd">{{
+                            addPadding(msg.created_at)
+                        }}</sub>
 
-                <v-list>
-                    <v-list-item>
-                        <v-list-item-title
-                                style="cursor:pointer"
-                                @click="$emit('report-question')">
-                            <span class="material-icons">bug_report</span>
-                            <span class="text">Report Question</span>
-                        </v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
+                </v-sheet>
+            </v-hover>
+        </template>
+        <v-list dense flat>
+            <v-list-item-group>
+                <v-list-item v-if="!likeOrDislike || likeOrDislike === 'like'">
+                    <v-list-item-icon>
+                        <v-icon :color="likeOrDislike ? 'green' : ''">mdi-thumb-up</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title v-if="likeOrDislike" @click="onLike">Beğenildi</v-list-item-title>
+                        <v-list-item-title v-else @click="onLike">Beğen</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item v-if="!likeOrDislike || likeOrDislike === 'dislike'">
+                    <v-list-item-icon>
+                        <v-icon :color="likeOrDislike ? 'red' : ''">mdi-thumb-down</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title v-if="likeOrDislike" @click="onDislike">Beğenilmedi</v-list-item-title>
+                        <v-list-item-title v-else @click="onDislike">Beğenme</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                    <v-list-item-icon>
+                        <v-icon>mdi-bug</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title @click="$emit('report-question')">Hata raporla</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list-item-group>
 
+        </v-list>
 
-        </v-sheet>
-    </v-hover>
+    </v-menu>
 </template>
 
 <script>
@@ -73,6 +90,13 @@ export default {
                 return false;
             },
         },
+    },
+    data() {
+        return {
+            likeOrDislike: null,
+            likeDialog: false,
+            dislikeDialog: false,
+        }
     },
     methods: {
         sanitizeExceptBoldItalicCode(str) {
@@ -90,7 +114,16 @@ export default {
             }
             return hour + ":" + minute;
         },
+        onLike() {
+            this.likeOrDislike = 'like';
+            this.likeDialog = true;
 
+
+        },
+        onDislike() {
+            this.likeOrDislike = 'dislike';
+            this.dislikeDialog = true;
+        }
 
     },
 }
