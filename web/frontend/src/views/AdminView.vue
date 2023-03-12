@@ -61,7 +61,7 @@ export default {
     }
   },
   mounted() {
-	this.is_logged_in = true;
+	this.is_logged_in = false;
     // this.socketIoSocket = io();
   },
   methods: {
