@@ -3,9 +3,9 @@
         <aside :class="{'is-expanded': is_expanded}">
 
             <div class="menu-toggle-wrap">
-                <h2 v-if="is_expanded" style="position: relative; top: 0.15rem; font-weight: normal;">
+                <h3 v-if="is_expanded" style="position: relative; top: 0.45rem; font-weight: normal;">
                     Admin Araçları
-                </h2>
+                </h3>
                 <button class="menu-toggle" @click="ToggleMenu">
                     <span class="material-icons">keyboard_double_arrow_right</span>
                 </button>
@@ -129,9 +129,8 @@ aside {
     }
 
     h3 {
-        color: var(--dark);
-        font-size: 0.875rem;
-        margin-bottom: 0.5rem;
+
+
         text-transform: uppercase;
     }
 
