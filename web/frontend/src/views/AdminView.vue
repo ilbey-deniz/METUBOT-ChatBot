@@ -4,10 +4,10 @@
 		<!-- <Sidebar style="min-width: 64px;"/> -->
 		<div class="login" v-if="!is_logged_in">
 			<!-- <Login/> -->
-			<v-form class="px-12  py-12" style="background-color: rgb(220,200,220); border-radius: 25px" v-model="valid"> 
-  			  <v-text-field v-model="username" label="username" prepend-icon="person" 
+			<v-form class="px-12  py-12" style="background-color: rgb(220,200,220); border-radius: 25px" v-model="valid">
+  			  <v-text-field v-model="username" label="username" prepend-icon="person"
   			  :rules="usernameRules" :counter="20" required></v-text-field>
-  			  <v-text-field v-model="e_mail" label="e_mail" prepend-icon="mail" 
+  			  <v-text-field v-model="e_mail" label="e_mail" prepend-icon="mail"
   			  :rules="e_mailRules" :counter="20" required></v-text-field>  <!-- e_mail_mark may also be used -->
   			  <v-text-field v-model="password" label="password" prepend-icon="key" type="password"
   			  :rules="passwordRules" :counter="20" required></v-text-field>
@@ -15,11 +15,11 @@
   			  <v-btn flat @click="submit" :disabled="!valid" class="primary mx-0 mt-3">Log In</v-btn>
   			</v-form>
 		</div>
-		
+
 		<Sidebar v-if="is_logged_in" />
 
 		<!-- Content -->
-		
+
 		<router-view class="content"/>
 	</div>
 </template>
@@ -35,7 +35,7 @@ export default {
 //   components: {
 //         AdminView,
 //   },
-	
+
   data() {
     return {
         is_logged_in: false,
@@ -47,21 +47,21 @@ export default {
             v => !!v || 'username is required',
             v => v.length <= 20 || 'username must be less than 20 characters',
         ],
-        
+
         e_mailRules: [
             v => !!v || 'e_mail is required',
             v => /.+@.+/.test(v) || 'E-mail must be valid',
         ],
-        
+
         passwordRules: [
             v => !!v || 'password is required',
         ],
         // socketIoSocket: null
-        
+
     }
   },
   mounted() {
-	this.is_logged_in = false;
+	this.is_logged_in = true;
     // this.socketIoSocket = io();
   },
   methods: {
@@ -70,7 +70,7 @@ export default {
       if (this.username !== "" && this.password !== "" && this.e_mail !== "") {
             let check_data = {
                 "username": this.username,
-                "e_mail": this.e_mail, 
+                "e_mail": this.e_mail,
                 "password": this.password
             }
             console.log(check_data)
@@ -130,7 +130,7 @@ button {
 .content{
 	@media (max-width: 1024px) {
 			margin-left: 64px;
-			
+
 		}
 }
 
