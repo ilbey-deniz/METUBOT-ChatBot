@@ -1,9 +1,6 @@
 <template>
     <v-sheet class="sheet" color="bg2">
         <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
-            <div class="logo">
-                <img :src="logoURL" alt="Vue"/>
-            </div>
             <div class="menu-toggle-wrap">
                 <button class="menu-toggle" @click="ToggleMenu">
                     <span class="material-icons">keyboard_double_arrow_right</span>
