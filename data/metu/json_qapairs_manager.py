@@ -1,8 +1,11 @@
 import json
+import pandas as pd
+
 
 admin_json_path = "./questions_from_admin.json"
 qapairs_path = "../../Elasticsearch/qa_pairs.json"
 qapairs_ascii_path = "../../nlp/fasttext/qa_pairs_ascii.json"
+excel_path = "./metubot.xlsx"
 q_path = "./questions.txt"
 a_path = "./answers.txt"
 c_path = "./categories.txt"
@@ -34,9 +37,22 @@ def add_questions_from_files(path=qapairs_path, overwrite=True, q_path=q_path, a
     for i in range(len(questions)):
         dict["qa-pairs"].append({"question":questions[i].split("#"),"answer":answers[i].split("#"),"category":categories[i]})
     write_json(dict,path)
-def add_questions_from_csv(path=qapairs_path, overwrite=True, q_path=q_path, a_path=a_path, c_path=c_path):
-    #TODO:
-    ...
+
+def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=False):
+    if overwrite:
+        reset_and_initialize_json(path)
+
+    d = pd.read_excel(qpath)
+    q = d['questions'].values.tolist()
+    a = d['answers'].values.tolist()
+    c = d['categories'].values.tolist()
+
+    dict = json.load(open(path))
+    for i in range(len(q)):
+        dict["qa-pairs"].append({"question":q[i],"answer":a[i],"category":c[i]})
+    write_json(dict,path)
+
+    
 def add_questions_manually(questions, answers, category, path=admin_json_path):
     #add new question with 1 question 1 answer and category.
     #for adding more questions and answers to the same pair, use add_alternative_question function
@@ -72,7 +88,7 @@ def edit_questions(mode, structure_type, old=None, new=None, path=qapairs_path):
         print("There's no such answer to remove answer")
     def remove_pair(questionorpair): #removes the qa-pair
         for pair in dict["qa_pairs"]:
-            if questionorpair is pair or questionorpair in pair["question"]:
+            if questionorpair == pair or questionorpair in pair["question"]:
                 dict["qa_pairs"].remove(pair)
                 print("SUCCESS")
                 return
@@ -95,7 +111,7 @@ def edit_questions(mode, structure_type, old=None, new=None, path=qapairs_path):
         print("There's no such old answer to change")
     def change_category(questionorpair, newcategory):
         for pair in dict["qa_pairs"]:
-            if questionorpair is pair or questionorpair in pair["question"]:
+            if questionorpair == pair or questionorpair in pair["question"]:
                 pair["category"] = newcategory
                 print("SUCCESS")
                 return #only changes the first occurence
@@ -115,28 +131,28 @@ def edit_questions(mode, structure_type, old=None, new=None, path=qapairs_path):
                 return #only adds into first occurence
         print("There's no such old question to add its answer")
 
-    if mode is "change" or mode is "swap" or mode is "replace":
-        if structure_type is "question":
+    if mode == "change" or mode == "swap" or mode == "replace":
+        if structure_type == "question":
             change_single_question(old, new)
-        elif structure_type is "answer":
+        elif structure_type == "answer":
             change_single_answer(old, new)
-        elif structure_type is "category":
+        elif structure_type == "category":
             change_category(old, new) #note that old should be a question (str) or a pair (dict)
         else:
             print("UNKNOWN STRUCTURE TYPE, NOTHING WAS REPLACED")
-    elif mode is "add" or mode is "insert" or mode is "append":
-        if structure_type is "question":
+    elif mode == "add" or mode == "insert" or mode == "append":
+        if structure_type == "question":
             add_alternative_question(old,new) #note that old should be an answer (str)
-        elif structure_type is "answer":
+        elif structure_type == "answer":
             add_alternative_answer(old,new)#note that old should be a question (str)
         else:
             print("UNKNOWN STRUCTURE TYPE, NOTHING WAS ADDED")
-    elif mode is "remove" or mode is "delete":
-        if structure_type is "question":
+    elif mode == "remove" or mode == "delete":
+        if structure_type == "question":
             remove_single_question(old)
-        elif structure_type is "answer":
+        elif structure_type == "answer":
             remove_single_answer(old)
-        elif structure_type is "pair":
+        elif structure_type == "pair":
             remove_pair(old) #note that old should be a question (str) or a pair (dict)
         else:
             print("UNKNOWN STRUCTURE TYPE, NOTHING WAS REMOVED")
@@ -149,3 +165,4 @@ def edit_questions(mode, structure_type, old=None, new=None, path=qapairs_path):
 if __name__ == "__main__":
     add_questions_from_files()
 
+add_questions_from_excel()
