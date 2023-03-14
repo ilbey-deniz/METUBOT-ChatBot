@@ -49,7 +49,7 @@ def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=Fals
 
     dict = json.load(open(path))
     for i in range(len(q)):
-        dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i].split("#")})
+        dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]})
     write_json(dict,path)
 
     
