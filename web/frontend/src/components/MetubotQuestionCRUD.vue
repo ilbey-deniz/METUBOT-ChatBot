@@ -202,12 +202,7 @@ export default {
     },
     mounted() {
         this.socketIoSocket = io();
-        axios.get('/admin/qa_pairs').then(response => {
-            this.qa_pairs = response.data['qa-pairs'];
-            console.log({ ...this.qa_pairs });
-        }).catch(error => {
-            console.log(error)
-        })
+        this.initialize();
     },
     computed: {
         formTitle() {
@@ -274,6 +269,13 @@ export default {
         submit() {
 
         },
+        initialize() {
+            axios.get('/admin/qa_pairs').then(response => {
+                this.qa_pairs = response.data['qa-pairs'];
+            }).catch(error => {
+                console.log(error)
+            })
+        }
     },
 
 
