@@ -12,7 +12,7 @@
   			  <v-text-field v-model="password" label="password" prepend-icon="key" type="password"
   			  :rules="passwordRules" :counter="20" required></v-text-field>
   			  <v-spacer></v-spacer>
-  			  <v-btn flat @click="submit" :disabled="!valid" class="primary mx-0 mt-3">Log In</v-btn>
+  			  <v-btn text @click="submit" :disabled="!valid" class="primary mx-0 mt-3">Log In</v-btn>
   			</v-form>
 		</div>
 
