@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import MetuBotView from '../views/MetuBotView.vue'
 import AdminView from '../views/AdminView.vue'
 import MetubotAskedQuestions from '../components/MetubotAskedQuestions.vue'
-import MetubotAddQuestion from '../components/MetubotAddQuestion.vue'
+import MetubotQuestionCRUD from '../components/MetubotQuestionCRUD.vue'
 import MetubotDashboard from '../components/MetubotDashboard.vue'
 
 Vue.use(VueRouter)
@@ -30,7 +30,7 @@ const routes = [
       { path: 'dashboard', component: MetubotDashboard}, //dashboarda soruları koyalım ne dersiniz
       { path: 'tables', component: MetubotAskedQuestions },
       { path: 'charts'},
-      { path: 'addquestion', component: MetubotAddQuestion },
+      { path: 'addquestion', component: MetubotQuestionCRUD },
 
     ],
     component: AdminView,

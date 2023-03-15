@@ -105,6 +105,17 @@ app.post('/', (req, res) => {
     res.send("mesaj alındı");
 })
 
+app.get('/admin/qa_pairs', (req, res) => {
+    // read json file and send it
+    fs.readFile('../../Elasticsearch/qa_pairs.json', 'utf8', function readFileCallback(err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(data);
+        }
+    });
+})
+
 const PORT = process.env.PORT || 3000;
 httpServer.listen(PORT, () => {
     console.log(`listening at http://localhost:${PORT}`);

@@ -29,9 +29,10 @@
                     <span class="text">Grafikler</span>
                 </router-link>
                 <router-link to="/yonetim/addquestion" class="button">
-                    <span class="material-icons">note_add</span>
-                    <span class="text">Soru Ekle</span>
+                    <span class="material-icons">menu</span>
+                    <span class="text">Soru Düzenle</span>
                 </router-link>
+
 
             </div>
             <div class="flex"></div>
