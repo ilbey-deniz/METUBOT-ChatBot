@@ -46,21 +46,21 @@
         </template>
         <v-list dense flat>
             <v-list-item-group>
-                <v-list-item v-if="!likeOrDislike || likeOrDislike === 'like'">
+                <v-list-item v-if="!feedback || feedback === 'like'">
                     <v-list-item-icon>
-                        <v-icon :color="likeOrDislike ? 'green' : ''">mdi-thumb-up</v-icon>
+                        <v-icon :color="feedback ? 'green' : ''">mdi-thumb-up</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title v-if="likeOrDislike" @click="onLike">Beğenildi</v-list-item-title>
+                        <v-list-item-title v-if="feedback" @click="onLike">Beğenildi</v-list-item-title>
                         <v-list-item-title v-else @click="onLike">Beğen</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item v-if="!likeOrDislike || likeOrDislike === 'dislike'">
+                <v-list-item v-if="!feedback || feedback === 'dislike'">
                     <v-list-item-icon>
-                        <v-icon :color="likeOrDislike ? 'red' : ''">mdi-thumb-down</v-icon>
+                        <v-icon :color="feedback ? 'red' : ''">mdi-thumb-down</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title v-if="likeOrDislike" @click="onDislike">Beğenilmedi</v-list-item-title>
+                        <v-list-item-title v-if="feedback" @click="onDislike">Beğenilmedi</v-list-item-title>
                         <v-list-item-title v-else @click="onDislike">Beğenme</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
@@ -93,7 +93,8 @@ export default {
     },
     data() {
         return {
-            likeOrDislike: null,
+            feedback: '',
+            feedbackText: '',
             likeDialog: false,
             dislikeDialog: false,
         }
@@ -115,13 +116,13 @@ export default {
             return hour + ":" + minute;
         },
         onLike() {
-            this.likeOrDislike = 'like';
+            this.feedback = 'like';
             this.likeDialog = true;
 
 
         },
         onDislike() {
-            this.likeOrDislike = 'dislike';
+            this.feedback = 'dislike';
             this.dislikeDialog = true;
         }
 
