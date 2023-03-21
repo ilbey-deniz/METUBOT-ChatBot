@@ -9,8 +9,10 @@ from numpy.linalg import norm
 from pathlib import Path
 import random
 
-# fasttext.util.download_model('tr', if_exists='ignore')
+#fasttext.util.download_model('tr', if_exists='ignore')
 
+MODEL_DIR = r"./cc.tr.300.bin"
+ft = None
 
 cos_sim = lambda q_vector, vector : np.dot(q_vector, vector)/(norm(q_vector)*norm(vector))
 
@@ -116,7 +118,9 @@ def categoryHeuristic(query, questions):
     return max_category
 
 
-def getQuestionVectors(ft, raw_questions):
+def getQuestionVectors(raw_questions):
+    global ft
+
     question_vectors = {}
     for key in raw_questions:
         question_vectors[key] = []
@@ -127,7 +131,9 @@ def getQuestionVectors(ft, raw_questions):
 # adds a new field 'q_vectors' 
 # that stores sentence vectors of each question.
 # IMPORTANT: assign the result to QA constant array  
-def NEWgetQuestionVectors(ft, questions_answers):
+def NEWgetQuestionVectors(questions_answers):
+    global ft
+
     for qa_pair in questions_answers:
         if "q_vectors" not in qa_pair:
             qa_pair["q_vectors"] = []
@@ -135,7 +141,9 @@ def NEWgetQuestionVectors(ft, questions_answers):
             qa_pair["q_vectors"].append(ft.get_sentence_vector(qa_pair["question"][q]))
     return questions_answers  
 
-def questionClassifier(ft, user_question, question_vectors, raw_questions):
+def questionClassifier(user_question, question_vectors, raw_questions):
+    global ft
+
     q_vector = ft.get_sentence_vector(user_question)
 
     most_similar_question = ""
@@ -177,7 +185,9 @@ def questionClassifier(ft, user_question, question_vectors, raw_questions):
     return (most_similar_category, most_similar_question)
 
 
-def NEWquestionClassifier(ft, user_question, questions_answers):
+def NEWquestionClassifier(user_question, questions_answers):
+    global ft
+
     q_vector = ft.get_sentence_vector(user_question)
 
     most_similar_question = ""
@@ -203,20 +213,31 @@ def NEWquestionClassifier(ft, user_question, questions_answers):
         return None
     return most_similar_indice
 
-def getAnswer(ft, user_question):
+def getAnswer(user_question):
+    global ft
     global QUESTION_VECTORS
 
     if QUESTION_VECTORS=={}:
-        QUESTION_VECTORS = getQuestionVectors(ft, QUESTIONS)
-    category,question = questionClassifier(ft, user_question, question_vectors=QUESTION_VECTORS, raw_questions=QUESTIONS)
+        QUESTION_VECTORS = getQuestionVectors(QUESTIONS)
+    category,question = questionClassifier(user_question, question_vectors=QUESTION_VECTORS, raw_questions=QUESTIONS)
     ans = ANSWERS[category]
     return ans
 
-def NEWgetAnswer(ft, user_question):
+def NEWgetAnswer(user_question):
+    global ft
     global QA
-    QA = NEWgetQuestionVectors(ft, QA)
-    q_index = NEWquestionClassifier(ft, user_question, questions_answers=QA)
+
+    QA = NEWgetQuestionVectors(QA)
+    q_index = NEWquestionClassifier(user_question, questions_answers=QA)
     if not q_index:
         return DEFAULT_ANSWER
     ans = random.choice(QA[q_index]["answer"])
     return ans
+
+def init():
+    global ft
+
+    ft = fasttext.load_model(MODEL_DIR)
+
+def vectorize(question):
+    return ft.get_sentence_vector(question)

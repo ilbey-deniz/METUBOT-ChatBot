@@ -1,4 +1,5 @@
 import json
+import nlp.fast as fast
 from elasticsearch import Elasticsearch
 
 # Converting these functions into a class may be a good idea
@@ -17,6 +18,10 @@ def initQAIndex():
         "join": {
             "type": "join",
             "relations": {"answer": "question"}
+        },
+        "vector": {
+            "type": "dense_vector",
+            "dims": 300
         }
     }
 
@@ -56,11 +61,12 @@ def initQAIndex():
     }
 
     # To delete index: curl -X DELETE "localhost:9200/question-answer"
+    es.indices.delete(index="question-answer", ignore_unavailable=True)
     es.indices.create(index="question-answer", settings=settings)
     es.indices.put_mapping(index="question-answer", properties=mapping_properties)
 
 # Fill from file, overwrites starting from index 0
-def fillQAIndex(qa_file):
+def fillQAIndexNaive(qa_file):
 
     es = Elasticsearch("http://localhost:9200")
 
@@ -74,13 +80,45 @@ def fillQAIndex(qa_file):
                 "name": "question",
                 "parent": str(index_ctr)
             },
-            "body": i["question"][0]
+            "body": i["question"][0],
+            "vector": [0] * 300
         }
         a = {
             "join": {
                 "name": "answer",
             },
-            "body": i["answer"][0]
+            "body": i["answer"][0],
+            "vector": [0] * 300
+        }
+        es.index(index="question-answer", document=a, id=index_ctr)
+        index_ctr = index_ctr + 1
+        es.index(index="question-answer", document=q, id=index_ctr, routing=True)
+        index_ctr = index_ctr + 1
+
+# Fill from fasttext, overwrites starting from index 0
+def fillQAIndexFast(qa_file):
+
+    es = Elasticsearch("http://localhost:9200")
+
+    f = open(qa_file)
+    data = json.load(f)
+    
+    index_ctr=0
+    for i in data ["qa-pairs"]:
+        q = {
+            "join": {
+                "name": "question",
+                "parent": str(index_ctr)
+            },
+            "body": i["question"][0],
+            "vector": fast.vectorize(i["question"][0])
+        }
+        a = {
+            "join": {
+                "name": "answer",
+            },
+            "body": i["answer"][0],
+            "vector": fast.vectorize(i["answer"][0])
         }
         es.index(index="question-answer", document=a, id=index_ctr)
         index_ctr = index_ctr + 1
@@ -88,7 +126,7 @@ def fillQAIndex(qa_file):
         index_ctr = index_ctr + 1
 
 # We will use this to get answer, I "guess" index 0 contains the max score result
-def getResponse(question):
+def getResponseNaive(question):
 
     es = Elasticsearch("http://localhost:9200")
 
@@ -103,6 +141,59 @@ def getResponse(question):
             "max_query_terms": 12
         }
     })
+
+    if len(response["hits"]["hits"]) > 0:
+        temp = response["hits"]["hits"][0]["_source"]
+
+        if temp["join"]["name"] == "question":
+            answer_resp = es.search(index="question-answer", query={
+                "has_child": {
+                    "type": "question",
+                    "query": {
+                        "ids": {
+                            "values": [response["hits"]["hits"][0]["_id"]]
+                        }
+                    }
+                }
+            })
+
+            temp = answer_resp["hits"]["hits"][0]["_source"]
+        
+        return temp["body"]
+    else:
+        # No hit
+        return "Üzgünüm, ne sormak istediğinizi anlayamadım."
+    
+# We will use this to get answer, I "guess" index 0 contains the max score result
+def getResponse(question):
+    print(len(fast.vectorize(question)))
+
+    es = Elasticsearch("http://localhost:9200")
+
+    # Search questions
+    response = es.search(index="question-answer", query={
+        "more_like_this": {
+            "fields": ["body"],
+            "like": question,
+            "analyzer": "custom_turkish",
+            "min_term_freq": 1,
+            "min_doc_freq": 1,
+            "max_query_terms": 12
+        }
+    })
+
+    response = es.search(index="question-answer", query={
+        "script_score": {
+            "query": {"match_all": {}},
+            "script": {
+                "source": "cosineSimilarity(params.query_vector, doc['vector'])",
+                "params": {"query_vector": fast.vectorize(question)}
+            }
+        }
+    })
+
+    print(fast.vectorize(question))
+    print(response)
 
     if len(response["hits"]["hits"]) > 0:
         temp = response["hits"]["hits"][0]["_source"]
@@ -154,4 +245,4 @@ def getSimiliarQuestion(question):
 # We need to run this file to initialize Elasticsearch before sending requests
 if __name__ == "__main__":
     initQAIndex()
-    fillQAIndex("qa_pairs.json")
+    fillQAIndexNaive("qa_pairs.json")
