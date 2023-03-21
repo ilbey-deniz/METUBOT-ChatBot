@@ -44,7 +44,7 @@ export default {
             else {
 
                 if (this.TRU) {
-                    document.title = 'BENİ GÖRMEZDEN GELME 😠';
+                    document.title = 'GERİ GEL 😠';
                 }
                 else {
                     document.title = 'METUBOT';
