@@ -1,26 +1,38 @@
-from flask import Flask, jsonify, request, Response
+from flask import Flask, jsonify, request, Response, render_template
+import json
+from flask_socketio import SocketIO, send, emit
+from threading import Timer
 from ElasticAnswerer import ElasticAnswerer
 from FasttextAnswerer import FasttextAnswerer
+from Answerer import Answerer
 from AnswerGeneratorMetu import AnswerGeneratorMetu
 from data.metu.json_qapairs_manager import add_questions_manually
-from backend.database.mysql.questions import *
+#from backend.database.mysql.questions import *
 
-app = Flask(__name__)
+USE_FAST = True
 
 answer_generator = AnswerGeneratorMetu()
-elastic_answerer = ElasticAnswerer(answer_generator)
-fasttext_answerer = FasttextAnswerer(answer_generator)
 
-@app.route('/ask')
-def get_incomes():
-    return elastic_answerer.generatedAnswer(request.args.get('question'))
+if USE_FAST:
+    answerer: Answerer = FasttextAnswerer(answer_generator)
+else:
+    answerer: Answerer = ElasticAnswerer(answer_generator)
 
-@app.route('/askFast')
-def get_incomes_fast():
-    return fasttext_answerer.generatedAnswer(request.args.get('question'))
+app = Flask(__name__,
+            static_folder = "./web/frontend/dist/static",
+            template_folder = "./web/frontend/dist")
+
+app.config['SECRET_KEY'] = '\xc9\xf6yGRi{k%9>\x0bQI\xe6)\x0f\xaf\xc0\x05\x8b\xc7\x87\x8c'
+socketio = SocketIO(app)
+
+
+@app.route('/')
+def index():
+    return render_template("index.html")
 
 @app.route('/addQuestion')
 def add_one_questions():
+    print('ADDING QUESTİON')
     category = request.args.get("category")
     question = request.args.get("question")
     answer = request.args.get("answer")
@@ -32,6 +44,12 @@ def add_one_questions():
     response = Response(response_message, mimetype="application/json", status=200)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+@app.route('/admin/qa_pairs')
+def get_qa_pairs():
+       with open('Elasticsearch/qa_pairs.json', encoding="utf8") as qa_pairs:
+           data = json.load(qa_pairs)
+           return jsonify(data)
 
 
 @app.route('/getAllQuestions')
@@ -48,6 +66,7 @@ def get_all_questions():
 
 @app.route('/reportQuestion')
 def report_questions():
+    print('REPORTİNG QUESTİON')
     question_id = request.args.get("question_id")
     similarity = request.args.get("similarity")
     asked_question = request.args.get("asked_question")
@@ -73,6 +92,26 @@ def get_all_report():
     return response
 
 
+def emit_chat_answer(sid, message):
+    socketio.emit('chat answer', message, room=sid)
+
+@socketio.on('connect')
+def connect_message():
+    print('socket io connected with id: ', request.sid)
+    emit('chat answer', { 'answer': 'Merhaba, ben Metubot 🤖', 'finished': False })
+
+    second_message = { 'answer': 'Sizlere nasıl yardımcı olabilirim?', 'finished': True }
+    Timer(0.777, emit_chat_answer, (request.sid, second_message)).start()
+
+@socketio.on('chat question')
+def handle_question(msg):
+    #print('question: ' + msg)
+    answer = answerer.generatedAnswer(msg)
+    emit('chat answer', { 'answer': answer, 'finished': True })
+
+
 if __name__ == "__main__":
-    print("NLP Backend api started. Ask your question with get request to /ask?question=your_question")
-    app.run(host="0.0.0.0", port="8080", debug=False)
+    print("NLP Backend api started. Ask your question with socket io")
+
+    socketio.run(app, host="0.0.0.0", port="3000", debug=False, allow_unsafe_werkzeug=True)
+

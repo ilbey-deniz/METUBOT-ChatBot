@@ -61,6 +61,7 @@
 import Vue from 'vue'
 import { io } from "socket.io-client";
 import MetubotChatMessage from '@/components/MetubotChatMessage.vue';
+import axios from 'axios';
 
 export default {
     name: 'MetubotChat',
@@ -187,7 +188,7 @@ export default {
             }
             console.log(this.qa_pair.question)
             console.log(this.qa_pair.answer)
-            this.socketIoSocket.emit('report question', this.qa_pair);
+            axios.get(`/reportQuestion?question=${this.qa_pair.question}&answer=${this.qa_pair.answer}&created_at=${this.qa_pair.created_at}`)
             this.qa_pair = {
                 question: "",
                 answer: "",
