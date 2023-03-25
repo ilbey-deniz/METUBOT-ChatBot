@@ -19,8 +19,8 @@ else:
     answerer: Answerer = ElasticAnswerer(answer_generator)
 
 app = Flask(__name__,
-            static_folder = "./web/frontend/dist/static",
-            template_folder = "./web/frontend/dist")
+            static_folder = "./frontend/dist/static",
+            template_folder = "./frontend/dist")
 
 app.config['SECRET_KEY'] = '\xc9\xf6yGRi{k%9>\x0bQI\xe6)\x0f\xaf\xc0\x05\x8b\xc7\x87\x8c'
 socketio = SocketIO(app)

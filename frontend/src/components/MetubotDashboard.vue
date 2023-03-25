@@ -1,5 +1,5 @@
 <!-- <template>
-    
+
     <div>
         <v-container class="pa-0 fill-height">
             <v-row>
@@ -49,7 +49,7 @@
 
 <script>
 import AdminView from '../views/AdminView.vue'
-import QAPairs from '../../../../Elasticsearch/qa_pairs.json'
+import QAPairs from '../../../Elasticsearch/qa_pairs.json'
 
 export default {
     name: "MetubotAskedQuestions",
