@@ -1,5 +1,6 @@
 import json
 import pandas as pd
+from pathlib import Path
 
 
 admin_json_path = "./questions_from_admin.json"
@@ -165,4 +166,4 @@ def edit_questions(mode, structure_type, old=None, new=None, path=qapairs_path):
 if __name__ == "__main__":
     add_questions_from_files()
 
-add_questions_from_excel()
+#add_questions_from_excel()

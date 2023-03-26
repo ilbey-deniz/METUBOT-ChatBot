@@ -4,19 +4,18 @@ from flask_socketio import SocketIO, send, emit
 from threading import Timer
 from ElasticAnswerer import ElasticAnswerer
 from FasttextAnswerer import FasttextAnswerer
+from DummyAnswerer import DummyAnswerer
 from Answerer import Answerer
 from AnswerGeneratorMetu import AnswerGeneratorMetu
 from data.metu.json_qapairs_manager import add_questions_manually
-#from backend.database.mysql.questions import *
+from backend.database.mysql.questions import *
 
-USE_FAST = True
 
 answer_generator = AnswerGeneratorMetu()
 
-if USE_FAST:
-    answerer: Answerer = FasttextAnswerer(answer_generator)
-else:
-    answerer: Answerer = ElasticAnswerer(answer_generator)
+#answerer: Answerer = FasttextAnswerer(answer_generator)
+#answerer: Answerer = ElasticAnswerer(answer_generator)
+answerer: Answerer = DummyAnswerer(answer_generator)
 
 app = Flask(__name__,
             static_folder = "./frontend/dist/static",

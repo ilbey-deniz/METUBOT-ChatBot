@@ -4,8 +4,9 @@ from backend.database.mysql.mysql_helper import *
 import json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
+DATABASE_NAME = "denemeQ"
 
 # *Consider collecting all function into Class
 
@@ -13,18 +14,20 @@ def create_db(db_name):
     connect_1 = Connector()
     try:
         connect_1.execute_query_and_commit(f"CREATE DATABASE {db_name};")
+        return connect_1
     except:
         print(f"error,can not create {db_name} database")
     try:
         connect_1.execute_query_and_commit(f"USE {db_name};")
+        return connect_1
     except:
         print(f"error, unable to use {db_name}")
 
 
 # *change this function later. Add db_name parameter.
 def create_session():
-    create_db("denemeQ")
-    engine = create_engine("mysql+mysqlconnector://root:miniklim10@localhost/denemeQ")
+    con = create_db(DATABASE_NAME)
+    engine = create_engine(f"mysql+mysqlconnector://{con.user}:{con.password}@{con.host}/{DATABASE_NAME}")
     Base.metadata.create_all(bind=engine)
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -81,11 +84,121 @@ def add_multiple_questions_from_json(json_data):
     session.close()
 
 
-def delete_question_with_id(question_id: int):
+def increase_question_count(question_id: int):
     session = create_session()
-    session.query(Questions).filter_by(id=question_id).delete()
+    session.query(Questions).filter_by(Qid=question_id).update({Questions.count: Questions.count + 1})
+    session.flush()
     session.commit()
     session.close()
+
+
+def increase_question_count_with_str(question: str):
+    session = create_session()
+    session.query(Questions).filter_by(question=question).update({Questions.count: Questions.count + 1})
+    session.flush()
+    session.commit()
+    session.close()
+
+# ?parameter can be converted to question instead of question_id
+def update_question(question_id: int, question, answer, category):
+    session = create_session()
+    session.query(Questions).filter_by(Qid=question_id).update(
+        {Questions.question: question, Questions.answer: answer, Questions.category: category})
+    session.flush()
+    session.commit()
+    session.close()
+
+# ?parameter can be converted to question instead of question_id
+def delete_question_with_id(question_id: int):
+    session = create_session()
+    session.query(Questions).filter_by(Qid=question_id).delete()
+    session.commit()
+    session.close()
+
+
+def get_most_frequent_questions(limit_count: int):
+    session = create_session()
+    res = session.query(Questions).order_by(desc(Questions.count)).limit(limit_count).all()
+    result_list = []
+    for r in res:
+        temp = dict()
+        temp["id"] = r.Qid
+        temp["question"] = r.question
+        temp["answer"] = r.answer
+        temp["category"] = r.category
+        temp["count"] = r.count
+        result_list.append(temp)
+    return result_list
+
+
+# TODO: get most liked/disliked questions
+def get_most_liked_questions(limit_count: int):
+    session = create_session()
+
+
+# get disliked/liked feedbacks
+def advance_query_feedbacks(is_liked: bool, min_similarity=0.0, max_similarity=1.0):
+    is_liked = 1 if is_liked else 0
+    session = create_session()
+    res = session.query(Questions, Feedbacks). \
+        select_from(Questions).join(Feedback_activity).join(Feedbacks).filter(
+        Questions.Qid == Feedback_activity.Qid
+    ).filter(
+        Feedbacks.Fid == Feedback_activity.Fid
+    ).filter(Feedbacks.is_liked == is_liked).filter(
+        Feedbacks.similarity >= min_similarity).filter(Feedbacks.similarity <= max_similarity).all()
+    results = []
+    for q, f in res:
+        temp = dict()
+        temp["asked_question"] = f.asked_question
+        temp["question"] = q.question
+        temp["similarity"] = f.similarity
+        temp["is_liked"] = f.is_liked
+        temp["report_message"] = f.report_message
+        results.append(temp)
+
+    return results
+
+
+# TODO: get avg like/dislike ratio
+
+# get avg similarity
+def get_average_similarity():
+    session = create_session()
+    res = session.query(func.avg(Feedbacks.similarity)).scalar()
+    return res
+
+
+# TODO: get most feedback taken question (res <= feedback count/question count)
+
+# get feedback in (X days)
+def get_feedbacks_with_time(day_count: int):
+    '''
+    get all the feedbacks in last X day, where X is day_count parameter.
+    :param day_count: total # of passed day from current day.
+    :return: feedback datas within specified days.
+    '''
+    query_date = date.today() + timedelta(days=-day_count)
+    print(query_date)
+    session = create_session()
+    res = session.query(Questions, Feedbacks). \
+        select_from(Questions).join(Feedback_activity).join(Feedbacks).filter(
+        and_(Feedbacks.Fid == Feedback_activity.Fid), Questions.Qid == Feedback_activity.Qid
+    ).filter(
+        func.date(Feedback_activity.created_at) >= query_date
+    ).all()
+
+    results = []
+    for q, f in res:
+        temp = dict()
+        temp["asked_question"] = f.asked_question
+        temp["question"] = q.question
+        temp["similarity"] = f.similarity
+        temp["is_liked"] = f.is_liked
+        temp["report_message"] = f.report_message
+        results.append(temp)
+
+    return results
 
 
 def query_all_questions():
@@ -94,6 +207,7 @@ def query_all_questions():
     results = []
     for r in res:
         temp = dict()
+        temp["id"] = r.Qid
         temp["question"] = r.question
         temp["answer"] = r.answer
         temp["category"] = r.category
@@ -154,3 +268,20 @@ if __name__ == "__main__":
 
     a = query_all_feedbacks()
     print(a)
+
+    increase_question_count(12)
+    increase_question_count_with_str("saat kaç")
+    increase_question_count_with_str("saat kaç")
+    increase_question_count_with_str("saat kaç")
+    increase_question_count_with_str("saat kaç")
+    r = get_most_frequent_questions(2)
+    print(r)
+
+    a_q_f = advance_query_feedbacks(True, 0.2, 0.81)
+    print(a_q_f)
+
+    avg_similarity = get_average_similarity()
+    print(avg_similarity)
+
+    feedback_w_day = get_feedbacks_with_time(7)
+    print(feedback_w_day)
