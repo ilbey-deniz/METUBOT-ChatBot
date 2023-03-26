@@ -53,7 +53,7 @@
                                             <v-container>
                                                 <v-row>
                                                     <v-col>
-                                                        <v-form  v-model="valid">
+                                                        <v-form v-model="valid">
                                                             <v-text-field v-model="editedItem.category" label="Category"
                                                                           prepend-icon="category"
                                                                           :rules="categoryRules" :counter="30"
@@ -220,24 +220,24 @@ export default {
 
     methods: {
 
-        editItem (item) {
+        editItem(item) {
             this.editedIndex = this.qa_pairs.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
 
-        deleteItem (item) {
+        deleteItem(item) {
             this.editedIndex = this.qa_pairs.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialogDelete = true
         },
 
-        deleteItemConfirm () {
+        deleteItemConfirm() {
             this.qa_pairs.splice(this.editedIndex, 1)
             this.closeDelete()
         },
 
-        close () {
+        close() {
             this.dialog = false
             this.$nextTick(() => {
                 this.editedItem = Object.assign({}, this.defaultItem)
@@ -245,7 +245,7 @@ export default {
             })
         },
 
-        closeDelete () {
+        closeDelete() {
             this.dialogDelete = false
             this.$nextTick(() => {
                 this.editedItem = Object.assign({}, this.defaultItem)
@@ -253,15 +253,18 @@ export default {
             })
         },
 
-        save () {
+        save() {
             console.log(this.editedItem)
             if (this.editedIndex > -1) {
                 Object.assign(this.qa_pairs[this.editedIndex], this.editedItem);
-                if (this.category !== "" && this.answer !== "" && this.question !== "") {
-                    this.socketIoSocket.emit('add question', this.editedItem);
+                if (this.editedItem.question !== "" && this.editedItem.answer !== "" && this.editedItem.category !==
+                        "") {
                     this.valid = false;
                 }
-            } else {
+            }
+            else {
+                axios.get(
+                        `/addQuestion?category=${this.editedItem.category}&question=${this.editedItem.question}&answer=${this.editedItem.answer}`)
                 this.qa_pairs.push(this.editedItem);
             }
             this.close()
@@ -275,9 +278,8 @@ export default {
             }).catch(error => {
                 console.log(error)
             })
-        }
+        },
     },
-
 
 }
 </script>
