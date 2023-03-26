@@ -1,10 +1,7 @@
 from flask import Flask
-from restapi.resources import fast_text_api
 app = Flask(__name__)
 
 url_pref = "/metubot/v1"
-
-app.register_blueprint(fast_text_api.fast_text, url_prefix=url_pref)
 
 def run():
 
