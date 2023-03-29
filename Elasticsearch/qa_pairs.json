@@ -183,6 +183,283 @@
                 "GET_CAFETERIA_PRICE"
             ],
             "category": "kafeterya"
+        },
+        {
+            "question": [
+                "bölümümün kodu nedir",
+                "bölümümün kısaltması nedir"
+            ],
+            "answer": [
+                {
+                    "type": "button",
+                    "text": "Mimarlık Fakültesi",
+                    "answer": [
+                        {
+                            "type": "button",
+                            "text": "Mimarlık Bölümü",
+                            "answer": [
+                                "ARCH kısaltmalı bölümün kodu 120'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Şehir ve Bölge Planlama Bölümü",
+                            "answer": [
+                                "CRP kısaltmalı bölümün kodu 121'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Endüstriyel Tasarım Bölümü",
+                            "answer": [
+                                "ID kısaltmalı bölümün kodu 125'tir."
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "button",
+                    "text": "Fen Edebiyat Fakültesi",
+                    "answer": [
+                        {
+                            "type": "button",
+                            "text": "Fizik Bölümü",
+                            "answer": [
+                                "PHYS kısaltmalı bölümün kodu 230'tür."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Moleküler Biyoloji ve Genetik Bölümü",
+                            "answer": [
+                                "GENE kısaltmalı bölümün kodu 219'dır."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Biyoloji Bölümü",
+                            "answer": [
+                                "BIOL kısaltmalı bölümün kodu 238'dır."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Kimya Bölümü",
+                            "answer": [
+                                "CHEM kısaltmalı bölümün kodu 234'tür."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Tarih Bölümü",
+                            "answer": [
+                                "HIST kısaltmalı bölümün kodu 240'tır."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Matematik Bölümü",
+                            "answer": [
+                                "MATH kısaltmalı bölümün kodu 236'dır."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Felsefe Bölümü",
+                            "answer": [
+                                "PHIL kısaltmalı bölümün kodu 241'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Psikoloji Bölümü",
+                            "answer": [
+                                "PSY kısaltmalı bölümün kodu 233'tür."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Sosyoloji Bölümü",
+                            "answer": [
+                                "SOC kısaltmalı bölümün kodu 232'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "İstatistik Bölümü",
+                            "answer": [
+                                "STAT kısaltmalı bölümün kodu 246'dır."
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "button",
+                    "text": "İktisadi ve İdari Bilimler Fakültesi",
+                    "answer": [
+                        {
+                            "type": "button",
+                            "text": "İşletme Bölümü",
+                            "answer": [
+                                "BA kısaltmalı bölümün kodu 312'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "İktisat Bölümü",
+                            "answer": [
+                                "ECON kısaltmalı bölümün kodu 311'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Uluslararası İlişkiler Bölümü",
+                            "answer": [
+                                "IR kısaltmalı bölümün kodu 314'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Siyaset Bilimi ve Kamu Yönetimi Bölümü",
+                            "answer": [
+                                "ADM kısaltmalı bölümün kodu 310'dur."
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "button",
+                    "text": "Eğitim Fakültesi",
+                    "answer": [
+                        {
+                            "type": "button",
+                            "text": "Bilgisayar ve Öğretim Teknolojileri Eğitimi Bölümü",
+                            "answer": [
+                                "CEIT kısaltmalı bölümün kodu 121'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Okul Öncesi Öğretmenliği Bölümü",
+                            "answer": [
+                                "ECE kısaltmalı bölümün kodu 411'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Yabancı Diller Eğitimi Bölümü",
+                            "answer": [
+                                "FLE kısaltmalı bölümün kodu 450'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Matematik ve Fen Bilimleri Eğitimi Bölümü",
+                            "answer": [
+                                "MSE kısaltmalı bölümün kodu 460'tır."
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "button",
+                    "text": "Mühendislik Fakültesi",
+                    "answer": [
+                        {
+                            "type": "button",
+                            "text": "Havacılık ve Uzay Mühendisliği Bölümü",
+                            "answer": [
+                                "AEE kısaltmalı bölümün kodu 572'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Kimya Mühendisliği Bölümü",
+                            "answer": [
+                                "CHE kısaltmalı bölümün kodu 563'tür."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "İnşaat Mühendisliği Bölümü",
+                            "answer": [
+                                "CE kısaltmalı bölümün kodu 562'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Bilgisayar Mühendisliği Bölümü",
+                            "answer": [
+                                "CENG kısaltmalı bölümün kodu 571'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Elektrik ve Elektronik Mühendisliği Bölümü",
+                            "answer": [
+                                "EE kısaltmalı bölümün kodu 567'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Mühendislik Bilimleri Bölümü",
+                            "answer": [
+                                "ES kısaltmalı bölümün kodu 561'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Çevre Mühendisliği Bölümü",
+                            "answer": [
+                                "ENVE kısaltmalı bölümün kodu 560'tır."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Jeoloji Mühendisliği Bölümü",
+                            "answer": [
+                                "GEOE kısaltmalı bölümün kodu 564'tür."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Endüstri Mühendisliği Bölümü",
+                            "answer": [
+                                "IE kısaltmalı bölümün kodu 568'dir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Makina Mühendisliği Bölümü",
+                            "answer": [
+                                "ME kısaltmalı bölümün kodu 569'dur."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Metalurji ve Malzeme Mühendisliği Bölümü",
+                            "answer": [
+                                "METE kısaltmalı bölümün kodu 570'tir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Maden Mühendisliği Bölümü",
+                            "answer": [
+                                "MINE kısaltmalı bölümün kodu 565'tir."
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "text": "Petrol ve Doğal Gaz Mühendisliği Bölümü",
+                            "answer": [
+                                "PETE kısaltmalı bölümün kodu 566'dir."
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "category": "diyalog"
         }
     ]
 }
