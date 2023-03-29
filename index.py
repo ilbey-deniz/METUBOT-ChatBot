@@ -46,7 +46,7 @@ def add_one_questions():
 
 @app.route('/admin/qa_pairs')
 def get_qa_pairs():
-       with open('Elasticsearch/qa_pairs.json', encoding="utf8") as qa_pairs:
+       with open('nlp/qa_pairs.json', encoding="utf8") as qa_pairs:
            data = json.load(qa_pairs)
            return jsonify(data)
 

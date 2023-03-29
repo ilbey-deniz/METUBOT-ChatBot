@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 admin_json_path = "./questions_from_admin.json"
-qapairs_path = "../../Elasticsearch/qa_pairs.json"
+qapairs_path = "../../nlp/qa_pairs.json"
 qapairs_ascii_path = "../../nlp/fasttext/qa_pairs_ascii.json"
 excel_path = "./metubot.xlsx"
 q_path = "./questions.txt"
