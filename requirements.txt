@@ -3,3 +3,4 @@ mysql-connector
 python-dotenv
 sqlalchemy
 flask
+flask-socketio
