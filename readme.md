@@ -25,7 +25,7 @@ pm2 start node.js
 #### Python
 gerekli paketlerin kurulması
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 backend'i çalıştırma
 ```
