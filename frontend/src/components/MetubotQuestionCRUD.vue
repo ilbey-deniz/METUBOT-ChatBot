@@ -3,8 +3,6 @@
         <v-row>
             <v-col>
                 <v-card>
-
-
                     <v-data-table
                             :headers="headers"
                             :items="qa_pairs"
@@ -33,13 +31,7 @@
                                         v-model="dialog"
                                         max-width="500px"
                                 >
-                                <!-- EXCEL INPUTU EKLEME KODU -->
-                                <v-file-input
-                                chips
-                                hide-input
-                                truncate-length="12"
-                                ></v-file-input>
-                                <!-- EXCEL INPUTU EKLEME KODU SONU -->
+
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-btn
                                                 color="primary"
@@ -50,6 +42,13 @@
                                         >
                                             Yeni Soru
                                         </v-btn>
+                                        <!-- EXCEL INPUTU EKLEME KODU -->
+                                        <v-file-input
+                                        chips
+                                        hide-input
+                                        truncate-length="10"
+                                        ></v-file-input>
+                                        <!-- EXCEL INPUTU EKLEME KODU SONU -->
                                     </template>
                                     <v-card>
                                         <v-card-title>
