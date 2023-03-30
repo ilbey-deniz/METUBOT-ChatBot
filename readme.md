@@ -23,6 +23,11 @@ npm install
 pm2 start node.js
 ```
 #### Python
+gerekli paketlerin kurulması
+```
+pip install -r requirements.txt
+```
+backend'i çalıştırma
 ```
 pm2 start index.py --interpreter python3
 ```
