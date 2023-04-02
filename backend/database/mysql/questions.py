@@ -1,37 +1,7 @@
-from backend.database.mysql.connector import Connector
-from backend.database.mysql.mysql_helper import *
+from backend.database.mysql.connector import *
 
 import json
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from datetime import datetime, date, timedelta
-
-DATABASE_NAME = "denemeQ"
-
-# *Consider collecting all function into Class
-
-def create_db(db_name):
-    connect_1 = Connector()
-    try:
-        connect_1.execute_query_and_commit(f"CREATE DATABASE {db_name};")
-        return connect_1
-    except:
-        print(f"error,can not create {db_name} database")
-    try:
-        connect_1.execute_query_and_commit(f"USE {db_name};")
-        return connect_1
-    except:
-        print(f"error, unable to use {db_name}")
-
-
-# *change this function later. Add db_name parameter.
-def create_session():
-    con = create_db(DATABASE_NAME)
-    engine = create_engine(f"mysql+mysqlconnector://{con.user}:{con.password}@{con.host}/{DATABASE_NAME}")
-    Base.metadata.create_all(bind=engine)
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    return session
 
 
 def add_question(question, answer, category):

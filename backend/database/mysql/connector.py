@@ -1,6 +1,10 @@
 import mysql.connector as Connect
 import os
 from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from backend.database.mysql.mysql_helper import *
+
 load_dotenv()
 
 #  useful link for mysql.connector: https://linuxhint.com/cursor-execute-python/
@@ -11,8 +15,9 @@ class Connector:
         self.host = os.getenv('HOST')
         self.user = os.getenv('USER')
         self.password = os.getenv('PASSWORD')
+        if not database:
+            self.database = os.getenv('DATABASE')
         # add port if necessary
-        self.database = database
         self.connect()
 
     def connect(self):
@@ -62,48 +67,25 @@ class Connector:
         self.execute_query_and_commit(query)
 
 
-# connect_1 = Connector("Mefebe")
-
-# connect_1.execute_query_and_commit("CREATE TABLE Person ("
-#                                    "PersonID int,"
-#                                    "LastName varchar(255),"
-#                                    "FirstName varchar(255),"
-#                                    "City varchar(255));")
-#
-#
-# query = ('INSERT INTO Person (PersonID, LastName, FirstName, City) VALUES (%s, %s, %s, %s)')
-# vals = [
-#         (1, "Ali", "Veli", "Ankara"),
-#         (2, "Amat", "Saygıç", "Ankara"),
-#         (3, "Memet", "Maraz", "Konya"),
-#         (4, "Dumrul", "Deli", "Ankara"),
-#         (5, "Bekir", "Limon", "Kayseri"),
-#         (6, "Temel", "Semir", "Ankara")
-#        ]
-
-#
-# cursor = connect_1.get_cursor()
-#
-# cursor.executemany(query, vals)
-#
-# connect_1.con.commit()
-
-# conn = connect_1.get_con()
-#
-# mycursor = conn.cursor()
-#
-# query = 'INSERT INTO MOVIE (id, name, year) VALUES (%s, %s, %s)'
-# val = [(2, "Kung Fu panda", 2014),
-#        (4, "Frozen", 2014),
-#        (5, "Frozen2", 2020),
-#        (6, "Iron Man", 2013)
-#
-#        ]
-#
-# mycursor.executemany(query,val)
-#
-# conn.commit()
+def create_db(db_name):
+    connect_1 = Connector()
+    try:
+        connect_1.execute_query_and_commit(f"CREATE DATABASE {db_name};")
+        return connect_1
+    except:
+        print(f"error,can not create {db_name} database")
+    try:
+        connect_1.execute_query_and_commit(f"USE {db_name};")
+        return connect_1
+    except:
+        print(f"error, unable to use {db_name}")
 
 
-
-
+# *change this function later. Add db_name parameter.
+def create_session():
+    con = create_db()
+    engine = create_engine(f"mysql+mysqlconnector://{con.user}:{con.password}@{con.host}/{con.database}")
+    Base.metadata.create_all(bind=engine)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    return session

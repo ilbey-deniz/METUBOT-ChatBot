@@ -36,3 +36,14 @@ class Feedback_activity(Base):
     Qid = Column(Integer, ForeignKey("main_questions.Qid"), primary_key=True, nullable=False)
     Fid = Column(Integer, ForeignKey("user_feedbacks.Fid"), primary_key=True, nullable=False)
     created_at = Column(DateTime)
+
+
+# The ORM class to represent user data.
+class User(Base):
+    __tablename__ = "users"
+
+    userID = Column(Integer, primary_key=True)
+    userName = Column(String(255))
+    userMail = Column(String(255), unique=True)
+    userPassword = Column(String(255))
+    
