@@ -1,4 +1,4 @@
-from backend.database.mysql.connector import *
+from connector import *
 
 import json
 from datetime import datetime, date, timedelta

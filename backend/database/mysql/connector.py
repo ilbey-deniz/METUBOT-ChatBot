@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from backend.database.mysql.mysql_helper import *
+from mysql_helper import *
 
 load_dotenv()
 
@@ -11,12 +11,11 @@ load_dotenv()
 
 
 class Connector:
-    def __init__(self, database=None):
-        self.host = os.getenv('HOST')
-        self.user = os.getenv('USER')
-        self.password = os.getenv('PASSWORD')
-        if not database:
-            self.database = os.getenv('DATABASE')
+    def __init__(self):
+        self.host = os.getenv('MYSQL_HOST')
+        self.user = os.getenv('MYSQL_USER')
+        self.password = os.getenv('MYSQL_PASSWORD')
+        self.database = None
         # add port if necessary
         self.connect()
 
@@ -70,20 +69,22 @@ class Connector:
 def create_db(db_name):
     connect_1 = Connector()
     try:
-        connect_1.execute_query_and_commit(f"CREATE DATABASE {db_name};")
-        return connect_1
-    except:
-        print(f"error,can not create {db_name} database")
-    try:
+        connect_1.execute_query_and_commit(f"CREATE DATABASE IF NOT EXISTS {db_name};")
         connect_1.execute_query_and_commit(f"USE {db_name};")
         return connect_1
-    except:
-        print(f"error, unable to use {db_name}")
+    except Exception as e:
+        print(e)
+        print(f"error,can not create {db_name} database")
+        return None
 
 
 # *change this function later. Add db_name parameter.
 def create_session():
-    con = create_db()
+    con = create_db(os.getenv('MYSQL_DATABASE'))
+    con.database = os.getenv('MYSQL_DATABASE')
+    if not con:
+        print("session can not be created")
+        return None
     engine = create_engine(f"mysql+mysqlconnector://{con.user}:{con.password}@{con.host}/{con.database}")
     Base.metadata.create_all(bind=engine)
     Session = sessionmaker(bind=engine)

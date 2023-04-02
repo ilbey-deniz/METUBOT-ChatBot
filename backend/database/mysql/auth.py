@@ -1,16 +1,24 @@
-from backend.database.mysql.connector import *
-
-import json
+from connector import *
 from datetime import datetime, date, timedelta
 
 def addUser(name, mail, password):
     session = create_session()
-    q = session.query(User).filter(User.userMail==mail)
-    session.query(q.exists())
-    #if exists do not add
-
+    if not session:
+        print("user cant be added, session creation error")
+        return None
     
     data = User(userName=name, userMail=mail, userPassword=password)
-    session.add(data)
-    session.commit()
+    
+    try:
+        session.add(data)
+        session.commit()
+        session.close()
+        return True
+    except Exception as e:
+        print(e)
+    
     session.close()
+    return False
+
+if __name__ == "__main__":
+    addUser("isim2", "mail2", "pw1")
