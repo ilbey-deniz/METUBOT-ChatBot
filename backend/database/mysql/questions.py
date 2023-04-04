@@ -44,6 +44,8 @@ def add_multiple_questions_from_json(json_data):
 
     data = json.load(json_data)
 
+    print(data)
+
     session = create_session()
 
     session.bulk_save_objects(
@@ -101,9 +103,43 @@ def get_most_frequent_questions(limit_count: int):
     return result_list
 
 
-# TODO: get most liked/disliked questions
+
 def get_most_liked_questions(limit_count: int):
-    session = create_session()
+
+    #? if max is desired query:
+    # query_text = "select * from main_questions Q,(" \
+    #              " select qid as id, max(cnt)" \
+    #              "  from (" \
+    #              "   select count(FA.Fid) as cnt, FA.Qid as qid from user_feedbacks F,feedback_activity FA" \
+    #              "    where F.is_liked = 1 and FA.Fid = F.Fid" \
+    #              "    group by FA.Qid order by cnt) as FFc) as max" \
+    #              " where Q.Qid = max.id" \
+
+    query_text = "select * from main_questions Q,(" \
+                 " select count(FA.Fid) as cnt, FA.Qid as qid from user_feedbacks F,feedback_activity FA" \
+                 " where F.is_liked = 1 and FA.Fid = F.Fid" \
+                 " group by FA.Qid order by cnt desc" \
+                 " ) as FC" \
+                 " where Q.Qid = FC.qid" \
+                 f" limit {limit_count}"
+
+    con = create_db(os.getenv('MYSQL_DATABASE'))
+    con.database = os.getenv('MYSQL_DATABASE')
+
+    res = con.execute_query(query_text)
+
+    result_list = []
+    for q in res:
+        temp = dict()
+        temp["id"] = q[0]
+        temp["question"] = q[1]
+        temp["answer"] = q[2]
+        temp["category"] = q[3]
+        temp["count"] = q[4]
+        result_list.append(temp)
+    print(result_list)
+    return result_list
+
 
 
 # get disliked/liked feedbacks
@@ -222,9 +258,9 @@ def query_all_feedbacks():
 
 if __name__ == "__main__":
 
-    add_question("sa", "as", "selamlama")
+    # add_question("sa", "as", "selamlama")
 
-    add_multiple_questions(path="../../../Elasticsearch/qa_pairs.json")
+    # add_multiple_questions(path="../../../Elasticsearch/qa_pairs.json")
 
     results = query_all_questions()
 
@@ -232,9 +268,9 @@ if __name__ == "__main__":
         print(f"({result['question']}, \n{result['answer']},"
               f" {result['category']}, \n{result['count']})")
 
-    add_feedback(1, 0.7, "Naber", True, "gayet güzel cevap döndü")
-    add_feedback(6, 0.2, "şifremi unuttum",  False, "berbat bir cevap, umduğumu bulamadım")
-    add_feedback(12, 0.8, "yemeeeek",  True, "tam istediğim gibi yemek listesine erişebildim.")
+    # add_feedback(5, 0.7, "Naber", True, "gayet güzel cevap döndü")
+    # add_feedback(6, 0.2, "şifremi unuttum",  False, "berbat bir cevap, umduğumu bulamadım")
+    # add_feedback(9, 0.8, "yemeeeek",  True, "tam istediğim gibi yemek listesine erişebildim.")
 
     a = query_all_feedbacks()
     print(a)
@@ -255,3 +291,5 @@ if __name__ == "__main__":
 
     feedback_w_day = get_feedbacks_with_time(7)
     print(feedback_w_day)
+
+    x = get_most_liked_questions(4)
