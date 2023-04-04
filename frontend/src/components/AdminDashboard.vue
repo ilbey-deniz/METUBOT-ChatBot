@@ -1,19 +1,4 @@
-<!-- <template>
-
-    <div>
-        <v-container class="pa-0 fill-height">
-            <v-row>
-                <v-col>
-                    <admin-view class="mt-5"/>
-                </v-col>
-            </v-row>
-
-        </v-container>
-
-    </div>
-</template> -->
 <template class="main">
-    <!-- <AdminView /> -->
     <v-card class="card">
         <v-card-title>
             Sorulan Sorular
@@ -52,10 +37,7 @@ import AdminView from '../views/AdminView.vue'
 import QAPairs from '../../../Elasticsearch/qa_pairs.json'
 
 export default {
-    name: "MetubotAskedQuestions",
-    components: {
-        AdminView,
-    },
+    name: "AdminDashboard",
     data() {
         return {
             search: '',

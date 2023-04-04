@@ -2,9 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MetuBotView from '../views/MetuBotView.vue'
 import AdminView from '../views/AdminView.vue'
-import MetubotAskedQuestions from '../components/MetubotAskedQuestions.vue'
-import MetubotQuestionCRUD from '../components/MetubotQuestionCRUD.vue'
-import MetubotDashboard from '../components/MetubotDashboard.vue'
+import AdminAskedQuestions from '../components/AdminAskedQuestions.vue'
+import MetubotQuestionCRUD from '../components/AdminQuestionCRUD.vue'
+import MetubotDashboard from '../components/AdminDashboard.vue'
+import AdminChart from '@/components/AdminChart.vue';
 
 Vue.use(VueRouter)
 
@@ -28,8 +29,8 @@ const routes = [
     children: [
 
       { path: 'dashboard', component: MetubotDashboard}, //dashboarda soruları koyalım ne dersiniz
-      { path: 'tables', component: MetubotAskedQuestions },
-      { path: 'charts'},
+      { path: 'tables', component: AdminAskedQuestions },
+      { path: 'charts', component: AdminChart},
       { path: 'addquestion', component: MetubotQuestionCRUD },
 
     ],

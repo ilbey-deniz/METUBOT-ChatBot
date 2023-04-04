@@ -151,13 +151,9 @@
 import axios from 'axios'
 // import Vue from 'vue'
 import { io } from "socket.io-client";
-import AdminView from '../views/AdminView.vue'
 
 export default {
-    name: "MetubotQuestionCRUD",
-    components: {
-        AdminView,
-    },
+    name: "AdminQuestionCRUD",
     data() {
         return {
             valid: false,

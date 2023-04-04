@@ -25,8 +25,8 @@
 </template>
 
 <script setup>
-import Sidebar from '../components/Sidebar.vue'
-// import Login from '@/components/Login.vue';
+import Sidebar from '../components/AdminSidebar.vue'
+// import Login from '@/components/AdminLogin.vue';
 </script>
 
 <script>

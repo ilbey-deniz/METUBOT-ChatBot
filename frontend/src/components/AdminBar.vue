@@ -28,7 +28,7 @@ import {
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
-  name: 'BarChart',
+  name: 'AdminBar',
   components: {
     Bar
   },
@@ -95,4 +95,3 @@ export default {
   }
 }
 </script>
-    

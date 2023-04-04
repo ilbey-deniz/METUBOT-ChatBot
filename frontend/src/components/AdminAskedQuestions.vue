@@ -1,19 +1,4 @@
-<!-- <template>
-
-    <div>
-        <v-container class="pa-0 fill-height">
-            <v-row>
-                <v-col>
-                    <admin-view class="mt-5"/>
-                </v-col>
-            </v-row>
-
-        </v-container>
-
-    </div>
-</template> -->
 <template>
-    <!-- <AdminView /> -->
     <div class="main">
         <v-card class="card">
             <v-card-title>
@@ -82,13 +67,8 @@
 </template>
 
 <script>
-import AdminView from '../views/AdminView.vue'
-
 export default {
-    name: "MetubotAskedQuestions",
-    components: {
-        AdminView,
-    },
+    name: "AdminAskedQuestions",
     data() {
         return {
             search: '',
