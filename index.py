@@ -44,6 +44,88 @@ def add_one_questions():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+@app.route('/deleteQuestion')
+def delete_one_questions():
+    print('QUESTION IS DELETING')
+    question_id = request.args.get("question_id")
+    delete_question_with_id(int(question_id))
+
+    response_message = "question is deleted"
+    response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
+    response = Response(response_message, mimetype="application/json", status=200)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/updateQuestion')
+def update_one_questions():
+    print('QUESTION IS UPDATING')
+    question_id = request.args.get("question_id")
+    new_category = request.args.get("new_category")
+    new_question = request.args.get("new_question")
+    new_answer = request.args.get("new_answer")
+    print(new_category, new_question, new_answer)
+    update_question(int(question_id), new_question, new_answer, new_category)
+
+    response_message = "question is updated"
+    response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
+    response = Response(response_message, mimetype="application/json", status=200)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/getFrequentQuestions')
+def get_frequent_questions():
+    number_of_data = request.args.get("number_of_data")
+    query_res = get_most_frequent_questions(int(number_of_data))
+
+    result = dict()
+    result["data"] = query_res
+
+    result = json.dumps(result, indent=4, ensure_ascii=False)
+    response = Response(result, mimetype="application/json", status=200)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/getLikedQuestions')
+def get_liked_questions():
+    number_of_data = request.args.get("number_of_data")
+    query_res = get_most_liked_questions(int(number_of_data))
+
+    result = dict()
+    result["data"] = query_res
+
+    result = json.dumps(result, indent=4, ensure_ascii=False)
+    response = Response(result, mimetype="application/json", status=200)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/getLikedQuestions')
+def get_avg_similarity():
+    query_res = get_average_similarity()
+    result = dict()
+    result["data"] = query_res
+
+    result = json.dumps(result, indent=4, ensure_ascii=False)
+    response = Response(result, mimetype="application/json", status=200)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
+@app.route('/getAllReports')
+def query_feedbacks():
+    is_liked = request.args.get("is_liked")
+    min_similarity = request.args.get("min_similarity")
+    max_similarity = request.args.get("max_similarity")
+
+    query_feedback = advance_query_feedbacks(bool(is_liked), float(min_similarity), float(max_similarity))
+    result = dict()
+    result["data"] = query_feedback
+
+    result = json.dumps(result, indent=4, ensure_ascii=False)
+    response = Response(result, mimetype="application/json", status=200)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
 @app.route('/admin/qa_pairs')
 def get_qa_pairs():
        with open('nlp/qa_pairs.json', encoding="utf8") as qa_pairs:
