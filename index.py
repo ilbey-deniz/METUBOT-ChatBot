@@ -98,7 +98,7 @@ def get_liked_questions():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-@app.route('/getLikedQuestions')
+@app.route('/getAverageSimilarity')
 def get_avg_similarity():
     query_res = get_average_similarity()
     result = dict()
@@ -110,7 +110,7 @@ def get_avg_similarity():
     return response
 
 
-@app.route('/getAllReports')
+@app.route('/getFeedbacks')
 def query_feedbacks():
     is_liked = request.args.get("is_liked")
     min_similarity = request.args.get("min_similarity")
