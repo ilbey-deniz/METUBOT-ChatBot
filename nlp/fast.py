@@ -8,6 +8,8 @@ import numpy as np
 from numpy.linalg import norm
 from pathlib import Path
 import random
+#from gensim.models import KeyedVectors
+from sentence_transformers import SentenceTransformer
 
 #fasttext.util.download_model('tr', if_exists='ignore')
 
@@ -91,9 +93,17 @@ def NEWgetAnswer(user_question):
     return ans
 
 def init():
-    global ft
+    #global ft
 
-    ft = fasttext.load_model(MODEL_DIR)
+    #ft = fasttext.load_model(MODEL_DIR)
+
+    global word_vectors
+    word_vectors = SentenceTransformer('emrecan/bert-base-turkish-cased-mean-nli-stsb-tr')
+
+    #word_vectors = KeyedVectors.load_word2vec_format('trmodel', binary=True)
 
 def vectorize(question):
+    global word_vectors
+    
+    return word_vectors.encode(question).tolist()
     return ft.get_sentence_vector(question)

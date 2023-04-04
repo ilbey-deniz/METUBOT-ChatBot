@@ -14,8 +14,8 @@ from backend.database.mysql.questions import *
 answer_generator = AnswerGeneratorMetu()
 
 #answerer: Answerer = FasttextAnswerer(answer_generator)
-#answerer: Answerer = ElasticAnswerer(answer_generator)
-answerer: Answerer = DummyAnswerer(answer_generator)
+answerer: Answerer = ElasticAnswerer(answer_generator)
+#answerer: Answerer = DummyAnswerer(answer_generator)
 
 app = Flask(__name__,
             static_folder = "./frontend/dist/static",

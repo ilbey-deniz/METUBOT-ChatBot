@@ -1,5 +1,5 @@
 from Answerer import Answerer
-import nlp.elastic_init as elastic
+import nlp.elastic as elastic
 import nlp.fast as fast
 
 
@@ -7,8 +7,7 @@ class ElasticAnswerer(Answerer):
     def __init__(self, answerGenerator=None):
         super().__init__(answerGenerator)
         fast.init()
-        elastic.initQAIndex()
-        #elastic.fillQAIndexFast("nlp/qa_pairs.json")
+        elastic.init()
 
     def answer(self, question):
-        return elastic.getResponse(question)
+        return elastic.getVectorResponse(question)
