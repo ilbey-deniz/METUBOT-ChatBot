@@ -1,6 +1,12 @@
 <template>
     <div class="main">
-        <v-card class="card">
+        <v-card>
+            <v-card-text style="height: 400px;" class="d-flex align-center justify-center">
+                <admin-chart-pie :data="chartData"/>
+            </v-card-text>
+
+        </v-card>
+        <v-card class="card mt-4">
             <v-card-title>
                 Sorulan Sorular
                 <v-spacer></v-spacer>
@@ -62,13 +68,17 @@
 
             </v-data-table>
         </v-card>
+
     </div>
 
 </template>
 
 <script>
+import AdminChartPie from '@/components/AdminChartPie.vue';
+
 export default {
     name: "AdminAskedQuestions",
+    components: { AdminChartPie },
     data() {
         return {
             search: '',
@@ -76,6 +86,7 @@ export default {
                 {
                     question: "Bugün ne yiyeceğiz?",
                     matchedQuestion: "Bugün pilav üstü odtü kavurma yiyeceğiz.",
+                    category: "kafeterya",
                     similarity: 0.8,
                     feedback: 'like',
                     feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
@@ -84,6 +95,7 @@ export default {
                 {
                     question: "Şifremi nasıl öğrenebilirim?",
                     matchedQuestion: "Şifrenizi öğrenmek için şifre sıfırlama sayfasına gidiniz.",
+                    category: "şifre",
                     similarity: 0.6,
                     feedback: 'dislike',
                     feedbackText: 'Ben bu cevaptan hiç hoşlanmadım, bir daha zinhar metubota soru sormam.',
@@ -91,6 +103,7 @@ export default {
                 {
                     question: "Bugün ne yiyeceğiz?",
                     matchedQuestion: "Bugün pilav üstü odtü kavurma yiyeceğiz.",
+                    category: "kafeterya",
                     similarity: 0.8,
                     feedback: '',
                     feedbackText: 'Ben bu cevap benim üzerimde beğeni veya beğenmeme oluşturacak bir intiba bırakmadı.',
@@ -99,6 +112,7 @@ export default {
                 {
                     question: "Şifremi nasıl öğrenebilirim?",
                     matchedQuestion: "Şifrenizi öğrenmek için şifre sıfırlama sayfasına gidiniz.",
+                    category: "şifre",
                     similarity: 0.6,
                     feedback: 'like',
                     feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
@@ -106,6 +120,7 @@ export default {
                 {
                     question: "Bugün ne yiyeceğiz?",
                     matchedQuestion: "Bugün pilav üstü odtü kavurma yiyeceğiz.",
+                    category: "kafeterya",
                     similarity: 0.8,
                     feedback: 'like',
                     feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
@@ -114,6 +129,7 @@ export default {
                 {
                     question: "Şifremi nasıl öğrenebilirim?",
                     matchedQuestion: "Şifrenizi öğrenmek için şifre sıfırlama sayfasına gidiniz.",
+                    category: "şifre",
                     similarity: 0.6,
                     feedback: 'like',
                     feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
@@ -121,6 +137,7 @@ export default {
                 {
                     question: "Bugün ne yiyeceğiz?",
                     matchedQuestion: "Bugün pilav üstü odtü kavurma yiyeceğiz.",
+                    category: "kafeterya",
                     similarity: 0.8,
                     feedback: 'like',
                     feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
@@ -129,6 +146,7 @@ export default {
                 {
                     question: "Şifremi nasıl öğrenebilirim?",
                     matchedQuestion: "Şifrenizi öğrenmek için şifre sıfırlama sayfasına gidiniz.",
+                    category: "şifre",
                     similarity: 0.6,
                     feedback: 'like',
                     feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
@@ -142,12 +160,48 @@ export default {
                     value: 'question',
                 },
                 { text: 'Eşleşen Soru', value: 'matchedQuestion' },
+                { text: 'Kategori', value: 'category' },
                 { text: 'Benzerlik', value: 'similarity' },
                 { text: 'Beğeni', value: 'feedback' },
                 { text: 'Geri Bildirim', value: 'feedbackText' },
             ],
         }
     },
+    computed: {
+        chartData() {
+            const catToCount = {};
+            this.questions.forEach((question) => {
+                if (catToCount[question.category]) {
+                    catToCount[question.category] += 1;
+                }
+                else {
+                    catToCount[question.category] = 1;
+                }
+            });
+            const data = {
+                labels: Object.keys(catToCount),
+                datasets: [
+                    {
+                        label: 'Sorulan Sorular',
+                        data: Object.values(catToCount),
+                        backgroundColor: this.getNRandomColors(Object.keys(catToCount).length),
+                        hoverOffset: 4,
+                    },
+                ],
+            };
+            return data;
+
+        },
+    },
+    methods: {
+        getNRandomColors(n) {
+            const colors = [];
+            for (let i = 0; i < n; i++) {
+                colors.push(`rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`);
+            }
+            return colors;
+        },
+    }
 }
 </script>
 
