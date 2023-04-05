@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from backend.database.mysql.mysql_helper import *
+from .mysql_helper import *
 
 load_dotenv()
 

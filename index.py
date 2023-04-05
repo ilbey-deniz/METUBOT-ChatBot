@@ -9,6 +9,10 @@ from Answerer import Answerer
 from AnswerGeneratorMetu import AnswerGeneratorMetu
 from data.metu.json_qapairs_manager import add_questions_manually
 from backend.database.mysql.questions import *
+from backend.database.mysql.auth import *
+
+from functools import wraps
+import jwt
 
 
 answer_generator = AnswerGeneratorMetu()
@@ -21,7 +25,7 @@ app = Flask(__name__,
             static_folder = "./frontend/dist/static",
             template_folder = "./frontend/dist")
 
-app.config['SECRET_KEY'] = '\xc9\xf6yGRi{k%9>\x0bQI\xe6)\x0f\xaf\xc0\x05\x8b\xc7\x87\x8c'
+app.config['SECRET_KEY'] = 'secret'
 socketio = SocketIO(app)
 
 
@@ -189,6 +193,46 @@ def handle_question(msg):
     #print('question: ' + msg)
     answer = answerer.generatedAnswer(msg)
     emit('chat answer', { 'answer': answer, 'finished': True })
+
+
+def token_required(f):
+    @wraps(f)
+    def _verify(*args, **kwargs):
+        auth_headers = request.headers.get('Authorization', '').split()
+
+        invalid_msg = {
+            'message': 'Invalid token. Registeration and / or authentication required',
+            'authenticated': False
+        }
+        expired_msg = {
+            'message': 'Expired token. Reauthentication required.',
+            'authenticated': False
+        }
+
+        if len(auth_headers) != 2:
+            return jsonify(invalid_msg), 401
+
+        try:
+            token = auth_headers[1]
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            user = getUserByMail(data['sub'])
+            if not user:
+                print("user not found")
+                return 401
+            return f(user, *args, **kwargs)
+        except jwt.ExpiredSignatureError:
+            return jsonify(expired_msg), 401
+        except (jwt.InvalidTokenError, Exception) as e:
+            print(e)
+            return jsonify(invalid_msg), 401
+
+    return _verify
+
+@app.route("/secret")
+@token_required
+def getProtected(f):
+    print(f)
+    return {"status":200}
 
 
 if __name__ == "__main__":
