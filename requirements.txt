@@ -4,3 +4,4 @@ python-dotenv
 sqlalchemy
 flask
 flask-socketio
+sentence-transformers

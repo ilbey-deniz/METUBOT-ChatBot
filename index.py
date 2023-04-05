@@ -28,37 +28,77 @@ app = Flask(__name__,
 app.config['SECRET_KEY'] = 'secret'
 socketio = SocketIO(app)
 
+def token_required(f):
+    @wraps(f)
+    def _verify(*args, **kwargs):
+        auth_headers = request.headers.get('Authorization', '').split()
+
+        invalid_msg = {
+            'message': 'Invalid token. Registeration and / or authentication required',
+            'authenticated': False
+        }
+        expired_msg = {
+            'message': 'Expired token. Reauthentication required.',
+            'authenticated': False
+        }
+        
+        user_not_found_msg = {
+            'message': 'No such user with the provided email.',
+            'authenticated': False
+        }
+
+        if len(auth_headers) != 2:
+            return jsonify(invalid_msg), 401
+
+        try:
+            token = auth_headers[1]
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            user = getUserByMail(data['sub'])
+            # still need to check whether the user using the token still exists or not
+            if not user:
+                return jsonify(user_not_found_msg), 401
+            return f(*args, **kwargs)
+        except jwt.ExpiredSignatureError:
+            return jsonify(expired_msg), 401
+        except (jwt.InvalidTokenError, Exception) as e:
+            print(e)
+            return jsonify(invalid_msg), 401
+
+    return _verify
+
+#status can be either success or error
+def response(status, data=None, message=None, code=200):
+    response = jsonify({"status":status, "data":data, "message":message})
+    return response, code
+
+## routes start here
 
 @app.route('/')
 def index():
     return render_template("index.html")
 
 @app.route('/addQuestion')
+@token_required
 def add_one_questions():
-    print('ADDING QUESTİON')
+    print('ADDING QUESTION')
     category = request.args.get("category")
     question = request.args.get("question")
     answer = request.args.get("answer")
+    if None in [question,answer,category]:
+        return response(status="error", message="invalid question, category or answer", code=400)
+
     print(category, question, answer)
     add_question(question, answer, category)
 
-    response_message = "question is added"
-    response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
-    response = Response(response_message, mimetype="application/json", status=200)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return response("success")
 
 @app.route('/deleteQuestion')
 def delete_one_questions():
     print('QUESTION IS DELETING')
     question_id = request.args.get("question_id")
     delete_question_with_id(int(question_id))
-
-    response_message = "question is deleted"
-    response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
-    response = Response(response_message, mimetype="application/json", status=200)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    
+    return response(status="success", message="question is deleted")
 
 @app.route('/updateQuestion')
 def update_one_questions():
@@ -195,44 +235,10 @@ def handle_question(msg):
     emit('chat answer', { 'answer': answer, 'finished': True })
 
 
-def token_required(f):
-    @wraps(f)
-    def _verify(*args, **kwargs):
-        auth_headers = request.headers.get('Authorization', '').split()
-
-        invalid_msg = {
-            'message': 'Invalid token. Registeration and / or authentication required',
-            'authenticated': False
-        }
-        expired_msg = {
-            'message': 'Expired token. Reauthentication required.',
-            'authenticated': False
-        }
-
-        if len(auth_headers) != 2:
-            return jsonify(invalid_msg), 401
-
-        try:
-            token = auth_headers[1]
-            data = jwt.decode(token, app.config['SECRET_KEY'])
-            user = getUserByMail(data['sub'])
-            if not user:
-                print("user not found")
-                return 401
-            return f(user, *args, **kwargs)
-        except jwt.ExpiredSignatureError:
-            return jsonify(expired_msg), 401
-        except (jwt.InvalidTokenError, Exception) as e:
-            print(e)
-            return jsonify(invalid_msg), 401
-
-    return _verify
-
 @app.route("/secret")
 @token_required
-def getProtected(f):
-    print(f)
-    return {"status":200}
+def getProtected():
+    return response("secret test endpoint", 200)
 
 
 if __name__ == "__main__":
