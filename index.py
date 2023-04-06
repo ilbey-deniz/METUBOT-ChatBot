@@ -231,6 +231,13 @@ def handle_question(msg):
     answer = answerer.generatedAnswer(msg)
     emit('chat answer', { 'answer': answer, 'finished': True })
 
+@app.route("/ask")
+def ask_endpoint():
+    q = request.args.get("question")
+    answer = answerer.generatedAnswer(q)
+    return response(status="success", data=answer)
+
+
 
 @app.route("/secret")
 @token_required
