@@ -72,7 +72,6 @@ def response(status, data=None, message=None, code=200):
     return response, code
 
 ## routes start here
-
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -215,7 +214,6 @@ def get_all_report():
     response = Response(result, mimetype="application/json", status=200)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
-
 
 def emit_chat_answer(sid, message):
     socketio.emit('chat answer', message, room=sid)

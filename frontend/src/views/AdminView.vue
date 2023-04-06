@@ -13,6 +13,9 @@
   			  :rules="passwordRules" :counter="20" required></v-text-field>
   			  <v-spacer></v-spacer>
   			  <v-btn text @click="submit" :disabled="!valid" class="primary mx-0 mt-3">Log In</v-btn>
+			  <div class="mt-2">
+                <p class="text-body-2">Don't have an account? <a href="#">Sign Up</a></p>
+              </div>
   			</v-form>
 		</div>
 
@@ -33,7 +36,7 @@ import Sidebar from '../components/AdminSidebar.vue'
 export default {
   name: "AdminView",
 //   components: {
-//         AdminView,
+//   AdminView,
 //   },
 
   data() {
