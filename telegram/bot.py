@@ -1,6 +1,8 @@
 import requests
 import logging
 from telegram import __version__ as TG_VER
+
+
 try:
     from telegram import __version_info__
 except ImportError:
@@ -21,23 +23,34 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def get_answer(message):
+def request_answer(message):
     x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + message)
-    return x.json()["data"]
+    data = (x.json()["data"])
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Send a message when the command /start is issued."""
+    if type(data) == str:
+        return data
+    
+    else:
+        return "Sorunuzu cevaplayabilmek için yeterli bilgiye sahip değilim."
+
+
+
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text("Bir soru sorun, onu cevaplamaya çalışacağım.")
+    
+async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
     await update.message.reply_html(
-        rf"Hi {user.mention_html()}!",
+        rf"Merhaba {user.mention_html()}!",
         reply_markup=ForceReply(selective=True),
     )
 
 
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("Help!")
+
+
+
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text(get_answer(update.message.text))
+    await update.message.reply_text(request_answer(update.message.text))
 
 
 def main() -> None:
@@ -45,14 +58,14 @@ def main() -> None:
     # Create the Application and pass it your bot's token.
     application = Application.builder().token("6082456296:AAEMLY46A8JalqNEdCMEQj2pVk89ItF7Mfg").build()
 
-    # on different commands - answer in Telegram
-    application.add_handler(CommandHandler("start", start))
+    # COMMANDS
+    application.add_handler(CommandHandler("start", start_command))
     application.add_handler(CommandHandler("help", help_command))
 
-    # on non command i.e message - echo the message on Telegram
+    # MESSAGES
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, answer))
 
-    # Run the bot until the user presses Ctrl-C
+    # POLLING
     application.run_polling()
 
 
