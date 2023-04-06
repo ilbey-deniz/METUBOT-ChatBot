@@ -77,7 +77,6 @@ def index():
     return render_template("index.html")
 
 @app.route('/addQuestion')
-@token_required
 def add_one_questions():
     print('ADDING QUESTION')
     category = request.args.get("category")
