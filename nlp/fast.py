@@ -15,7 +15,7 @@ from sentence_transformers import SentenceTransformer
 
 MODEL_DIR = r"./cc.tr.300.bin"
 ft = None
-
+word_vectors = None
 cos_sim = lambda q_vector, vector : np.dot(q_vector, vector)/(norm(q_vector)*norm(vector))
 
 
