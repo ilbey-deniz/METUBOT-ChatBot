@@ -6,6 +6,7 @@ import AdminAskedQuestions from '../components/AdminAskedQuestions.vue'
 import MetubotQuestionCRUD from '../components/AdminQuestionCRUD.vue'
 import MetubotDashboard from '../components/AdminDashboard.vue'
 import AdminChart from '@/components/AdminChart.vue';
+import AdminLogin from '@/components/AdminLogin.vue';
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,12 @@ const routes = [
     ],
     component: AdminView,
     meta: { title: 'METUBOT Yönetim' }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: AdminLogin,
+    meta: { title: 'METUBOT Yönetim Login' }
   },
 ]
 

@@ -81,7 +81,12 @@ def getVectorResponse(question):
 #
         #    temp = answer_resp["hits"]["hits"][0]["_source"]
         #
-        return data["qa-pairs"][temp["index"]]["answer"][0]
+        val = data["qa-pairs"][temp["index"]]["answer"]
+        
+        if type(val[0]==str):
+            return val[0]
+        else:
+            return val
     else:
         # No hit
         return "Üzgünüm, ne sormak istediğinizi anlayamadım."
