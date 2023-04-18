@@ -230,14 +230,14 @@ def connect_message():
 def handle_question(msg):
     #print('question: ' + msg)
     answer = answerer.generatedAnswer(msg)
-    add_asked_question(msg, answer, 1234, 'kategori?')
+    #add_asked_question(msg, answer, 1234, 'kategori?')
     emit('chat answer', { 'answer': answer, 'finished': True })
 
 @app.route("/ask")
 def ask_endpoint():
     q = request.args.get("question")
     answer = answerer.generatedAnswer(q)
-    add_asked_question(msg, answer, 1234, 'kategori?')
+    #add_asked_question(msg, answer, 1234, 'kategori?')
     return response(status="success", data=answer)
 
 @app.route("/askedQuestions")
