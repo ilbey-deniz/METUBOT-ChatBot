@@ -255,6 +255,12 @@ def query_all_feedbacks():
 
     return results
 
+def add_asked_question(asked_question, answer, similarity, category):
+    session = create_session()
+    asked_question = AskedQuestion(asked_question=asked_question, answer=answer, similarity=similarity,
+                         category=category)
+    session.add(asked_question)
+    session.commit()
 
 if __name__ == "__main__":
 

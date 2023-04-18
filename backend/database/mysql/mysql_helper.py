@@ -15,6 +15,17 @@ class Questions(Base):
     count = Column(Integer)
 
 
+class AskedQuestion(Base):
+    __tablename__ = "asked_questions"
+
+    Qid = Column(Integer, primary_key=True)
+    asked_question = Column(String(511))
+    answer = Column(String(512))
+    similarity = Column(FLOAT)
+    category = Column(String(60))
+    created_at = Column(DateTime, default=datetime.now)
+    # todo: add reference for feedback and delete similarity from feedback table
+
 # The ORM class to represent user_feedback for reported questions coming from the front-end.
 class Feedbacks(Base):
     __tablename__ = "user_feedbacks"
@@ -46,4 +57,3 @@ class User(Base):
     userName = Column(String(255))
     userMail = Column(String(255), unique=True)
     userPassword = Column(String(255))
-    

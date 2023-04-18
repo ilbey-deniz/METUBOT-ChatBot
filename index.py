@@ -26,7 +26,6 @@ app = Flask(__name__,
 
 app.config['SECRET_KEY'] = 'secret'
 socketio = SocketIO(app)
-
 def token_required(f):
     @wraps(f)
     def _verify(*args, **kwargs):
@@ -40,7 +39,7 @@ def token_required(f):
             'message': 'Expired token. Reauthentication required.',
             'authenticated': False
         }
-        
+
         user_not_found_msg = {
             'message': 'No such user with the provided email.',
             'authenticated': False
@@ -95,7 +94,7 @@ def delete_one_questions():
     print('QUESTION IS DELETING')
     question_id = request.args.get("question_id")
     delete_question_with_id(int(question_id))
-    
+
     return response(status="success", message="question is deleted")
 
 @app.route('/updateQuestion')
@@ -195,8 +194,8 @@ def report_questions():
     asked_question = request.args.get("asked_question")
     report_message = request.args.get("report_message")
     is_liked = request.args.get("is_liked")
-    add_feedback(int(question_id), float(similarity), asked_question, bool(is_liked), report_message)
 
+    add_feedback(int(question_id), float(similarity), asked_question, bool(is_liked), report_message)
     response_message = "feedback is added"
     response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
     response = Response(response_message, mimetype="application/json", status=200)
@@ -229,12 +228,14 @@ def connect_message():
 def handle_question(msg):
     #print('question: ' + msg)
     answer = answerer.generatedAnswer(msg)
+    add_asked_question(msg, answer, 1234, 'kategori?', report_message)
     emit('chat answer', { 'answer': answer, 'finished': True })
 
 @app.route("/ask")
 def ask_endpoint():
     q = request.args.get("question")
     answer = answerer.generatedAnswer(q)
+    add_asked_question(msg, answer, 1234, 'kategori?', report_message)
     return response(status="success", data=answer)
 
 
