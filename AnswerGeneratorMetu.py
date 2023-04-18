@@ -1,8 +1,5 @@
 from AnswerGenerator import AnswerGenerator
-import data.metu.catering.cafeteria as cf
-import data.metu.departments.ceng as ceng
-import data.metu.time.time as time
-import data.metu.teleportation.rings as ring
+import data.metu.scraping as sc
 
 
 class AnswerGeneratorMetu(AnswerGenerator):
@@ -20,22 +17,22 @@ class AnswerGeneratorMetu(AnswerGenerator):
         # new answerGenerations can be added here
 
     def getMetuFood(self):
-        return cf.yemek()
+        return sc.yemek()
 
     def getTodaysDate(self):
-        return time.saat()
+        return sc.saat()
 
     def getCengCurriculum(self):
-        return ceng.curriculum()
+        return sc.cengcurriculum()
 
     def getRingTimes(self):
-        return ring.ring_saatleri()
+        return sc.ring_saatleri()
 
     def getCalendar(self):
-        return time.takvim()
+        return sc.takvim()
 
     def getCafeteriaTimes(self):
-        return cf.saatler()
+        return sc.saatler()
 
     def getCafeteriaPrice(self): #TODO: It has a a parameter.
-        return cf.fiyat()
+        return sc.fiyat()

@@ -44,9 +44,11 @@
                                         </v-btn>
                                         <!-- EXCEL INPUTU EKLEME KODU -->
                                         <v-file-input
-                                        chips
-                                        hide-input
-                                        truncate-length="10"
+                                            chips
+                                            show-size
+                                            label="File input"
+                                            truncate-length="10"
+                                            @change="selectFile"
                                         ></v-file-input>
                                         <!-- EXCEL INPUTU EKLEME KODU SONU -->
                                     </template>
@@ -174,7 +176,7 @@ export default {
             search: '',
 
             qa_pairs: [],
-
+            file: '',
             dialog: false,
             dialogDelete: false,
             headers: [
@@ -183,7 +185,7 @@ export default {
                     align: 'start',
                     value: 'question',
                 },
-                { text: 'Cevab', value: 'answer' },
+                { text: 'Cevap', value: 'answer' },
                 { text: 'Kategori', value: 'category' },
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
@@ -252,6 +254,15 @@ export default {
             this.$nextTick(() => {
                 this.editedItem = Object.assign({}, this.defaultItem)
                 this.editedIndex = -1
+            })
+        },
+
+        selectFile(file) {
+            this.file = file;
+            axios.post('/add-excel', this.file, {
+                headers: {
+                'Content-Type': this.file.type
+                }
             })
         },
 

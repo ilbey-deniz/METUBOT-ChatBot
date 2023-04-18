@@ -255,6 +255,25 @@ def query_all_feedbacks():
 
     return results
 
+def add_asked_question(asked_question, answer, similarity, category):
+    session = create_session()
+    asked_question = AskedQuestion(asked_question=asked_question, answer=answer, similarity=similarity,
+                         category=category)
+    session.add(asked_question)
+    session.commit()
+
+def get_asked_questions():
+    session = create_session()
+    res = session.query(AskedQuestion).all()
+    results = []
+    for r in res:
+        temp = dict()
+        temp["asked_question"] = r.asked_question
+        temp["answer"] = r.answer
+        temp["similarity"] = r.similarity
+        temp["category"] = r.category
+        results.append(temp)
+    return results
 
 if __name__ == "__main__":
 
