@@ -1142,6 +1142,26 @@
                 "Üstesinden geleceğine eminim."
             ],
             "category": "sohbet"
+        },
+        {
+            "question": [
+                "form sorusu"
+            ],
+            "answer": [
+                {
+                    "type": "form",
+                    "text": [
+                        "isim",
+                        "soyisim",
+                        "sınıf",
+                        "gpa"
+                    ],
+                    "answer": [
+                        "ANSWER_FORM_1"
+                    ]
+                }
+            ],
+            "category": "diyalog"
         }
     ]
 }
