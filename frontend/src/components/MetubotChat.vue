@@ -118,7 +118,7 @@ export default {
         this.socketIoSocket.on('chat answer',
                 msg => setTimeout(() => this.addBotMessage(msg), 777))
 
-        // if (this.enableDidYouMeanThis) {
+        if (this.enableDidYouMeanThis) {
             this.addBotMessage({
                 answer: 'Sorunuzu tam anlayamamakla birlikte ileri düzey yöntemlerimiz sayesinde ' +
                         'size şu soruyu yönlendirebiliyoruz:\nŞunlardan birini mi demek istediniz?',
@@ -130,7 +130,7 @@ export default {
                 ],
                 selectedDYMTQuestion: null,
             })
-        // }
+        }
         if ('speechSynthesis' in window && 'SpeechSynthesisUtterance' in window) {
           this.populateVoices();
           window.speechSynthesis.onvoiceschanged = () => this.populateVoices();
