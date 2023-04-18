@@ -2,14 +2,13 @@ from flask import Flask, jsonify, request, Response, render_template
 import json
 from flask_socketio import SocketIO, send, emit
 from threading import Timer
-from ElasticAnswerer import ElasticAnswerer
-from FasttextAnswerer import FasttextAnswerer
 from DummyAnswerer import DummyAnswerer
 from Answerer import Answerer
 from AnswerGeneratorMetu import AnswerGeneratorMetu
 from data.metu.json_qapairs_manager import add_questions_manually
 from backend.database.mysql.questions import *
 from backend.database.mysql.auth import *
+import nlp.elastic as elastic
 
 from functools import wraps
 import jwt
@@ -18,7 +17,7 @@ import jwt
 answer_generator = AnswerGeneratorMetu()
 
 #answerer: Answerer = FasttextAnswerer(answer_generator)
-answerer: Answerer = ElasticAnswerer(answer_generator)
+answerer: Answerer = elastic.ElasticsearchInterface(answer_generator)
 #answerer: Answerer = DummyAnswerer(answer_generator)
 
 app = Flask(__name__,
@@ -86,7 +85,8 @@ def add_one_questions():
         return response(status="error", message="invalid question, category or answer", code=400)
 
     print(category, question, answer)
-    add_question(question, answer, category)
+    #add_question(question, answer, category)
+    answerer.addQuestion(question, answer)
 
     return response("success")
 
