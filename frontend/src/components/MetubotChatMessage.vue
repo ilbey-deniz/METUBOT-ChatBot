@@ -11,8 +11,11 @@
                             class="pa-4 mb-4 message-box"
                             @click="feedbackMenu = true"
                     >
+                        <v-icon @click="onSpeak">volume_up</v-icon>
                         <v-btn style="position: absolute; right: 5px; top: 5px;" dark icon>
+
                             <v-icon v-if="hover">mdi-chevron-down</v-icon>
+
                         </v-btn>
                         <span v-html="sanitizeExceptBoldItalicCode(msg.content).trim()" v-linkified
                               style="white-space: pre-wrap;"></span>
@@ -165,6 +168,9 @@ export default {
         onFeedback() {
             this.$emit('report-question');
             this.feedbackDialog = true;
+        },
+        onSpeak() {
+          this.$emit('speak');
         },
         resetFeedbackDialog() {
             this.feedbackText = '';
