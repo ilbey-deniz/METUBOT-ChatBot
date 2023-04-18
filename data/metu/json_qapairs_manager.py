@@ -41,11 +41,15 @@ def add_questions_from_files(path=qapairs_path, overwrite=True, q_path=q_path, a
         dict["qa-pairs"].append({"question":questions[i].split("#"),"answer":answers[i].split("#"),"category":categories[i]})
     write_json(dict,path)
 
-def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=False):
+def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=False, qfile=None):
     if overwrite:
         reset_and_initialize_json(path)
 
-    d = pd.read_excel(qpath)
+    d = None
+    if qfile is None:
+        d = pd.read_excel(qpath)
+    else:
+        d = qfile
     q = d['questions'].values.tolist()
     a = d['answers'].values.tolist()
     c = d['categories'].values.tolist()

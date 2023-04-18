@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, request, Response, render_template
+import pandas
+from werkzeug.utils import secure_filename
 import json
 from flask_socketio import SocketIO, send, emit
 from threading import Timer
 from DummyAnswerer import DummyAnswerer
 from Answerer import Answerer
 from AnswerGeneratorMetu import AnswerGeneratorMetu
-from data.metu.json_qapairs_manager import add_questions_manually
+from data.metu.json_qapairs_manager import add_questions_manually, add_questions_from_excel
 from backend.database.mysql.questions import *
 from backend.database.mysql.auth import *
 import nlp.elastic as elastic
@@ -241,6 +243,15 @@ def ask_endpoint():
 @app.route("/askedQuestions")
 def get_asked_questions_route():
     return response(status="success", data=get_asked_questions())
+
+
+@app.route("/add-excel", methods = ['POST'])
+def add_excel():
+    file = request.files['file']
+    add_questions_from_excel(file)
+    return response("success", 200)
+
+
 
 @app.route("/secret")
 @token_required
