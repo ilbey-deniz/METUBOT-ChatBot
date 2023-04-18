@@ -1081,6 +1081,67 @@
                 "https://faq.cc.metu.edu.tr/tr/sss/ebysde-gorunen-birim-gorev-ya-da-unvaniniz-hatali-ise-ne-yapmalisiniz"
             ],
             "category": "EBYS"
+        },
+        {
+            "question": [
+                "selam",
+                "naber",
+                "merhaba",
+                "selamün aleyküm"
+            ],
+            "answer": [
+                "Merhaba, nasıl yardımcı olabilirim?"
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "iyi günler"
+            ],
+            "answer": [
+                "İyi günler, nasıl yardımcı olabilirim?"
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "iyi akşamlar"
+            ],
+            "answer": [
+                "İyi akşamlar, nasıl yardımcı olabilirim?"
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "iyi geceler"
+            ],
+            "answer": [
+                "İyi geceler, nasıl yardımcı olabilirim?"
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "seni kim yarattı",
+                "seni kim kodladı",
+                "seni kim tasarladı"
+            ],
+            "answer": [
+                "Beni birkaç son sınıf Bilgisayar Mühendisliği öğrencisi tasarladı, amacım sizlere yardımcı olabilmek."
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "odtü çok zor",
+                "ödevimi yapamıyorum",
+                "bunalımdayım"
+            ],
+            "answer": [
+                "Üstesinden geleceğine eminim."
+            ],
+            "category": "sohbet"
         }
     ]
 }

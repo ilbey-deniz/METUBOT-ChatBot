@@ -18,11 +18,13 @@ def reset_and_initialize_json(path):
 def file_to_list(file):
     with open(file) as f:
         return [line.rstrip('\n') for line in f]
-def write_json(dict,jsonfilepath):
-	f = open(jsonfilepath, "w")
-	json.dump(dict, f, indent=4, ensure_ascii=False)
-	f.close()
-	return
+
+def write_json(dicti,jsonfilepath):
+    f = open(jsonfilepath, "w")
+    
+    json.dump(dicti, f, indent=4, ensure_ascii=False)
+    f.close()
+    return
 
 #FILL JSON VIA DIFFERENT METHODS
 def add_questions_from_files(path=qapairs_path, overwrite=True, q_path=q_path, a_path=a_path, c_path=c_path):
@@ -50,7 +52,9 @@ def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=Fals
 
     dict = json.load(open(path))
     for i in range(len(q)):
-        dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]})
+        if {"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]} not in dict["qa-pairs"]:
+            dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]})
+    
     write_json(dict,path)
 
     
