@@ -1,5 +1,4 @@
 import json
-import nlp.fast as fast
 from elasticsearch import Elasticsearch
 from sentence_transformers import SentenceTransformer
 from Answerer import Answerer
@@ -15,14 +14,14 @@ class ElasticsearchInterface(Answerer):
         f = open("nlp/qa_pairs.json")
         self.data = json.load(f)
 
-    def vectorize(self, question):
+    def vectorize(self, question: str):
         return self.st.encode(question).tolist()
     
-    def answer(self, question):
+    def answer(self, question: str):
         return self.getResponse(question)
     
     # Get answer based on vector similiarity
-    def getResponse(self, question):
+    def getResponse(self, question: str):
         question_response = self.es.search(index="question-answer", query={
             "script_score": {
                 "query": {
@@ -64,17 +63,19 @@ class ElasticsearchInterface(Answerer):
             # No hit
             return "Üzgünüm, ne sormak istediğinizi anlayamadım."
         
-    def addQuestion(self, question, answer):
+    def addQuestion(self, questions: list, answer: list, category: str) -> None:
         a = {
-                    "join": {
-                        "name": "answer"
-                    },
-                    "answer": [answer]
-                }
+                "join": {
+                    "name": "answer"
+                },
+                "answer": answer,
+                "category": category
+            }
 
         answer_id = self.es.index(index="question-answer", document=a, routing=True)["_id"]
         
-        q = {
+        for question in questions:
+            q = {
                     "join": {
                         "name": "question",
                         "parent": answer_id
@@ -83,10 +84,10 @@ class ElasticsearchInterface(Answerer):
                     "vector": self.vectorize(question)
                 }
 
-        self.es.index(index="question-answer", document=q, routing=True)
+            self.es.index(index="question-answer", document=q, routing=True)
 
     # Returns a list of q-a pairs in the same format as qa_pairs.json
-    def getPage(self, from_, size):
+    def getPage(self, from_: int, size: int) -> list:
         result = []
 
         response = self.es.search(index="question-answer", from_=from_, size=size, query={
@@ -110,6 +111,24 @@ class ElasticsearchInterface(Answerer):
                            "category": res["_source"]["category"]})
             
         return result
+    
+    # Deletes answer document and all questions related to it
+    def deleteAnswer(self, id: str) -> None:
+        ques = self.es.search(index="question-answer", query={
+            "parent_id":{
+                "type": "question",
+                "id": id #Find documents whose parent (question) starts with "nası"
+            }
+        })
+        
+        for q in ques["hits"]["hits"]:
+            self.es.delete(index="question-answer", id=q["_id"])
+
+            self.es.delete(index="question-answer", id=id)
+
+    # Deletes a single question document
+    def deleteQuestion(self, id: str) -> None:
+        self.es.delete(index="question-answer", id=id)
 
 
 # Not up-to-date

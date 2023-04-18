@@ -86,7 +86,7 @@ def add_one_questions():
 
     print(category, question, answer)
     #add_question(question, answer, category)
-    answerer.addQuestion(question, answer)
+    answerer.addQuestion([question], [answer], category) #Note that question and answer are expected to be given as lists. These square brackets are temporary
 
     return response("success")
 
