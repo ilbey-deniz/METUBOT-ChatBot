@@ -262,6 +262,19 @@ def add_asked_question(asked_question, answer, similarity, category):
     session.add(asked_question)
     session.commit()
 
+def get_asked_questions():
+    session = create_session()
+    res = session.query(AskedQuestion).all()
+    results = []
+    for r in res:
+        temp = dict()
+        temp["asked_question"] = r.asked_question
+        temp["answer"] = r.answer
+        temp["similarity"] = r.similarity
+        temp["category"] = r.category
+        results.append(temp)
+    return results
+
 if __name__ == "__main__":
 
     # add_question("sa", "as", "selamlama")

@@ -238,7 +238,9 @@ def ask_endpoint():
     add_asked_question(msg, answer, 1234, 'kategori?')
     return response(status="success", data=answer)
 
-
+@app.route("/askedQuestions")
+def get_asked_questions_route():
+    return response(status="success", data=get_asked_questions())
 
 @app.route("/secret")
 @token_required
