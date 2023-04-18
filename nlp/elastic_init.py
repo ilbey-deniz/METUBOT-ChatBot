@@ -30,6 +30,9 @@ def initializeIndex(qa_file):
         "answer": {
             "type": "object",
             "enabled" : False
+        },
+        "category": {
+            "type": "text"
         }
     }
 
@@ -79,7 +82,8 @@ def initializeIndex(qa_file):
                     "join": {
                         "name": "answer"
                     },
-                    "answer": data["qa-pairs"][i]["answer"]
+                    "answer": data["qa-pairs"][i]["answer"],
+                    "category": data["qa-pairs"][i]["category"]
                 }
 
             answer_id = es.index(index="question-answer", document=a, routing=True)["_id"]

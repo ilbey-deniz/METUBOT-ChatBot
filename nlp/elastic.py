@@ -85,8 +85,31 @@ class ElasticsearchInterface(Answerer):
 
         self.es.index(index="question-answer", document=q, routing=True)
 
-    def addQuestionFromExcel(self, file):
-        pass
+    # Returns a list of q-a pairs in the same format as qa_pairs.json
+    def getPage(self, from_, size):
+        result = []
+
+        response = self.es.search(index="question-answer", from_=from_, size=size, query={
+            "multi_match": {
+                "query": "answer",
+                "fields": ["join"]
+            }
+        })
+
+        for res in response["hits"]["hits"]:
+
+            ques = self.es.search(index="question-answer", query={
+                "parent_id":{
+                    "type": "question",
+                    "id": res["_id"]
+                }
+            })
+
+            result.append({"question": [q["_source"]["body"] for q in ques["hits"]["hits"]],
+                           "answer": res["_source"]["answer"],
+                           "category": res["_source"]["category"]})
+            
+        return result
 
 
 # Not up-to-date
