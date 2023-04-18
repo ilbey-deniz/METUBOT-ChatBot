@@ -75,6 +75,7 @@
 
 <script>
 import AdminChartPie from '@/components/AdminChartPie.vue';
+import axios from 'axios';
 
 export default {
     name: "AdminAskedQuestions",
@@ -83,74 +84,14 @@ export default {
         return {
             search: '',
             questions: [ // temporary. the real questions will be requested from the database.
-                {
+                /*{
                     question: "Bugün ne yiyeceğiz?",
                     matchedQuestion: "Bugün pilav üstü odtü kavurma yiyeceğiz.",
                     category: "kafeterya",
                     similarity: 0.8,
                     feedback: 'like',
                     feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
-
-                },
-                {
-                    question: "Şifremi nasıl öğrenebilirim?",
-                    matchedQuestion: "Şifrenizi öğrenmek için şifre sıfırlama sayfasına gidiniz.",
-                    category: "şifre",
-                    similarity: 0.6,
-                    feedback: 'dislike',
-                    feedbackText: 'Ben bu cevaptan hiç hoşlanmadım, bir daha zinhar metubota soru sormam.',
-                },
-                {
-                    question: "Bugün ne yiyeceğiz?",
-                    matchedQuestion: "Bugün pilav üstü odtü kavurma yiyeceğiz.",
-                    category: "kafeterya",
-                    similarity: 0.8,
-                    feedback: '',
-                    feedbackText: 'Ben bu cevap benim üzerimde beğeni veya beğenmeme oluşturacak bir intiba bırakmadı.',
-
-                },
-                {
-                    question: "Şifremi nasıl öğrenebilirim?",
-                    matchedQuestion: "Şifrenizi öğrenmek için şifre sıfırlama sayfasına gidiniz.",
-                    category: "şifre",
-                    similarity: 0.6,
-                    feedback: 'like',
-                    feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
-                },
-                {
-                    question: "Bugün ne yiyeceğiz?",
-                    matchedQuestion: "Bugün pilav üstü odtü kavurma yiyeceğiz.",
-                    category: "kafeterya",
-                    similarity: 0.8,
-                    feedback: 'like',
-                    feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
-
-                },
-                {
-                    question: "Şifremi nasıl öğrenebilirim?",
-                    matchedQuestion: "Şifrenizi öğrenmek için şifre sıfırlama sayfasına gidiniz.",
-                    category: "şifre",
-                    similarity: 0.6,
-                    feedback: 'like',
-                    feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
-                },
-                {
-                    question: "Bugün ne yiyeceğiz?",
-                    matchedQuestion: "Bugün pilav üstü odtü kavurma yiyeceğiz.",
-                    category: "kafeterya",
-                    similarity: 0.8,
-                    feedback: 'like',
-                    feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
-
-                },
-                {
-                    question: "Şifremi nasıl öğrenebilirim?",
-                    matchedQuestion: "Şifrenizi öğrenmek için şifre sıfırlama sayfasına gidiniz.",
-                    category: "şifre",
-                    similarity: 0.6,
-                    feedback: 'like',
-                    feedbackText: 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.',
-                },
+                }*/
             ],
             headers: [
                 {
@@ -166,6 +107,15 @@ export default {
                 { text: 'Geri Bildirim', value: 'feedbackText' },
             ],
         }
+    },
+    mounted() {
+        axios.get('/askedQuestions')
+            .then(response => {
+                this.questions = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
     },
     computed: {
         chartData() {
