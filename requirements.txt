@@ -5,3 +5,4 @@ sqlalchemy
 flask
 flask-socketio
 sentence-transformers
+PyJWT==1.7.1
