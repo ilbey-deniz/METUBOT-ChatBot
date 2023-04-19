@@ -1,47 +1,17 @@
 <template>
 	<div class="app">
-		<Sidebar/>
+		<Login/>
 		<router-view class="content"/>
 	</div>
 </template>
 
 <script setup>
-import { io } from "socket.io-client";
-import Sidebar from '../components/AdminSidebar.vue'
+import Login from '@/components/AdminLogin.vue';
 </script>
 
 <script>
 export default {
-  name: "AdminView",
-  data() {
-    return {
-		token: null,
-        socketIoSocket: null
-    }
-  },
-  
-beforeMount() {
-	this.socketIoSocket = io();
-	this.token = localStorage.getItem("token");
-	if (this.token) {
-		this.socketIoSocket.emit('token check', this.token);
-		this.socketIoSocket.on("token check answer", (data) => {
-			if(data["status"] == "success"){
-				this.$router.push("/yonetim");
-			}
-			else{
-				this.$router.push("/login");
-			}
-		})
-	}
-	else{
-		this.$router.push("/login");
-	}
-
-  },
-  methods: {
-	
-  }
+  name: "AdminLoginView"
 }
 </script>
 
