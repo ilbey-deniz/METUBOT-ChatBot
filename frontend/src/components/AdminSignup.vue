@@ -111,6 +111,9 @@ import { io } from "socket.io-client";
         }
       }
         
+    },
+    destroyed(){
+      this.socketIoSocket.disconnect();
     }
   }
   </script>

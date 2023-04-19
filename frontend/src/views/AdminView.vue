@@ -41,6 +41,9 @@ beforeMount() {
   },
   methods: {
 	
+  },
+  destroyed(){
+	  this.socketIoSocket.disconnect();
   }
 }
 </script>

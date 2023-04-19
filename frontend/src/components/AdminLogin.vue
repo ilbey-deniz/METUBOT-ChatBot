@@ -107,6 +107,9 @@ export default {
             this.socketIoSocket.emit('login', check_data);
         }
     }
+  },
+  destroyed(){
+	  this.socketIoSocket.disconnect();
   }
 }
 </script>
