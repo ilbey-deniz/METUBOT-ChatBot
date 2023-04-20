@@ -38,10 +38,10 @@
             <div class="flex"></div>
 
             <div class="menu">
-                <v-btn class="button" @click="logout">
-                    <span class="material-icons">logout</span>
+                <router-link to="/login" class="button" >
+                    <span @click="logout" class="material-icons">logout</span>
                     <span class="text">Çıkış Yap</span>
-                </v-btn>
+                </router-link>
                 <router-link to="/settings" class="button">
                     <span class="material-icons">settings</span>
                     <span class="text">Ayarlar</span>
