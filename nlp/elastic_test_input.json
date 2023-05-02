@@ -1,0 +1,52 @@
+{
+    "qa-pairs": [
+        {
+            "question": [
+                "etkileşimli kayıtlarda neden captcha uygulaması kullanılmaktadır",
+                "niye captcha ya!",
+                "bu etkileşim şeysi çok sıkıntı",
+                "Kapçadan dolayı ders seçemedim !!!",
+                "Captch  çok   kötü yha"
+            ],
+            "answer": [
+                "Kayıt uygulamasında bulunan captchayı çözdüğünü ileri sürerek ders kayıtlarında haksız kazanç sağlamak ve kayıt önceliği elde etmek isteyen bazı kişiler olduğu görülmüştür. Ders kayıtlarının eşit koşullarda gerçekleşmesi için captcha uygulaması güncellenmiştir."
+            ],
+            "category": "kayıt"
+        },
+        {
+            "question": [
+                "bölüm koordinatörüne nasıl ulaşabilirim",
+                "Nerded bu koordinatörün iletişim bilgileri?",
+                "Bölüm yetkileşine ulaşmak isterim",
+                "Kordinatörle nasıl iletişime geçerim"
+            ],
+            "answer": [
+                "Bölüm/birim koordinatörlerinin listesine http://coordinators.metu.edu.tr/ adresinden erişebilirsiniz."
+            ],
+            "category": "koordinatör"
+        },
+        {
+            "question": [
+                "lojmanlardan internet'e nasıl bağlanabilirim",
+                "lojmanlardan webe nasıl bağlanıcam",
+                "internete lojmandan nasıl girerim"
+            ],
+            "answer": [
+                "Bu lojmanlarda kalan ODTÜ personeli 3378 numaralı telefondan ya da lkoord@metu.edu.tr e-posta adresinden lojman koordinatörüne merkezi sistem kullanıcı adı bilgisini ileterek lojmanlardan internete bağlanmak için gerekli kayıt işleminin yapılmasını talep etmelidir."
+            ],
+            "category": "internet"
+        },
+        {
+            "question": [
+                "genel-duyuru listesine üye olabilir miyim",
+                "bu genel duyuru listesine nasıl katılabilirim??",
+                "duyuruların olduğu genel gruba nasıl gircem",
+                "duyuru grubuna nasıl üye olam?!?"
+            ],
+            "answer": [
+                "genel-duyuru listesine ODTÜ personeli olan kisiler kullanici_adimetu.edu.tr seklindeki e-posta adresleri ile otomatik olarak kaydedilmektedir. Ögrencilerin üyelik talepleri kabul edilmemektedir."
+            ],
+            "category": "mail"
+        }
+    ]
+}

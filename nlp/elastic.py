@@ -54,11 +54,7 @@ class ElasticsearchInterface(Answerer):
                 return result[0]
             else:
                 return result
-            
-            #if type(result[0]==str):
-            #    return result[0]
-            #else:
-            #    return result
+
         else:
             # No hit
             return "Üzgünüm, ne sormak istediğinizi anlayamadım."
@@ -130,28 +126,25 @@ class ElasticsearchInterface(Answerer):
     def deleteQuestion(self, id: str) -> None:
         self.es.delete(index="question-answer", id=id)
 
+    # Updates answer document and all questions related to it
+    # Basicially delete and add
+    def updateAnswer(self, id: str, questions: list, answer: list, category: str) -> None:
+        self.deleteAnswer(id)
+        self.addQuestion(questions, answer, category)
 
-# Not up-to-date
-# For test purposes, returns all together with results
-def getSimiliarQuestion(question):
+    # Updates question without touching answer
+    def updateQuestion(self, id: str, question: str) -> None:
+        answer_id = self.es.get(index="question-answer", id=id)["_source"]["join"]["parent"]
 
-    es = Elasticsearch("http://localhost:9200")
+        self.deleteQuestion(id)
 
-    response = es.search(index="question-answer", query={
-        "more_like_this": {
-            "fields": ["body"],
-            "like": question,
-            "min_term_freq": 1,
-            "min_doc_freq": 1,
-            "max_query_terms": 12
+        q = {
+            "join": {
+                "name": "question",
+                "parent": answer_id
+            },
+            "body": question,
+            "vector": self.vectorize(question)
         }
-    })
-    
-    response_list = []
-    for i in response["hits"]["hits"]:
-        
-        # There may be a better solution
-        if i["_source"]["join"]["name"] == "question":
-            response_list.append((i["_id"], i["_source"]["body"], i["_score"]))
-    
-    return response_list
+
+        self.es.index(index="question-answer", document=q, id=id, routing=True)
