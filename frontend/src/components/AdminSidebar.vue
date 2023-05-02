@@ -32,6 +32,10 @@
                     <span class="material-icons">menu</span>
                     <span class="text">Soru Düzenle</span>
                 </router-link>
+                <router-link to="/yonetim/dialogflow" class="button">
+                    <span class="material-icons">account_tree</span>
+                    <span class="text">Dialog Akışı</span>
+                </router-link>
 
 
             </div>
