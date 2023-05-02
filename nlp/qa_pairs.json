@@ -194,268 +194,35 @@
                     "type": "button",
                     "text": "Mimarlık Fakültesi",
                     "answer": [
-                        {
-                            "type": "button",
-                            "text": "Mimarlık Bölümü",
-                            "answer": [
-                                "ARCH kısaltmalı bölümün kodu 120'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Şehir ve Bölge Planlama Bölümü",
-                            "answer": [
-                                "CRP kısaltmalı bölümün kodu 121'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Endüstriyel Tasarım Bölümü",
-                            "answer": [
-                                "ID kısaltmalı bölümün kodu 125'tir."
-                            ]
-                        }
+                        "ARCH kısaltmalı bölümün kodu 120'dir. CRP kısaltmalı bölümün kodu 121'dir. ID kısaltmalı bölümün kodu 125'tir."
                     ]
                 },
                 {
                     "type": "button",
                     "text": "Fen Edebiyat Fakültesi",
                     "answer": [
-                        {
-                            "type": "button",
-                            "text": "Fizik Bölümü",
-                            "answer": [
-                                "PHYS kısaltmalı bölümün kodu 230'tür."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Moleküler Biyoloji ve Genetik Bölümü",
-                            "answer": [
-                                "GENE kısaltmalı bölümün kodu 219'dır."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Biyoloji Bölümü",
-                            "answer": [
-                                "BIOL kısaltmalı bölümün kodu 238'dır."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Kimya Bölümü",
-                            "answer": [
-                                "CHEM kısaltmalı bölümün kodu 234'tür."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Tarih Bölümü",
-                            "answer": [
-                                "HIST kısaltmalı bölümün kodu 240'tır."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Matematik Bölümü",
-                            "answer": [
-                                "MATH kısaltmalı bölümün kodu 236'dır."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Felsefe Bölümü",
-                            "answer": [
-                                "PHIL kısaltmalı bölümün kodu 241'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Psikoloji Bölümü",
-                            "answer": [
-                                "PSY kısaltmalı bölümün kodu 233'tür."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Sosyoloji Bölümü",
-                            "answer": [
-                                "SOC kısaltmalı bölümün kodu 232'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "İstatistik Bölümü",
-                            "answer": [
-                                "STAT kısaltmalı bölümün kodu 246'dır."
-                            ]
-                        }
+                        "PHYS kısaltmalı bölümün kodu 230'tür. GENE kısaltmalı bölümün kodu 219'dır. BIOL kısaltmalı bölümün kodu 238'dır. CHEM kısaltmalı bölümün kodu 234'tür. HIST kısaltmalı bölümün kodu 240'tır. MATH kısaltmalı bölümün kodu 236'dır. PHIL kısaltmalı bölümün kodu 241'dir. PSY kısaltmalı bölümün kodu 233'tür. SOC kısaltmalı bölümün kodu 232'dir. STAT kısaltmalı bölümün kodu 246'dır."
                     ]
                 },
                 {
                     "type": "button",
                     "text": "İktisadi ve İdari Bilimler Fakültesi",
                     "answer": [
-                        {
-                            "type": "button",
-                            "text": "İşletme Bölümü",
-                            "answer": [
-                                "BA kısaltmalı bölümün kodu 312'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "İktisat Bölümü",
-                            "answer": [
-                                "ECON kısaltmalı bölümün kodu 311'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Uluslararası İlişkiler Bölümü",
-                            "answer": [
-                                "IR kısaltmalı bölümün kodu 314'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Siyaset Bilimi ve Kamu Yönetimi Bölümü",
-                            "answer": [
-                                "ADM kısaltmalı bölümün kodu 310'dur."
-                            ]
-                        }
+                        "BA kısaltmalı bölümün kodu 312'dir. ECON kısaltmalı bölümün kodu 311'dir. IR kısaltmalı bölümün kodu 314'dir. ADM kısaltmalı bölümün kodu 310'dur."
                     ]
                 },
                 {
                     "type": "button",
                     "text": "Eğitim Fakültesi",
                     "answer": [
-                        {
-                            "type": "button",
-                            "text": "Bilgisayar ve Öğretim Teknolojileri Eğitimi Bölümü",
-                            "answer": [
-                                "CEIT kısaltmalı bölümün kodu 121'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Okul Öncesi Öğretmenliği Bölümü",
-                            "answer": [
-                                "ECE kısaltmalı bölümün kodu 411'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Yabancı Diller Eğitimi Bölümü",
-                            "answer": [
-                                "FLE kısaltmalı bölümün kodu 450'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Matematik ve Fen Bilimleri Eğitimi Bölümü",
-                            "answer": [
-                                "MSE kısaltmalı bölümün kodu 460'tır."
-                            ]
-                        }
+                        "FLE kısaltmalı bölümün kodu 450'dir. MSE kısaltmalı bölümün kodu 460'tır. CEIT kısaltmalı bölümün kodu 121'dir. ECE kısaltmalı bölümün kodu 411'dir."
                     ]
                 },
                 {
                     "type": "button",
                     "text": "Mühendislik Fakültesi",
                     "answer": [
-                        {
-                            "type": "button",
-                            "text": "Havacılık ve Uzay Mühendisliği Bölümü",
-                            "answer": [
-                                "AEE kısaltmalı bölümün kodu 572'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Kimya Mühendisliği Bölümü",
-                            "answer": [
-                                "CHE kısaltmalı bölümün kodu 563'tür."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "İnşaat Mühendisliği Bölümü",
-                            "answer": [
-                                "CE kısaltmalı bölümün kodu 562'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Bilgisayar Mühendisliği Bölümü",
-                            "answer": [
-                                "CENG kısaltmalı bölümün kodu 571'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Elektrik ve Elektronik Mühendisliği Bölümü",
-                            "answer": [
-                                "EE kısaltmalı bölümün kodu 567'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Mühendislik Bilimleri Bölümü",
-                            "answer": [
-                                "ES kısaltmalı bölümün kodu 561'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Çevre Mühendisliği Bölümü",
-                            "answer": [
-                                "ENVE kısaltmalı bölümün kodu 560'tır."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Jeoloji Mühendisliği Bölümü",
-                            "answer": [
-                                "GEOE kısaltmalı bölümün kodu 564'tür."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Endüstri Mühendisliği Bölümü",
-                            "answer": [
-                                "IE kısaltmalı bölümün kodu 568'dir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Makina Mühendisliği Bölümü",
-                            "answer": [
-                                "ME kısaltmalı bölümün kodu 569'dur."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Metalurji ve Malzeme Mühendisliği Bölümü",
-                            "answer": [
-                                "METE kısaltmalı bölümün kodu 570'tir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Maden Mühendisliği Bölümü",
-                            "answer": [
-                                "MINE kısaltmalı bölümün kodu 565'tir."
-                            ]
-                        },
-                        {
-                            "type": "button",
-                            "text": "Petrol ve Doğal Gaz Mühendisliği Bölümü",
-                            "answer": [
-                                "PETE kısaltmalı bölümün kodu 566'dir."
-                            ]
-                        }
+                        "AEE kısaltmalı bölümün kodu 572'dir. CHE kısaltmalı bölümün kodu 563'tür. CE kısaltmalı bölümün kodu 562'dir. CENG kısaltmalı bölümün kodu 571'dir. ENVE kısaltmalı bölümün kodu 560'tır. GEOE kısaltmalı bölümün kodu 564'tür.                                 EE kısaltmalı bölümün kodu 567'dir. ES kısaltmalı bölümün kodu 561'dir. IE kısaltmalı bölümün kodu 568'dir. ME kısaltmalı bölümün kodu 569'dur. METE kısaltmalı bölümün kodu 570'tir. MINE kısaltmalı bölümün kodu 565'tir. PETE kısaltmalı bölümün kodu 566'dir."
                     ]
                 }
             ],
@@ -1162,6 +929,181 @@
                 }
             ],
             "category": "diyalog"
+        },
+        {
+            "question": [
+                "bi̇r çatı tabağı fi̇yat-fayda anlaminda nasıl planlanmalı"
+            ],
+            "answer": [
+                "Bunu yapmak için öncelikle tabağınıza yiyebileceğinizden fazla ürün almadığınızdan emin olmalısınız. Bu da ortalama 500-600 gram ürünü aşmıyor olmak anlamına gelir. Tabağınıza 75 gram kadar yoğurt ya da süt bazlı ürün almalısınız. Serviste kullanılan kaşıklarla alacağınız 3 kaşık yoğurt yaklaşık 75 gram gelir.  60 gram kadar et, balık, kuru bakliyat ya da yumurta bazlı ürün almalısınız ki 2 adet köfte, 1 adet ızgara tavuk ya da 1 dilim palamut yaklaşık 60 gram gelir.  35 gram kadar tatlı alabilirsiniz. Bu da 1 adet baklava ya da 1-2 adet çikolatalı ezme kadardır.  165 gram yeşil salata, sebze yemeği ya da meyve almalısınız. Eğer tabağınızın 1/4’ü kadar yeşil salata alırsanız 50 gram civarı gelecektir. 1 servis kasığı sebze yemeği ya da zeytinyağlı yaklaşık 50 gram gelir.  165 gram börek, pilav, ya da makarna almalısınız. Ekmek yiyecekseniz bu miktarı düşürmelisiniz çünkü 1 adet roll ekmek 50 gram, 1 kaşık pilav 30 gram gelir."
+            ],
+            "category": "çatı"
+        },
+        {
+            "question": [
+                "çatıda neden kırmızı et yemeği çıkarmıyorsunuz"
+            ],
+            "answer": [
+                "Pişmiş maliyeti büfe satış fiyatımızın 2,5 katı olan kırmızı et yemeklerine menümüzde maalesef yer veremiyoruz."
+            ],
+            "category": "çatı"
+        },
+        {
+            "question": [
+                "çatıda neden hep aynı çeşitler var"
+            ],
+            "answer": [
+                "Aslında tüm restoranların menüsü bir sefer belirlenir ve yıllarca aynı kalır. Açık büfede servis ettiğimiz ürün sayısı her gün 140 çeşit civarındaki bu ortalama bir restoranın menüsüne göre 20 kat daha fazla seçenek anlamına gelir. Bu çeşitlerin yaklaşık %60’ı sabitken, kalan %40’lık bölüm gün aşırı değişmektedir."
+            ],
+            "category": "çatı"
+        },
+        {
+            "question": [
+                "bazı yemeklerin neden tadı aynı gibi"
+            ],
+            "answer": [
+                "Aslında Türk yemeklerin geneli salça, sarımsak ve baharat bazlıdır. Yemeklerimizi geleneksel tadına uygun reçetelerle yapmaya çalıyoruz. Bu da bazı benzerlikler olmasına neden olabiliyor. Dikkat edilmesi gereken bir başka konu da tabağa aynı anda alınan çok fazla çeşidin soslarının karışarak birbirini etkiliyor olmasıdır."
+            ],
+            "category": "çatı"
+        },
+        {
+            "question": [
+                "artan yemekler ertesi gün kullanılıyor mu",
+                "artan yemekleri ne yapıyorsunuz"
+            ],
+            "answer": [
+                "Ürünlerimizi serviste en fazla 2 saat kalacak şekilde planlıyor ve süre sonunda kalan kısmı servisten çekerek imha ediyoruz."
+            ],
+            "category": "çatı"
+        },
+        {
+            "question": [
+                "artan yemekler ertesi gün kullanılıyor mu",
+                "artan yemekleri ne yapıyorsunuz"
+            ],
+            "answer": [
+                "Ürünlerimizi serviste en fazla 2 saat kalacak şekilde planlıyor ve süre sonunda kalan kısmı servisten çekerek imha ediyoruz."
+            ],
+            "category": "çatı"
+        },
+        {
+            "question": [
+                "öğrenim dili hangi dildedir"
+            ],
+            "answer": [
+                "ODTÜ'de öğrenim dili İngilizce'dir."
+            ],
+            "category": "genel"
+        },
+        {
+            "question": [
+                "akademik programlar nelerdir"
+            ],
+            "answer": [
+                "ODTÜ'de 3'ü uluslararası ortak program olmak üzere 41 lisans programının yürütüldüğü 5 Fakülte, 105 yüksek lisans ve 70 doktora programının yürütüldüğü 5 Enstitü, İngilizce eğitimi veren Yabancı Diller Yüksek Okulu faaliyet göstermektedir. ODTÜ Kuzey Kıbrıs Kampüsü'ne bağlı 15 lisans programı ve 5 yüksek lisans programı yürütülmektedir."
+            ],
+            "category": "genel"
+        },
+        {
+            "question": [
+                "akademik yıl kaç dönemden oluşur"
+            ],
+            "answer": [
+                "ODTÜ'de akademik yıl iki yarıyıldan oluşmaktadır. Akademik yılın birinci dönemi genellikle Eylül ayının son haftasında başlamakta ve Ocak ayının ortasında tamamlanmaktadır. İkinci dönem, Şubat ayının ortasında başlamakta ve Haziran ayının ortasında sona ermektedir. ODTÜ'de dönem derslerini içeren yaz okulu ve uluslararası öğrencilerin ilgilerine hitap edecek dersler içeren Uluslararası Yaz Okulu da bulunmaktadır."
+            ],
+            "category": "genel"
+        },
+        {
+            "question": [
+                "odtü iyi bir okul mu",
+                "odtüyü tercih etmeli miyim",
+                "odtüyü kazanmak için ne yapmam gerek"
+            ],
+            "answer": [
+                "ODTÜ, Türkiye'nin rekabeti yüksek sayılı üniversitelerindendir. Her yıl ülke çapında yapılan Üniversite Giriş Sınavları'na giren en yüksek puanlı 1000 öğrencinin 1/3'ünden fazlası ODTÜ'yü tercih etmektedir. ODTÜ'de öğrenim görme talebi çok yüksek olduğundan, ODTÜ'nün pek çok bölümü, Üniversite Giriş Sınavı'na giren yaklaşık birbuçuk milyon öğrenciden sadece en üstteki yüzde üçlük dilime girebilenleri kabul etmektedir. ODTÜ öğrencilerinin yüzde kırktan fazlası yüksek lisansa devam etmektedir."
+            ],
+            "category": "genel"
+        },
+        {
+            "question": [
+                "ne gibi etkinlikler var"
+
+            ],
+            "answer": [
+                "Akademik yıl boyunca öğrenciler kampüsde yapılan sanat etkinliklerinden, sergilerden, müzik etkinliklerinden ve çok çeşitli sosyal ve akademik faaliyetlerden yararlanabilirler. Bu etkinliklerin birçoğu ODTÜ'nün Kültür Kongre Merkezi'nde gerçekleştirilmektedir. Yılın sosyal etkinliklerinin doruğa ulaştığı geleneksel Uluslararası Bahar Şenliği, Mayıs ayındadır."
+            ],
+            "category": "genel"
+        },
+        {
+            "question": [
+                "kampüs ne kadar büyük"
+
+            ],
+            "answer": [
+                "Kampüs alanı 45.000 dekar (4500 hektar), orman alanı ise 30.430 dekar (3043 hektar) büyüklüğündedir ve Ankara'nın merkezinden 20 km uzaktaki Eymir Gölü'nü de içine almaktadır. ODTÜ öğrencileri, bu gölde yapılan kürek sporu faaliyetlerinden, balık avlama ve piknik olanaklarından ve çeşitli etkinliklerden yararlanabilirler. ODTÜ'nün ana kampüsünden ve şehirdeki belirli noktalardan buraya otobüs seferleri mevcuttur."
+            ],
+            "category": "genel"
+        },
+        {
+            "question": [
+                "diplomamı kaybettim",
+                "yeni diploma çıkarmak istiyorum"
+
+            ],
+            "answer": [
+                "Kayıp diplomaların yerine ikinci nüsha diploma başvurusu yapılması gerekmektedir. http://oidb.metu.edu.tr/kayip-diplomalar-icin-yapilacak-islemler adresinden gerekli adımları takip edebilirsiniz."
+            ],
+            "category": "mezun"
+        },
+        {
+            "question": [
+                "ODTÜ'nün santral telefonu nedir?"
+
+            ],
+            "answer": [
+                "https://www.metu.edu.tr/tr/iletisim adresinden gerekli iletişim bilgilerine ulaşabilirsiniz."
+            ],
+            "category": "iletişim"
+        },
+        {
+            "question": [
+                "ODTÜ Öğrencisiyim nasıl @metu.edu.tr uzantılı kullanıcı kodu edinebilirim?"
+
+            ],
+            "answer": [
+                "ÖİDB tarafından kayıt işlemi gerçekleştirilen ve öğrenci numarası bulunan tüm öğrenciler useraccount.metu.edu.tr adresindeki Yeni Öğrenci bağlantısını kullanarak TC Kimlik veya Öğrenci numarası ile kayıtlı olduğu bölüm bilgisini seçer, beyan ettiği e-posta adresine Tek Kullanımlık Şifre iletilir. Bu şifre ile useraccount.metu.edu.tr adresine giriş yaparak kalıcı şifre, kurtarma e-posta adresi ve ad.soyad şeklindeki e-posta adresini (özel öğrenciler hariç) tanımlayabilir."
+            ],
+            "category": "email"
+        },
+        {
+            "question": [
+                "ODTÜ Öğrencisiyim nasıl @metu.edu.tr uzantılı kullanıcı kodu edinebilirim?"
+
+            ],
+            "answer": [
+                "ÖİDB tarafından kayıt işlemi gerçekleştirilen ve öğrenci numarası bulunan tüm öğrenciler useraccount.metu.edu.tr adresindeki Yeni Öğrenci bağlantısını kullanarak TC Kimlik veya Öğrenci numarası ile kayıtlı olduğu bölüm bilgisini seçer, beyan ettiği e-posta adresine Tek Kullanımlık Şifre iletilir. Bu şifre ile useraccount.metu.edu.tr adresine giriş yaparak kalıcı şifre, kurtarma e-posta adresi ve ad.soyad şeklindeki e-posta adresini (özel öğrenciler hariç) tanımlayabilir."
+            ],
+            "category": "email"
+        },
+        {
+            "question": [
+                "hız sınırı kaç"
+
+            ],
+            "answer": [
+                "Yerleşkede azami hız 50 km/saat, yayaların yoğun olduğu yerlerde 30km/saattir."
+            ],
+            "category": "ulaşım"
+        },
+        {
+            "question": [
+                "haritaya nasıl ulaşırım"
+
+            ],
+            "answer": [
+                "https://harita.metu.edu.tr/"
+            ],
+            "category": "ulaşım"
         }
     ]
 }
