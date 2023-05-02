@@ -49,7 +49,7 @@ export default {
   },
   beforeMount(){
     this.socketIoSocket = io();
-    this.token = localStorage.getItem("token");
+    this.token = sessionStorage.getItem("token");
       if (this.token !== null) {
         this.socketIoSocket.emit('token check', this.token);
         this.socketIoSocket.on("token check answer", (data) => {
@@ -70,7 +70,7 @@ export default {
   
     this.socketIoSocket.on("login answer", (data) => {
       if (data["status"] === "success") {
-        localStorage.setItem("token", data["token"]);
+        sessionStorage.setItem("token", data["token"]);
         this.$router.push("/yonetim");
         
       }

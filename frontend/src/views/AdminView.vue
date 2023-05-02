@@ -22,7 +22,7 @@ export default {
   
 beforeMount() {
 	this.socketIoSocket = io();
-	this.token = localStorage.getItem("token");
+	this.token = sessionStorage.getItem("token");
 	if (this.token) {
 		this.socketIoSocket.emit('token check', this.token);
 		this.socketIoSocket.on("token check answer", (data) => {

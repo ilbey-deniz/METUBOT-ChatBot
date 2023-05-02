@@ -59,7 +59,7 @@ import { io } from "socket.io-client";
     },
     beforeMount() {
       this.socketIoSocket = io();
-      this.token = localStorage.getItem("token");
+      this.token = sessionStorage.getItem("token");
         if (this.token !== null) {
           this.socketIoSocket.emit('token check', this.token);
           this.socketIoSocket.on("token check answer", (data) => {
@@ -79,7 +79,7 @@ import { io } from "socket.io-client";
     mounted() {
         this.socketIoSocket.on("register answer", (data) => {
         if (data["status"] === "success") {
-            localStorage.setItem("token", data["token"]);
+            sessionStorage.setItem("token", data["token"]);
             this.$router.push("/yonetim");
         }
         else{

@@ -38,7 +38,7 @@
             <div class="flex"></div>
 
             <div class="menu">
-                <router-link to="/login" class="button" >
+                <router-link to="#" class="button" >
                     <span @click="logout" class="material-icons">logout</span>
                     <span class="text">Çıkış Yap</span>
                 </router-link>
@@ -66,8 +66,10 @@ const ToggleMenu = () => {
 }
 
 const logout = () => {
-    localStorage.removeItem("token")
-    router.push("/login")
+    sessionStorage.removeItem("token")
+    setTimeout(() => {
+        router.push("/login")
+    }, 500);
 }
 
 </script>
