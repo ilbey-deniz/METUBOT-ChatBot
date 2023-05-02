@@ -8,6 +8,7 @@ import AdminAskedQuestions from '../components/AdminAskedQuestions.vue'
 import MetubotQuestionCRUD from '../components/AdminQuestionCRUD.vue'
 import MetubotDashboard from '../components/AdminDashboard.vue'
 import AdminChart from '@/components/AdminChart.vue';
+import AdminDialogflow from '@/components/AdminDialogflow.vue';
 
 
 Vue.use(VueRouter)
@@ -35,6 +36,7 @@ const routes = [
       { path: 'tables', component: AdminAskedQuestions },
       { path: 'charts', component: AdminChart},
       { path: 'addquestion', component: MetubotQuestionCRUD },
+      { path: 'dialogflow', component: AdminDialogflow}
 
     ],
     component: AdminView,

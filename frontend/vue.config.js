@@ -4,8 +4,14 @@ module.exports = defineConfig({
     'vuetify'
   ],
   devServer: {
-    proxy: 'http://127.0.0.1:3000',
-    host: 'localhost'
+    proxy: {
+      '^/': {
+        target: 'http://127.0.0.1:3000',
+        host: 'localhost',
+        ws: false
+      },
+      
+    }
   },
   assetsDir: "static" // for flask static folder
 })

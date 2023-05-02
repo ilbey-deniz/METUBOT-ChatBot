@@ -263,8 +263,12 @@ def token_check(token):
         emit("token check answer", {"status": "error", "message": "Missing token"})
 
 
-    data = jwt.decode(token, app.config['SECRET_KEY'])
-    user = getUserByMail(data['sub'])
+    try:
+        data = jwt.decode(token, app.config['SECRET_KEY'])
+        user = getUserByMail(data['sub'])
+    except:
+        emit("token check answer", {"status": "error", "message": "Token is expired."})
+        return
     if not user:
         emit("token check answer", {"status": "error", "message": "User not found."})
     elif data["exp"] < datetime.utcnow().timestamp():
