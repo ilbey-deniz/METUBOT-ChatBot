@@ -26,10 +26,7 @@ beforeMount() {
 	if (this.token) {
 		this.socketIoSocket.emit('token check', this.token);
 		this.socketIoSocket.on("token check answer", (data) => {
-			if(data["status"] == "success"){
-				this.$router.push("/yonetim");
-			}
-			else{
+			if(data["status"] !== "success"){
 				this.$router.push("/login");
 			}
 		})

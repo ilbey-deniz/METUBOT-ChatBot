@@ -56,13 +56,7 @@ export default {
           if(data["status"] == "success"){
             this.$router.push("/yonetim");
           }
-          else{
-            this.$router.push("/login");
-          }
         })
-      }
-      else{
-        this.$router.push("/login");
       }
     
   },

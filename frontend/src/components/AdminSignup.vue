@@ -66,13 +66,7 @@ import { io } from "socket.io-client";
             if(data["status"] === "success"){
               this.$router.push("/yonetim");
             }
-            else{
-              this.$router.push("/signup");
-            }
           })
-        }
-        else{
-          this.$router.push("/signup");
         }
       
     },
@@ -112,7 +106,7 @@ import { io } from "socket.io-client";
       }
         
     },
-    destroyed(){
+    unmounted(){
       this.socketIoSocket.disconnect();
     }
   }
