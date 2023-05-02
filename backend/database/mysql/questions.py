@@ -268,10 +268,12 @@ def get_asked_questions():
     results = []
     for r in res:
         temp = dict()
-        temp["asked_question"] = r.asked_question
-        temp["answer"] = r.answer
-        temp["similarity"] = r.similarity
+        temp["question"] = r.asked_question
+        temp["matchedQuestion"] = r.answer
         temp["category"] = r.category
+        temp["similarity"] = r.similarity
+        temp["feedback"] = 'like'
+        temp["feedbackText"] = 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.'
         results.append(temp)
     return results
 
