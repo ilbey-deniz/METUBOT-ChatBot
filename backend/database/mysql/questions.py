@@ -274,6 +274,7 @@ def get_asked_questions():
         temp["similarity"] = r.similarity
         temp["feedback"] = 'like'
         temp["feedbackText"] = 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.'
+        temp["created_at"] = r.created_at
         results.append(temp)
     return results
 

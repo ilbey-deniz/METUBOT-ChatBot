@@ -42,7 +42,7 @@ class ElasticsearchInterface(Answerer):
         if len(question_response["hits"]["hits"]) > 0:
             answer_response = self.es.get(index="question-answer", id=question_response["hits"]["hits"][0]["_source"]["join"]["parent"])
             result = answer_response["_source"]["answer"]
-            response.category = answer_response["_source"]["category"]
+            category = answer_response["_source"]["category"]
             response.similarity = question_response["hits"]["max_score"]
 
             print(f'Most similiar question: {question_response["hits"]["hits"][0]["_source"]["body"]}')
@@ -52,6 +52,8 @@ class ElasticsearchInterface(Answerer):
 
             if response.similarity < 1.36: #Not final
                 return response
+
+            response.category = category
 
             if isinstance(result[0], str):
                 response.text = result[0]
