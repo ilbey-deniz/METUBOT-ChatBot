@@ -247,10 +247,15 @@ def get_asked_questions_route():
     return response(status="success", data=get_asked_questions())
 
 
-@app.route("/add-excel", methods = ['POST'])
-def add_excel():
+@app.route("/upload_excel", methods = ['POST'])
+def upload_excel():
+    if 'file' not in request.files:
+        return "No file uploaded"
     file = request.files['file']
-    add_questions_from_excel(file)
+    if file:
+        filename = secure_filename(file.filename)
+        print(f'File {filename} uploaded successfully!')
+        add_questions_from_excel(qpath=file)
     return response("success", 200)
 
 def check_password_hash(pw_hash, password):

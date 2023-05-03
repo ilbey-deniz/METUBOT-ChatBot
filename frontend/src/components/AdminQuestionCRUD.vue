@@ -1,4 +1,5 @@
 <template>
+
     <v-container>
         <v-row>
             <v-col>
@@ -43,13 +44,7 @@
                                             Yeni Soru
                                         </v-btn>
                                         <!-- EXCEL INPUTU EKLEME KODU -->
-                                        <v-file-input
-                                            chips
-                                            show-size
-                                            label="File input"
-                                            truncate-length="10"
-                                            @change="selectFile"
-                                        ></v-file-input>
+                                        <input type="file" ref="fileInput" @change="selectFile" />
                                         <!-- EXCEL INPUTU EKLEME KODU SONU -->
                                     </template>
                                     <v-card>
@@ -144,8 +139,8 @@
             </v-col>
         </v-row>
 
-
     </v-container>
+
 
 </template>
 
@@ -257,13 +252,18 @@ export default {
             })
         },
 
-        selectFile(file) {
-            this.file = file;
-            axios.post('/add-excel', this.file, {
-                headers: {
-                'Content-Type': this.file.type
-                }
-            })
+
+        selectFile() {
+            const formData = new FormData();
+            formData.append('file', this.$refs.fileInput.files[0]);
+            console.log(formData)
+            axios.post('/upload_excel', formData)
+                .then(response => {
+                console.log(response.data);
+                })
+                .catch(error => {
+                console.log(error);
+                });
         },
 
         save() {
