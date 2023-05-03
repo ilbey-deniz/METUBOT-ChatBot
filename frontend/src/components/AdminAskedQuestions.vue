@@ -111,7 +111,7 @@ export default {
     mounted() {
         axios.get('/askedQuestions')
             .then(response => {
-                this.questions = response.data;
+                this.questions = response.data.data;
             })
             .catch(error => {
                 console.log(error);
