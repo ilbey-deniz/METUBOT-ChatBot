@@ -4,8 +4,7 @@ from pathlib import Path
 
 
 admin_json_path = "./questions_from_admin.json"
-qapairs_path = "../../nlp/qa_pairs.json"
-qapairs_ascii_path = "../../nlp/fasttext/qa_pairs_ascii.json"
+qapairs_path = "nlp/qa_pairs.json"
 excel_path = "./metubot.xlsx"
 q_path = "./questions.txt"
 a_path = "./answers.txt"
@@ -41,25 +40,27 @@ def add_questions_from_files(path=qapairs_path, overwrite=True, q_path=q_path, a
         dict["qa-pairs"].append({"question":questions[i].split("#"),"answer":answers[i].split("#"),"category":categories[i]})
     write_json(dict,path)
 
-def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=False, qfile=None):
+def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=False):
     if overwrite:
         reset_and_initialize_json(path)
 
-    d = None
-    if qfile is None:
+    try:
         d = pd.read_excel(qpath)
-    else:
-        d = qfile
-    q = d['questions'].values.tolist()
-    a = d['answers'].values.tolist()
-    c = d['categories'].values.tolist()
+        q = d['questions'].values.tolist()
+        a = d['answers'].values.tolist()
+        c = d['categories'].values.tolist()
 
-    dict = json.load(open(path))
-    for i in range(len(q)):
-        if {"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]} not in dict["qa-pairs"]:
-            dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]})
+        dict = json.load(open(path))
+        for i in range(len(q)):
+            if {"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]} not in dict["qa-pairs"]:
+                dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]})
+        
+        write_json(dict,path)
+    except ValueError:
+        print("NOT AN EXCEL FILE")
     
-    write_json(dict,path)
+
+
 
     
 def add_questions_manually(questions, answers, category, path=admin_json_path):

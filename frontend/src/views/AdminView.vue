@@ -22,6 +22,7 @@ export default {
   
 beforeMount() {
 	this.socketIoSocket = io();
+	//lokalde çalıştırmak için buradan
 	this.token = sessionStorage.getItem("token");
 	if (this.token) {
 		this.socketIoSocket.emit('token check', this.token);
@@ -34,7 +35,7 @@ beforeMount() {
 	else{
 		this.$router.push("/login");
 	}
-
+	//buraya kadar yoruma al
   },
   methods: {
 	
