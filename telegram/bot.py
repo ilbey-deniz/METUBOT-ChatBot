@@ -27,7 +27,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     data = (x.json()["data"])
     if type(data) == str:
         await update.message.reply_text(data)
-    elif data[i]["text"] :
+    elif data[0]["type"]=="button" :
         button = []
         for i in range(len(data)):
             cb = data[i]["answer"][0]
