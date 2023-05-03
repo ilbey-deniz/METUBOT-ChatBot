@@ -230,18 +230,17 @@ def connect_message():
     Timer(0.777, emit_chat_answer, (request.sid, second_message)).start()
 
 @socketio.on('chat question')
-def handle_question(msg):
-    #print('question: ' + msg)
-    answer = answerer.generatedAnswer(msg)
-    add_asked_question(q, answer, 1234, 'kategori?')
-    emit('chat answer', { 'answer': answer, 'finished': True })
+def handle_question(q):
+    answer = answerer.generatedAnswer(q)
+    add_asked_question(q, answer.text, answer.similarity, answer.category)
+    emit('chat answer', { 'answer': answer.text, 'finished': True })
 
 @app.route("/ask")
 def ask_endpoint():
     q = request.args.get("question")
     answer = answerer.generatedAnswer(q)
-    add_asked_question(q, answer, 1234, 'kategori?')
-    return response(status="success", data=answer)
+    add_asked_question(q, answer.text, answer.similarity, answer.category)
+    return response(status="success", data=answer.text)
 
 @app.route("/askedQuestions")
 def get_asked_questions_route():
