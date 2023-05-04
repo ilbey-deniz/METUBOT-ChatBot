@@ -103,7 +103,8 @@
             "question": [
                 "bugün yemekte ne var",
                 "acıktım, ne yiyebilirim",
-                "bugün yemekhanede hangi yemek çıktı"
+                "bugün yemekhanede hangi yemek çıktı",
+                "yemekhane menüsü ne"
             ],
             "answer": [
                 "GET_METU_FOOD"
@@ -112,6 +113,7 @@
         },
         {
             "question": [
+                "bilgisayar mühendisliği lisans müfredatında dönemde kaç ders vardır",
                 "ceng zorunlu dersler neler",
                 "ceng müfredatı nedir",
                 "cengde hangi dersler veriliyor",
@@ -1104,6 +1106,80 @@
                 "https://harita.metu.edu.tr/"
             ],
             "category": "ulaşım"
+        },
+        {
+            "question": [
+                "haritaya nasıl ulaşırım"
+
+            ],
+            "answer": [
+                {
+                    "type": "button",
+                    "text": "Kültür İşleri Müdürlüğüne bağlı Öğrenci Toplulukları",
+                    "answer": [
+                       "http://kim.metu.edu.tr/tr/ogrenci-topluluklari sitesini inceleyin."
+                    ]
+                },
+                {
+                    "type": "button",
+                    "text": "Spor Müdürlüğüne bağlı Öğrenci Toplulukları",
+                    "answer": [
+                        "https://spormd.metu.edu.tr/tr/spor-topluluklari sitesini inceleyin."
+                    ]
+                },
+                {
+                    "type": "button",
+                    "text": "Spor Müdürlüğüne bağlı Spor Takımları",
+                    "answer": [
+                        "https://spormd.metu.edu.tr/tr/spor-takimlari sitesini inceleyin."
+                    ]
+                }
+            ],
+            "category": "topluluk"
+        },
+        {
+            "question": [
+                "öğrenci yönetmeliği nelerdir",
+                "odtünün kuralları nelerdir"
+            ],
+            "answer": [
+                {
+                    "type": "button",
+                    "text": "Lisans Eğitim-Öğretim Yönetmeliği",
+                    "answer": [
+                       "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-lisans-egitim-ogretim-yonetmeligi"
+                    ]
+                },
+                {
+                    "type": "button",
+                    "text": "Lisansüstü Eğitim-Öğretim Yönetmeliği",
+                    "answer": [
+                        "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-lisansustu-egitim-ogretim-yonetmeligi sitesini inceleyin."
+                    ]
+                },
+                {
+                    "type": "button",
+                    "text": "Meslek Yüksekokulu Eğitim Öğretim Yönetmeliği",
+                    "answer": [
+                        "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-meslek-yuksekokulu-egitim-ogretim-yonetmeligi sitesini inceleyin."
+                    ]
+                },
+                {
+                    "type": "button",
+                    "text": "Yabancı Diller Yüksekokulu Temel İngilizce Bölümü Yönetmeliği",
+                    "answer": [
+                        "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-yabanci-diller-yuksekokulu-temel-ingilizce-bolumu-yonetmeligii sitesini inceleyin."
+                    ]
+                },
+                {
+                    "type": "button",
+                    "text": "Yurtlar Yönetmeliği",
+                    "answer": [
+                        "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-yurtlar-yonetmeligi sitesini inceleyin."
+                    ]
+                }
+            ],
+            "category": "yönetmelik"
         }
     ]
 }

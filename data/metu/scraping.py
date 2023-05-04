@@ -97,7 +97,7 @@ def saat():
     h = "0" + str(now.tm_hour) if now.tm_hour<10 else str(now.tm_hour)
     m = "0" + str(now.tm_min) if now.tm_min<10 else str(now.tm_min)
     s = "0" + str(now.tm_sec) if now.tm_sec<10 else str(now.tm_sec)
-    return "Bugünün tarihi: " + md + " " + mon + " " + y + ", " + wd + " " + h + ":" + m + ":" + s + "."
+    return "Bugünün tarihi: " + md + " " + mon + " " + y + ", " + wd + " " + h + ":" + m + ":" + s + " GMT"
 
 
 def saatler():
@@ -126,7 +126,7 @@ def yemek():
         prompt += "Akşam yemeği:\n\t"+ str(b[4].get("content")) + ", " + str(b[5].get("content")) + ", " + str(b[6].get("content")) + " ve " + str(b[7].get("content")) +  "\n"
         prompt += "\t" + vej[1].text.strip()
     except:
-        prompt = "BUgün yemekhanede yemek çıkmıyor."
+        prompt = "Bugün yemekhanede yemek çıkmıyor."
 
     return prompt
 
