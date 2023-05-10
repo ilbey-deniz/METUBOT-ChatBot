@@ -14,7 +14,8 @@
                             <template v-for="(msg, i) in messages">
                                 <div :class="{ 'd-flex flex-row-reverse': msg.isUser }">
                                   <metubot-chat-message :msg="msg" :enable-did-you-mean-this="enableDidYouMeanThis" @speak="speak(i)"
-                                                          @select-dymt-question="selectDYMTQuestion" @report-question="reportQuestion(i)"></metubot-chat-message>
+                                                        :is-speaking="isSpeaking" @select-dymt-question="selectDYMTQuestion"
+                                                        @report-question="reportQuestion(i)"></metubot-chat-message>
                                 </div>
 
                             </template>
@@ -74,6 +75,7 @@ import Vue from 'vue'
 import {io} from "socket.io-client";
 import MetubotChatMessage from '@/components/MetubotChatMessage.vue';
 import axios from 'axios';
+import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 
 export default {
     name: 'MetubotChat',
@@ -111,6 +113,7 @@ export default {
             transcript: "",
             isRecognizing: false,
             recognition: null,
+            isSpeaking: false,
         }
     },
     mounted() {
@@ -118,7 +121,7 @@ export default {
         this.socketIoSocket.on('chat answer',
                 msg => setTimeout(() => this.addBotMessage(msg), 777))
 
-        if (this.enableDidYouMeanThis) {
+        // if (this.enableDidYouMeanThis) {
             this.addBotMessage({
                 answer: 'Sorunuzu tam anlayamamakla birlikte ileri düzey yöntemlerimiz sayesinde ' +
                         'size şu soruyu yönlendirebiliyoruz:\nŞunlardan birini mi demek istediniz?',
@@ -130,28 +133,41 @@ export default {
                 ],
                 selectedDYMTQuestion: null,
             })
-        }
-        if ('speechSynthesis' in window && 'SpeechSynthesisUtterance' in window) {
-          this.populateVoices();
-          window.speechSynthesis.onvoiceschanged = () => this.populateVoices();
-        } else {
-          console.warn('Web Speech API is not supported in this browser');
-        }
+        // }
     },
     destroyed() {
         this.socketIoSocket.disconnect();
     },
     methods: {
-        populateVoices() {
-          this.voices = window.speechSynthesis.getVoices().filter(voice => voice.lang.includes('tr-TR'));
-          this.selectedVoice = this.voices[0].name;
-        },
+      // "205d9032223c4a68b5b4f06cce5cc80f", "eastus"
         speak(question_index) {
-          const utterance = new SpeechSynthesisUtterance();
-          utterance.text = this.messages[question_index].content;
-          utterance.voice = this.voices.find(voice => voice.name === this.selectedVoice);
-          speechSynthesis.speak(utterance);
+
+          if (this.isSpeaking) {
+            return; // Return early if already speaking
+          }
+
+          this.isSpeaking = true;
+
+          const speechConfig = sdk.SpeechConfig.fromSubscription("205d9032223c4a68b5b4f06cce5cc80f", "eastus");
+          speechConfig.speechSynthesisVoiceName = "tr-TR-EmelNeural";
+
+          const speechSynthesizer = new sdk.SpeechSynthesizer(speechConfig);
+          const textToSpeak = this.messages[question_index].content;
+
+          speechSynthesizer.speakTextAsync(
+              textToSpeak,
+              () => {
+                // Set isSpeaking to false after speech ends
+                speechSynthesizer.close();
+              },
+              (error) => {
+                console.error("Speech synthesis error:", error);
+                speechSynthesizer.close();
+              }
+          );
+          this.isSpeaking = false;
         },
+
         startRecognition() {
           this.isRecognizing = true;
           console.log(this.isRecognizing);
