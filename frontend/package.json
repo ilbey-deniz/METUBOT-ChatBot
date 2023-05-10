@@ -20,6 +20,7 @@
     "vue-linkify": "^1.0.1",
     "vue-router": "^3.5.1",
     "vue-sanitize": "^0.2.2",
+    "vue2-flow": "^0.1.4",
     "vuetify": "^2.6.0"
   },
   "devDependencies": {

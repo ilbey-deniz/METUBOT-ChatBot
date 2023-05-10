@@ -32,12 +32,20 @@
                     <span class="material-icons">menu</span>
                     <span class="text">Soru Düzenle</span>
                 </router-link>
+                <router-link to="/yonetim/dialogflow" class="button">
+                    <span class="material-icons">account_tree</span>
+                    <span class="text">Dialog Akışı</span>
+                </router-link>
 
 
             </div>
             <div class="flex"></div>
 
             <div class="menu">
+                <router-link to=" " class="button" >
+                    <span v-on:click="logout" class="material-icons">logout</span>
+                    <span class="text">Çıkış Yap</span>
+                </router-link>
                 <router-link to="/settings" class="button">
                     <span class="material-icons">settings</span>
                     <span class="text">Ayarlar</span>
@@ -53,11 +61,19 @@
 
 import { ref } from 'vue'
 import logoURL from '../assets/metubot-logo-nameless.png'
+import router from '@/router';
 
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 const ToggleMenu = () => {
     is_expanded.value = !is_expanded.value
     localStorage.setItem("is_expanded", is_expanded.value)
+}
+
+const logout = () => {
+    sessionStorage.removeItem("token")
+    setTimeout(() => {
+        router.push("/login")
+    }, 500);
 }
 
 </script>

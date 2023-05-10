@@ -14,6 +14,7 @@ import nlp.elastic as elastic
 
 from functools import wraps
 import jwt
+import bcrypt
 
 
 answer_generator = AnswerGeneratorMetu()
@@ -27,6 +28,7 @@ app = Flask(__name__,
             template_folder = "./frontend/dist")
 
 app.config['SECRET_KEY'] = 'secret'
+
 socketio = SocketIO(app)
 def token_required(f):
     @wraps(f)
@@ -77,6 +79,7 @@ def index():
     return render_template("index.html")
 
 @app.route('/addQuestion')
+@token_required
 def add_one_questions():
     print('ADDING QUESTION')
     category = request.args.get("category")
@@ -227,30 +230,96 @@ def connect_message():
     Timer(0.777, emit_chat_answer, (request.sid, second_message)).start()
 
 @socketio.on('chat question')
-def handle_question(msg):
-    #print('question: ' + msg)
-    answer = answerer.generatedAnswer(msg)
-    #add_asked_question(msg, answer, 1234, 'kategori?')
-    emit('chat answer', { 'answer': answer, 'finished': True })
+def handle_question(q):
+    answer = answerer.generatedAnswer(q)
+    add_asked_question(q, answer.text, answer.similarity, answer.category)
+    emit('chat answer', { 'answer': answer.text, 'finished': True })
 
 @app.route("/ask")
 def ask_endpoint():
     q = request.args.get("question")
     answer = answerer.generatedAnswer(q)
-    #add_asked_question(msg, answer, 1234, 'kategori?')
-    return response(status="success", data=answer)
+    add_asked_question(q, answer.text, answer.similarity, answer.category)
+    return response(status="success", data=answer.text)
 
 @app.route("/askedQuestions")
 def get_asked_questions_route():
     return response(status="success", data=get_asked_questions())
 
 
-@app.route("/add-excel", methods = ['POST'])
-def add_excel():
+@app.route("/upload_excel", methods = ['POST'])
+def upload_excel():
+    if 'file' not in request.files:
+        return "No file uploaded"
     file = request.files['file']
-    add_questions_from_excel(file)
+    if file:
+        filename = secure_filename(file.filename)
+        print(f'File {filename} uploaded successfully!')
+        add_questions_from_excel(qpath=file)
     return response("success", 200)
 
+def check_password_hash(pw_hash, password):
+    return bcrypt.checkpw(password.encode('utf-8'), pw_hash.encode('utf-8'))
+
+@socketio.on("token check")
+def token_check(token):
+    if not token:
+        emit("token check answer", {"status": "error", "message": "Missing token"})
+
+
+    try:
+        data = jwt.decode(token, app.config['SECRET_KEY'])
+        user = getUserByMail(data['sub'])
+    except:
+        emit("token check answer", {"status": "error", "message": "Token is expired."})
+        return
+    if not user:
+        emit("token check answer", {"status": "error", "message": "User not found."})
+    elif data["exp"] < datetime.utcnow().timestamp():
+        emit("token check answer", {"status": "error", "message": "Token is expired."})
+    else:
+        emit("token check answer", {"status": "success", "message": "Token is valid."})
+
+
+@socketio.on("login")
+def login(msg):
+
+    if not msg or not msg["mail"] or not msg["password"]:
+        emit("login answer", {"status": "error", "message": "missingCredentials"})
+
+    user = getUserByMail(msg["mail"])
+
+    if not user:
+        emit("login answer", {"status": "error", "message": "noSuchUser"})
+
+    if check_password_hash(user["password"], msg["password"]):
+        token = jwt.encode({'sub': user["mail"], 'exp': datetime.utcnow() + timedelta(minutes=30)}, app.config['SECRET_KEY'])
+        return emit("login answer", {'status':"success", 'token': token.decode('UTF-8')})
+
+    return emit("login answer", {"status": "error", "message": "wrongPassword"})
+
+
+@socketio.on("register")
+def register(msg):
+    try:
+        username = msg["username"]
+        mail = msg["mail"]
+        password = msg["password"]
+    except:
+        emit("register answer", {"status": "error", "message": "missingCredentials"})
+
+
+    if not mail or not username or not password:
+        emit("register answer", {"status": "error", "message": "missingCredentials"})
+
+    user = getUserByMail(mail)
+    if user:
+        emit("register answer", {"status": "error", "message": "userExists"})
+
+    if addUser(username, mail, password):
+        token = jwt.encode({'sub': mail, 'exp': datetime.utcnow() + timedelta(minutes=30)}, app.config['SECRET_KEY'])
+        emit("register answer", {'status':"success", 'token': token.decode('UTF-8')})
+    emit("register answer", {"status": "error", "message": "unknownError"})
 
 
 @app.route("/secret")

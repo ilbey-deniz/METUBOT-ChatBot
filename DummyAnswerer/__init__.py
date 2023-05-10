@@ -1,4 +1,4 @@
-from Answerer import Answerer
+from Answerer import Answerer, Answer
 
 
 class DummyAnswerer(Answerer):
@@ -7,4 +7,4 @@ class DummyAnswerer(Answerer):
         #elastic.fillQAIndexFast("nlp/qa_pairs.json")
 
     def answer(self, question):
-        return "Size daha iyi hizmet verebilmek için calisiyoruz. ^_^"
+        return Answer("Size daha iyi hizmet verebilmek için calisiyoruz. ^_^", 1, "Dummy")

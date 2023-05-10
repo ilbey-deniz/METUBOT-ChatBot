@@ -2,11 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MetuBotView from '../views/MetuBotView.vue'
 import AdminView from '../views/AdminView.vue'
+import AdminLoginView from '../views/AdminLoginView.vue'
+import AdminSignupView from '../views/AdminSignupView.vue'
 import AdminAskedQuestions from '../components/AdminAskedQuestions.vue'
 import MetubotQuestionCRUD from '../components/AdminQuestionCRUD.vue'
 import MetubotDashboard from '../components/AdminDashboard.vue'
 import AdminChart from '@/components/AdminChart.vue';
-import AdminLogin from '@/components/AdminLogin.vue';
+import AdminDialogflow from '@/components/AdminDialogflow.vue';
+
 
 Vue.use(VueRouter)
 
@@ -33,6 +36,7 @@ const routes = [
       { path: 'tables', component: AdminAskedQuestions },
       { path: 'charts', component: AdminChart},
       { path: 'addquestion', component: MetubotQuestionCRUD },
+      { path: 'dialogflow', component: AdminDialogflow}
 
     ],
     component: AdminView,
@@ -41,8 +45,14 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: AdminLogin,
+    component: AdminLoginView,
     meta: { title: 'METUBOT Yönetim Login' }
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: AdminSignupView,
+    meta: { title: 'METUBOT Yönetim Kayıt' }
   },
 ]
 

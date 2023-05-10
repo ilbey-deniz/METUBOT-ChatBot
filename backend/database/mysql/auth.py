@@ -1,5 +1,6 @@
 from .connector import *
 from datetime import datetime, date, timedelta
+import bcrypt
 
 
 
@@ -9,7 +10,11 @@ def addUser(name, mail, password):
         print("user cant be added, session creation error")
         return False
     
-    data = User(userName=name, userMail=mail, userPassword=password)
+    pw_bytes = password.encode('utf-8')
+    salt = bcrypt.gensalt()
+    pw_hash = bcrypt.hashpw(pw_bytes, salt)
+
+    data = User(userName=name, userMail=mail, userPassword=pw_hash)
     
     try:
         session.add(data)
@@ -35,6 +40,7 @@ def getUserByMail(mail):
     result = dict()
     result["name"] = ret[0].userName
     result["mail"] = ret[0].userMail
+    result["password"] = ret[0].userPassword
 
     return result
 

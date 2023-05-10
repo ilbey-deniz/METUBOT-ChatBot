@@ -85,7 +85,7 @@ def create_session():
     if not con:
         print("session can not be created")
         return None
-    engine = create_engine(f"mysql+mysqlconnector://{con.user}:{con.password}@{con.host}/{con.database}")
+    engine = create_engine(f"mysql+mysqlconnector://{con.user}:{con.password}@{con.host}/{con.database}?charset=utf8mb4")
     Base.metadata.create_all(bind=engine)
     Session = sessionmaker(bind=engine)
     session = Session()

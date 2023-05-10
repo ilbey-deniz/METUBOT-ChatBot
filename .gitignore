@@ -4,3 +4,4 @@ __pycache__/
 cc.tr.300.bin
 cc.tr.300.bin.gz
 .vscode
+frontend/yarn.lock
