@@ -11,7 +11,7 @@
                             class="pa-4 mb-4 message-box"
                             @click="feedbackMenu = true"
                     >
-                        <v-icon @click="onSpeak">volume_up</v-icon>
+                        <v-icon @click.stop="onSpeak">volume_up</v-icon>
                         <v-btn style="position: absolute; right: 5px; top: 5px;" dark icon>
 
                             <v-icon v-if="hover">mdi-chevron-down</v-icon>
@@ -170,7 +170,7 @@ export default {
             this.feedbackDialog = true;
         },
         onSpeak() {
-          this.$emit('speak');
+          this.$emit("speak");
         },
         resetFeedbackDialog() {
             this.feedbackText = '';
