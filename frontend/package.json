@@ -13,6 +13,7 @@
     "axios": "^1.2.0",
     "chart.js": "^4.2.1",
     "core-js": "^3.8.3",
+    "microsoft-cognitiveservices-speech-sdk": "^1.28.0",
     "socket.io-client": "^4.5.4",
     "three-dots": "^0.3.2",
     "vue": "^2.6.14",

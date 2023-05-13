@@ -174,9 +174,11 @@ def query_feedbacks():
 
 @app.route('/admin/qa_pairs')
 def get_qa_pairs():
-       with open('nlp/qa_pairs.json', encoding="utf8") as qa_pairs:
-           data = json.load(qa_pairs)
-           return jsonify(data)
+    data = answerer.getPage(0,10000)
+    return jsonify(data)
+    #with open('nlp/qa_pairs.json', encoding="utf8") as qa_pairs:
+        #data = json.load(qa_pairs)
+        #return jsonify(data)
 
 
 @app.route('/getAllQuestions')
@@ -331,5 +333,5 @@ def getProtected():
 if __name__ == "__main__":
     print("NLP Backend api started. Ask your question with socket io")
 
-    socketio.run(app, host="0.0.0.0", port="3000", debug=False, allow_unsafe_werkzeug=True)
+    socketio.run(app, host="0.0.0.0", port="3000", debug=True, allow_unsafe_werkzeug=True)
 

@@ -287,7 +287,7 @@ export default {
         },
         initialize() {
             axios.get('/admin/qa_pairs').then(response => {
-                this.qa_pairs = response.data['qa-pairs'];
+                this.qa_pairs = response.data;
             }).catch(error => {
                 console.log(error)
             })
