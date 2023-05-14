@@ -12,14 +12,7 @@
             </div>
 
             <div class="menu">
-                <router-link to="/" class="button">
-                    <span class="material-icons">home</span>
-                    <span class="text">Metubot Sohbet</span>
-                </router-link>
-                <router-link to="/yonetim/dashboard" class="button">
-                    <span class="material-icons">dashboard</span>
-                    <span class="text">Yönetim Paneli</span>
-                </router-link>
+                
                 <router-link to="/yonetim/tables" class="button">
                     <span class="material-icons">table_chart</span>
                     <span class="text">İstatistik Tablosu</span>
@@ -32,11 +25,6 @@
                     <span class="material-icons">menu</span>
                     <span class="text">Soru Düzenle</span>
                 </router-link>
-                <router-link to="/yonetim/dialogflow" class="button">
-                    <span class="material-icons">account_tree</span>
-                    <span class="text">Dialog Akışı</span>
-                </router-link>
-
 
             </div>
             <div class="flex"></div>

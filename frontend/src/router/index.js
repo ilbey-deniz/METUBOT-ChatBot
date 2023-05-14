@@ -31,13 +31,9 @@ const routes = [
     path: '/yonetim',
     name: 'admin',
     children: [
-
-      { path: 'dashboard', component: MetubotDashboard}, //dashboarda soruları koyalım ne dersiniz
       { path: 'tables', component: AdminAskedQuestions },
       { path: 'charts', component: AdminChart},
       { path: 'addquestion', component: MetubotQuestionCRUD },
-      { path: 'dialogflow', component: AdminDialogflow}
-
     ],
     component: AdminView,
     meta: { title: 'METUBOT Yönetim' }
