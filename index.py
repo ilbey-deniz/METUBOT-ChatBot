@@ -20,8 +20,8 @@ import bcrypt
 answer_generator = AnswerGeneratorMetu()
 
 #answerer: Answerer = FasttextAnswerer(answer_generator)
-answerer: Answerer = elastic.ElasticsearchInterface(answer_generator)
-#answerer: Answerer = DummyAnswerer(answer_generator)
+#answerer: Answerer = elastic.ElasticsearchInterface(answer_generator)
+answerer: Answerer = DummyAnswerer(answer_generator)
 
 app = Flask(__name__,
             static_folder = "./frontend/dist/static",
@@ -288,11 +288,13 @@ def login(msg):
 
     if not msg or not msg["mail"] or not msg["password"]:
         emit("login answer", {"status": "error", "message": "missingCredentials"})
+        return
 
     user = getUserByMail(msg["mail"])
 
     if not user:
         emit("login answer", {"status": "error", "message": "noSuchUser"})
+        return
 
     if check_password_hash(user["password"], msg["password"]):
         token = jwt.encode({'sub': user["mail"], 'exp': datetime.utcnow() + timedelta(minutes=30)}, app.config['SECRET_KEY'])

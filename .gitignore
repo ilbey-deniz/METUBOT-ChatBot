@@ -7,3 +7,4 @@ cc.tr.300.bin.gz
 frontend/yarn.lock
 dist
 *.save
+backend/database/mysql/.env
