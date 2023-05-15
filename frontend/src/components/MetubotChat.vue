@@ -36,6 +36,7 @@
 
 
                         <v-card-text class="flex-shrink-1">
+                          <div class="chat-container">
                             <v-text-field
                                     class="center"
                                     v-model="messageForm.content"
@@ -48,13 +49,16 @@
                             >
                               <template v-slot:prepend>
                                 <v-btn class="center" icon @click="toggleRecognition">
-                                  <v-icon class="icons" style="margin-right: 4px; margin-bottom: 12px; ">
-                                    {{ isRecognizing ? 'mdi-stop-circle-outline' : 'mdi-microphone' }}</v-icon>
+                                  <div class="icon-container">
+                                    <v-icon
+                                        :color="isRecognizing ? 'red' : undefined"
+                                        :class="['icons']"
+                                    >
+                                      {{ isRecognizing ? 'mdi-stop-circle-outline' : 'mdi-microphone' }}</v-icon>
+                                  </div>
                                 </v-btn>
                               </template>
-
-
-                                <template v-slot:append-outer>
+                              <template v-slot:append-outer>
 
                                     <!-- touchend.prevent reason is not hiding the keyboard on mobile -->
                                     <v-icon color="blue" @click="sendMessage" @touchend.prevent="sendMessage">
@@ -62,6 +66,7 @@
                                     </v-icon>
                                 </template>
                             </v-text-field>
+                          </div>
                         </v-card-text>
                     </v-card>
                 </v-responsive>
@@ -165,44 +170,49 @@ export default {
                 speechSynthesizer.close();
               }
           );
-          this.isSpeaking = false;
+          setTimeout(() => {
+            this.isSpeaking = false; // Delayed execution
+          }, 10000); // Replace 10000 with the desired delay in milliseconds
         },
-
         startRecognition() {
           this.isRecognizing = true;
-          console.log(this.isRecognizing);
-          const recognition = new window.webkitSpeechRecognition();
-          recognition.lang = "tr-TR";
 
-          recognition.onresult = (event) => {
-            this.transcript = event.results[0][0].transcript;
-          };
+          const speechConfig = sdk.SpeechConfig.fromSubscription("205d9032223c4a68b5b4f06cce5cc80f", "eastus");
+          speechConfig.speechRecognitionLanguage = 'tr-TR';
 
-          recognition.onerror = (event) => {
-            console.error(event.error);
-          };
+          const audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
+          const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
 
-          recognition.onend = () => {
-            console.log(this.transcript);
+          recognizer.recognizing = (s, e) => {
+            const result = e.result.text;
+            this.transcript = result;
             this.messageForm.content = this.transcript;
             this.sendMessage();
-            console.log("Speech recognition ended");
+            console.log(result);
+          };
+
+          recognizer.canceled = (s, e) => {
+            console.error(e.errorDetails);
             this.isRecognizing = false;
           };
 
-          this.recognition = recognition;
-          recognition.start();
+          recognizer.sessionStopped = () => {
+            console.log('Speech recognition ended');
+            this.isRecognizing = false;
+          };
+
+          this.recognition = recognizer;
+          recognizer.startContinuousRecognitionAsync();
         },
         stopRecognition() {
-          this.recognition.stop();
+          this.recognition.stopContinuousRecognitionAsync();
           this.isRecognizing = false;
         },
         toggleRecognition() {
-          console.log(this.isRecognizing);
-          if (this.isRecognizing) {
-            this.stopRecognition();
-          } else {
+          if (!this.isRecognizing) {
             this.startRecognition();
+          } else {
+            this.stopRecognition();
           }
         },
         getClock() {
@@ -339,12 +349,25 @@ export default {
   align-items: center;
 }
 
+.chat-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .icons {
   font-size: 22px;
   width: 30px;
   min-width: 30px;
-  margin: 0 8px;
   text-align: center;
+  margin-bottom: 12px;
 }
+
 
 </style>
