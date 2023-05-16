@@ -95,9 +95,9 @@ def add_question():
     print(f"Question: {question}")
     print(f"Answer: {answer}")
     
-    answerer.addQuestion([question], [answer], category) #Note that question and answer are expected to be given as lists. These square brackets are temporary
+    res = answerer.addQuestion(question, answer, category) #Note that question and answer are expected to be given as lists. These square brackets are temporary
 
-    return response("success")
+    return response(status="success", message="question added", data=res)
 
 @app.route('/deleteQuestion', methods = ['DELETE'])
 #@token_required
@@ -109,28 +109,32 @@ def delete_question():
 
     answerer.deleteAnswer(question_id)
 
-    return response(status="success", message="question is deleted")
+    return response(status="success", message="question deleted")
 
 @app.route('/updateQuestion', methods = ['POST'])
 #@token_required
 def update_question():
     args = request.get_json()
-    id = request.args.get("question_id")
+    id = args["id"]
     category = args["category"]
     question = args["question"]
     answer = args["answer"]
+
+    if None in [question, answer, category]:
+        return response(status="error", message="invalid question, category or answer", code=400)
 
     print('UPDATE QUESTION: ')
     print(f"Answer ID: {id}")
     print(f"Category: {category}")
     print(f"Question: {question}")
     print(f"Answer: {answer}")
-    answerer.updateAnswer(id, question, answer, category)
+
+    res = answerer.updateAnswer(id, question, answer, category)
 
     #response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
     #response = Response(response_message, mimetype="application/json", status=200)
     #response.headers.add('Access-Control-Allow-Origin', '*')
-    return response(status="success", message="question is updated")
+    return response(status="success", message="question updated", data=res)
 
 @app.route('/getFrequentQuestions')
 def get_frequent_questions():

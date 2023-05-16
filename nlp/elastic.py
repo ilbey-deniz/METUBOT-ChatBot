@@ -66,7 +66,7 @@ class ElasticsearchInterface(Answerer):
             # No hit
             return response
 
-    def addQuestion(self, questions: list, answer: list, category: str) -> None:
+    def addQuestion(self, questions: list, answer: list, category: str) -> str:
         a = {
                 "join": {
                     "name": "answer"
@@ -88,6 +88,8 @@ class ElasticsearchInterface(Answerer):
                 }
 
             self.es.index(index="question-answer", document=q, routing=True)
+
+        return answer_id
 
     # Returns a list of q-a pairs in the same format as qa_pairs.json
     def getPage(self, from_: int, size: int) -> list:
@@ -130,17 +132,17 @@ class ElasticsearchInterface(Answerer):
 
             self.es.delete(index="question-answer", id=id)
 
-    # Deletes a single question document. TODO: Unnecessay
+    # Deletes a single question document. TODO: Unecessary
     def deleteQuestion(self, id: str) -> None:
         self.es.delete(index="question-answer", id=id)
 
     # Updates answer document and all questions related to it
     # Basicially delete and add
-    def updateAnswer(self, id: str, questions: list, answer: list, category: str) -> None:
+    def updateAnswer(self, id: str, questions: list, answer: list, category: str) -> str:
         self.deleteAnswer(id)
-        self.addQuestion(questions, answer, category)
+        return self.addQuestion(questions, answer, category)
 
-    # Updates question without touching answer
+    # Updates question without touching answer TODO: Unecessary
     def updateQuestion(self, id: str, question: str) -> None:
         answer_id = self.es.get(index="question-answer", id=id)["_source"]["join"]["parent"]
 
