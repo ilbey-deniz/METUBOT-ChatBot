@@ -20,8 +20,8 @@ class AskedQuestion(Base):
     __tablename__ = "asked_questions"
 
     Qid = Column(Integer, primary_key=True)
-    asked_question = Column(String(511))
-    answer = Column(String(512))
+    asked_question = Column(Text)
+    answer = Column(Text)
     similarity = Column(FLOAT)
     category = Column(String(60))
     created_at = Column(DateTime, default=datetime.now)
