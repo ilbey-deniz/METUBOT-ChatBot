@@ -256,6 +256,7 @@ def query_all_feedbacks():
     return results
 
 def add_asked_question(asked_question, answer, similarity, category):
+    asked_question = str(asked_question)
     session = create_session()
     asked_question = AskedQuestion(asked_question=asked_question, answer=answer, similarity=similarity,
                          category=category)
