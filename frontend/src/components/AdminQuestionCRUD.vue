@@ -287,19 +287,21 @@ export default {
         },
 
         save() {
-            console.log(this.editedItem)
             if (this.editedIndex > -1) {
                 Object.assign(this.qa_pairs[this.editedIndex], this.editedItem);
                 if (this.editedItem.question !== "" && this.editedItem.answer !== "" && this.editedItem.category !==
-                    "") {
+                        "") {
                     this.valid = false;
                 } //What does this if do?
 
                 axios.post('/updateQuestion', {id: this.editedItem.id,
-                                               question: this.editedItem.question,
+                                               question: this.editedItem.question, // TODO: MAKE SURE THAT question AND answer ARE ARRAYS
                                                answer: this.editedItem.answer,
                                                category: this.editedItem.category}).catch(error => {
                 console.log(error);
+                }).then(response => {
+                    this.qa_pairs[this.editedIndex].id = response.data.data
+                    this.close() //TODO: ADD LOADING STUFF WHILE WAITING RESPONSE
                 })
             }
             else {
@@ -307,11 +309,12 @@ export default {
                                             answer: this.editedItem.answer,
                                             category: this.editedItem.category}).catch(error => {
                 console.log(error);
+                }).then(response => {
+                    this.editedItem.id = response.data.data
+                    this.qa_pairs.push(this.editedItem)
+                    this.close() //TODO: ADD LOADING STUFF WHILE WAITING RESPONSE
                 })
-                
-                this.qa_pairs.push(this.editedItem);
             }
-            this.close()
         },
         submit() {
 
