@@ -56,8 +56,11 @@ def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=Fals
                 dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]})
         
         write_json(dict,path)
+        
+        return dict
     except ValueError:
         print("NOT AN EXCEL FILE")
+        return None
     
 
 

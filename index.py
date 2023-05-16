@@ -275,7 +275,14 @@ def upload_excel():
     if file:
         filename = secure_filename(file.filename)
         print(f'File {filename} uploaded successfully!')
-        add_questions_from_excel(qpath=file)
+
+        data = add_questions_from_excel(qpath=file)
+
+        if data is None:
+            pass # Not Excel
+        else:
+            answerer.initFromDict(data)
+
     return response("success", 200)
 
 def check_password_hash(pw_hash, password):

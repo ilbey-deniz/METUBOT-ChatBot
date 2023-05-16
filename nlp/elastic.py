@@ -158,3 +158,30 @@ class ElasticsearchInterface(Answerer):
         }
 
         self.es.index(index="question-answer", document=q, id=id, routing=True)
+
+    def initFromDict(self, data: dict) -> None:
+        pair_count = len(data["qa-pairs"])
+
+        for i in range(pair_count):
+            a = {
+                    "join": {
+                        "name": "answer"
+                    },
+                    "answer": data["qa-pairs"][i]["answer"],
+                    "category": data["qa-pairs"][i]["category"]
+                }
+
+            answer_id = self.es.index(index="question-answer", document=a, routing=True)["_id"]
+            
+            for question in data["qa-pairs"][i]["question"]:
+
+                q = {
+                    "join": {
+                        "name": "question",
+                        "parent": answer_id
+                    },
+                    "body": question,
+                    "vector": self.st.encode(question).tolist()
+                }
+
+                self.es.index(index="question-answer", document=q, routing=True)
