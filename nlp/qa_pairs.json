@@ -1029,7 +1029,6 @@
         {
             "question": [
                 "ne gibi etkinlikler var"
-
             ],
             "answer": [
                 "Akademik yıl boyunca öğrenciler kampüsde yapılan sanat etkinliklerinden, sergilerden, müzik etkinliklerinden ve çok çeşitli sosyal ve akademik faaliyetlerden yararlanabilirler. Bu etkinliklerin birçoğu ODTÜ'nün Kültür Kongre Merkezi'nde gerçekleştirilmektedir. Yılın sosyal etkinliklerinin doruğa ulaştığı geleneksel Uluslararası Bahar Şenliği, Mayıs ayındadır."
@@ -1039,7 +1038,6 @@
         {
             "question": [
                 "kampüs ne kadar büyük"
-
             ],
             "answer": [
                 "Kampüs alanı 45.000 dekar (4500 hektar), orman alanı ise 30.430 dekar (3043 hektar) büyüklüğündedir ve Ankara'nın merkezinden 20 km uzaktaki Eymir Gölü'nü de içine almaktadır. ODTÜ öğrencileri, bu gölde yapılan kürek sporu faaliyetlerinden, balık avlama ve piknik olanaklarından ve çeşitli etkinliklerden yararlanabilirler. ODTÜ'nün ana kampüsünden ve şehirdeki belirli noktalardan buraya otobüs seferleri mevcuttur."
@@ -1050,7 +1048,6 @@
             "question": [
                 "diplomamı kaybettim",
                 "yeni diploma çıkarmak istiyorum"
-
             ],
             "answer": [
                 "Kayıp diplomaların yerine ikinci nüsha diploma başvurusu yapılması gerekmektedir. http://oidb.metu.edu.tr/kayip-diplomalar-icin-yapilacak-islemler adresinden gerekli adımları takip edebilirsiniz."
@@ -1060,7 +1057,6 @@
         {
             "question": [
                 "ODTÜ'nün santral telefonu nedir?"
-
             ],
             "answer": [
                 "https://www.metu.edu.tr/tr/iletisim adresinden gerekli iletişim bilgilerine ulaşabilirsiniz."
@@ -1070,7 +1066,6 @@
         {
             "question": [
                 "ODTÜ Öğrencisiyim nasıl @metu.edu.tr uzantılı kullanıcı kodu edinebilirim?"
-
             ],
             "answer": [
                 "ÖİDB tarafından kayıt işlemi gerçekleştirilen ve öğrenci numarası bulunan tüm öğrenciler useraccount.metu.edu.tr adresindeki Yeni Öğrenci bağlantısını kullanarak TC Kimlik veya Öğrenci numarası ile kayıtlı olduğu bölüm bilgisini seçer, beyan ettiği e-posta adresine Tek Kullanımlık Şifre iletilir. Bu şifre ile useraccount.metu.edu.tr adresine giriş yaparak kalıcı şifre, kurtarma e-posta adresi ve ad.soyad şeklindeki e-posta adresini (özel öğrenciler hariç) tanımlayabilir."
@@ -1080,7 +1075,6 @@
         {
             "question": [
                 "ODTÜ Öğrencisiyim nasıl @metu.edu.tr uzantılı kullanıcı kodu edinebilirim?"
-
             ],
             "answer": [
                 "ÖİDB tarafından kayıt işlemi gerçekleştirilen ve öğrenci numarası bulunan tüm öğrenciler useraccount.metu.edu.tr adresindeki Yeni Öğrenci bağlantısını kullanarak TC Kimlik veya Öğrenci numarası ile kayıtlı olduğu bölüm bilgisini seçer, beyan ettiği e-posta adresine Tek Kullanımlık Şifre iletilir. Bu şifre ile useraccount.metu.edu.tr adresine giriş yaparak kalıcı şifre, kurtarma e-posta adresi ve ad.soyad şeklindeki e-posta adresini (özel öğrenciler hariç) tanımlayabilir."
@@ -1090,7 +1084,6 @@
         {
             "question": [
                 "hız sınırı kaç"
-
             ],
             "answer": [
                 "Yerleşkede azami hız 50 km/saat, yayaların yoğun olduğu yerlerde 30km/saattir."
@@ -1100,7 +1093,6 @@
         {
             "question": [
                 "haritaya nasıl ulaşırım"
-
             ],
             "answer": [
                 "https://harita.metu.edu.tr/"
@@ -1110,14 +1102,13 @@
         {
             "question": [
                 "haritaya nasıl ulaşırım"
-
             ],
             "answer": [
                 {
                     "type": "button",
                     "text": "Kültür İşleri Müdürlüğüne bağlı Öğrenci Toplulukları",
                     "answer": [
-                       "http://kim.metu.edu.tr/tr/ogrenci-topluluklari sitesini inceleyin."
+                        "http://kim.metu.edu.tr/tr/ogrenci-topluluklari sitesini inceleyin."
                     ]
                 },
                 {
@@ -1147,7 +1138,7 @@
                     "type": "button",
                     "text": "Lisans Eğitim-Öğretim Yönetmeliği",
                     "answer": [
-                       "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-lisans-egitim-ogretim-yonetmeligi"
+                        "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-lisans-egitim-ogretim-yonetmeligi"
                     ]
                 },
                 {
@@ -1180,6 +1171,172 @@
                 }
             ],
             "category": "yönetmelik"
+        },
+        {
+            "question": [
+                "sen önce kendine yardımcı ol",
+                "kafan mı güzel",
+                "sınava nasıl çalışmalıyım",
+                "sen hiçbir şey anlamıyorsun"
+            ],
+            "answer": [
+                "Yardımcı olamadıysam özür dilerim, zamanla gelişmek üzerine programlandım."
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "bir şey sormadım"
+            ],
+            "answer": [
+                "Ben de bir şey cevaplamadım."
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "sınavlar nasıl"
+            ],
+            "answer": [
+                "Yoğun olduğuna eminim."
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "olabilir misin"
+            ],
+            "answer": [
+                "Olabileceğime inanmak istiyorum."
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "xd"
+            ],
+            "answer": [
+                ":)"
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "neler yapabiliyorsun"
+            ],
+            "answer": [
+                "Sorduğun soruyu, belleğimde mevcut olan sorularla eşleyebiliyorum."
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "yarın sınav var"
+            ],
+            "answer": [
+                "Kolay gelsin :("
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "chatgpt senden daha iyi"
+            ],
+            "answer": [
+                "ChatGPT yerli ve milli değil ama :)"
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "sen kimsin"
+            ],
+            "answer": [
+                "Benim adım METUBOT!"
+            ],
+            "category": "sohbet"
+        },
+        {
+            "question": [
+                "staj arıyorum",
+                "staj nasıl bulabilirim"
+            ],
+            "answer": [
+                "Üniversitelerin teknoparklarında yer alan firmalara başvurabilirsin."
+            ],
+            "category": "staj"
+        },
+        {
+            "question": [
+                "yaz stajını yaz okulunda yapabilir miyim?"
+            ],
+            "answer": [
+                "Yazın okula kayıtlı iseniz, yaz okulu esnasında staj yapamazsınız."
+            ],
+            "category": "staj"
+        },
+        {
+            "question": [
+                "sizce seçimler ne olur"
+            ],
+            "answer": [
+                "Tahmin yapmak ya da düşünce belirtmek gibi yeteneklerim yok. Ben sadece bir botum."
+            ],
+            "category": "cevapsız"
+        },
+        {
+            "question": [
+                "en yakın ring nerede"
+            ],
+            "answer": [
+                "https://ring.metu.edu.tr/ adresini inceleyebilirsiniz."
+            ],
+            "category": "ring"
+        },
+        {
+            "question": [
+                "bilgi işlem nerededir"
+            ],
+            "answer": [
+                "ODTÜ Bilgi İşlem Daire Başkanlığı (BİDB), Bilgisayar Mühendisliği ile İnşaat Mühendisliği K6 binaları arasında yer almaktadır."
+            ],
+            "category": "ulaşım"
+        },
+        {
+            "question": [
+                "halı sahalara nasıl ulaşabilirim"
+            ],
+            "answer": [
+                "Halı Sahalar, baraka spor salonunun yanındadır. İnşaat mühendisliği karşısındaki merdivenlerden inerseniz sağınızda kalır. Eğer C heykelinden gelip devrimin önünden geçerseniz, sağdan yukarı devam etmeniz durumunda baraka spor salonuna, ardından halı sahalara ulaşabilirsiniz. Biraz daha yukarıda büyük sentetik futbol sahası bulunmaktadır."
+            ],
+            "category": "ulaşım"
+        },
+        {
+            "question": [
+                "yemekhaneden çatıya nasıl giderim"
+            ],
+            "answer": [
+                "Yemekhaneden çıktıktan sonra sağ tarafınıza Kimya Bölümünü alacak şekilde ilerleyin. Çatı, sağ tarafınızda Endüstri Mühendisliği'nin hemen yanında yer almaktadır."
+            ],
+            "category": NaN
+        },
+        {
+            "question": [
+                "öğrenci taşıt pulu için gereken evraklar nelerdir"
+            ],
+            "answer": [
+                "https://ihm.metu.edu.tr/tr/istenen-belgeler sitesinde gerekli belgelere ulaşabilirsiniz"
+            ],
+            "category": "taşıt pulu"
+        },
+        {
+            "question": [
+                "metalurjiden havacılığa yaya olarak en hızlı nasıl giderim"
+            ],
+            "answer": [
+                "Havacılığa gitmek için önce Jeoloji Mühendisliğine doğru gidip, Maden Mühendisliğine ulaştıktan sonra Maden Mühendisliğinin arkasındaki patika yolu takip etmelisiniz."
+            ],
+            "category": "ulaşım"
         }
     ]
 }
