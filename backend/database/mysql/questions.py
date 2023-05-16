@@ -264,7 +264,7 @@ def add_asked_question(asked_question, answer, similarity, category):
 
 def get_asked_questions():
     session = create_session()
-    res = session.query(AskedQuestion).all()
+    res = session.query(AskedQuestion).order_by(desc(AskedQuestion.created_at)).all()
     results = []
     for r in res:
         temp = dict()
