@@ -178,6 +178,7 @@ export default {
             dialog: false,
             dialogDelete: false,
             headers: [
+                { text: 'ID', value: 'id'},
                 {
                     text: 'Soru',
                     align: 'start',
@@ -246,7 +247,11 @@ export default {
         },
 
         deleteItemConfirm() {
-            this.qa_pairs.splice(this.editedIndex, 1)
+            axios.delete(`/deleteQuestion?question_id=${this.editedItem.id}`).then(response => {
+                this.qa_pairs.splice(this.editedIndex, 1)
+            }).catch(error => {
+                console.log(error)
+            })
             this.closeDelete()
         },
 
@@ -288,11 +293,22 @@ export default {
                 if (this.editedItem.question !== "" && this.editedItem.answer !== "" && this.editedItem.category !==
                     "") {
                     this.valid = false;
-                }
+                } //What does this if do?
+
+                axios.post('/updateQuestion', {id: this.editedItem.id,
+                                               question: this.editedItem.question,
+                                               answer: this.editedItem.answer,
+                                               category: this.editedItem.category}).catch(error => {
+                console.log(error);
+                })
             }
             else {
-                axios.get(
-                    `/addQuestion?category=${this.editedItem.category}&question=${this.editedItem.question}&answer=${this.editedItem.answer}`)
+                axios.post('/addQuestion', {question: this.editedItem.question,
+                                            answer: this.editedItem.answer,
+                                            category: this.editedItem.category}).catch(error => {
+                console.log(error);
+                })
+                
                 this.qa_pairs.push(this.editedItem);
             }
             this.close()

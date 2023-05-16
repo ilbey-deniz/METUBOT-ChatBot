@@ -35,10 +35,10 @@ def add_questions_from_files(path=qapairs_path, overwrite=True, q_path=q_path, a
     categories = file_to_list(c_path)
 
     dict = json.load(open(path))
-
     for i in range(len(questions)):
         dict["qa-pairs"].append({"question":questions[i].split("#"),"answer":answers[i].split("#"),"category":categories[i]})
     write_json(dict,path)
+    return dict
 
 def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=False):
     if overwrite:
