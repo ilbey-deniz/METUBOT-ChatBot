@@ -20,8 +20,8 @@ import bcrypt
 answer_generator = AnswerGeneratorMetu()
 
 #answerer: Answerer = FasttextAnswerer(answer_generator)
-#answerer: Answerer = elastic.ElasticsearchInterface(answer_generator)
-answerer: Answerer = DummyAnswerer(answer_generator)
+answerer: Answerer = elastic.ElasticsearchInterface(answer_generator)
+#answerer: Answerer = DummyAnswerer(answer_generator)
 
 app = Flask(__name__,
             static_folder = "./frontend/dist/static",
@@ -78,45 +78,59 @@ def response(status, data=None, message=None, code=200):
 def index():
     return render_template("index.html")
 
-@app.route('/addQuestion')
-@token_required
-def add_one_questions():
-    print('ADDING QUESTION')
-    category = request.args.get("category")
-    question = request.args.get("question")
-    answer = request.args.get("answer")
+@app.route('/addQuestion', methods = ['POST'])
+#@token_required
+def add_question():
+
+    args = request.get_json()
+    category = args["category"]
+    question = args["question"]
+    answer = args["answer"]
+    
     if None in [question,answer,category]:
         return response(status="error", message="invalid question, category or answer", code=400)
 
-    print(category, question, answer)
-    #add_question(question, answer, category)
+    print("ADD QUESTION: ")
+    print(f"Category: {category}")
+    print(f"Question: {question}")
+    print(f"Answer: {answer}")
+    
     answerer.addQuestion([question], [answer], category) #Note that question and answer are expected to be given as lists. These square brackets are temporary
 
     return response("success")
 
-@app.route('/deleteQuestion')
-def delete_one_questions():
-    print('QUESTION IS DELETING')
+@app.route('/deleteQuestion', methods = ['DELETE'])
+#@token_required
+def delete_question():
     question_id = request.args.get("question_id")
-    delete_question_with_id(int(question_id))
+
+    print('DELETE QUESTION: ')
+    print(f'Answer ID: {question_id}')
+
+    answerer.deleteAnswer(question_id)
 
     return response(status="success", message="question is deleted")
 
-@app.route('/updateQuestion')
-def update_one_questions():
-    print('QUESTION IS UPDATING')
-    question_id = request.args.get("question_id")
-    new_category = request.args.get("new_category")
-    new_question = request.args.get("new_question")
-    new_answer = request.args.get("new_answer")
-    print(new_category, new_question, new_answer)
-    update_question(int(question_id), new_question, new_answer, new_category)
+@app.route('/updateQuestion', methods = ['POST'])
+#@token_required
+def update_question():
+    args = request.get_json()
+    id = request.args.get("question_id")
+    category = args["category"]
+    question = args["question"]
+    answer = args["answer"]
 
-    response_message = "question is updated"
-    response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
-    response = Response(response_message, mimetype="application/json", status=200)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    print('UPDATE QUESTION: ')
+    print(f"Answer ID: {id}")
+    print(f"Category: {category}")
+    print(f"Question: {question}")
+    print(f"Answer: {answer}")
+    answerer.updateAnswer(id, question, answer, category)
+
+    #response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
+    #response = Response(response_message, mimetype="application/json", status=200)
+    #response.headers.add('Access-Control-Allow-Origin', '*')
+    return response(status="success", message="question is updated")
 
 @app.route('/getFrequentQuestions')
 def get_frequent_questions():

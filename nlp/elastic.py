@@ -109,7 +109,8 @@ class ElasticsearchInterface(Answerer):
                 }
             })
 
-            result.append({"question": [q["_source"]["body"] for q in ques["hits"]["hits"]],
+            result.append({"id": res["_id"],
+                           "question": [q["_source"]["body"] for q in ques["hits"]["hits"]],
                            "answer": res["_source"]["answer"],
                            "category": res["_source"]["category"]})
 
@@ -129,7 +130,7 @@ class ElasticsearchInterface(Answerer):
 
             self.es.delete(index="question-answer", id=id)
 
-    # Deletes a single question document
+    # Deletes a single question document. TODO: Unnecessay
     def deleteQuestion(self, id: str) -> None:
         self.es.delete(index="question-answer", id=id)
 
