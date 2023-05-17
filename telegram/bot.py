@@ -5,6 +5,7 @@ import azure.cognitiveservices.speech as speechsdk
 import soundfile as sf
 import librosa
 
+button_answer = {}
 api2 = "21676b8af2a44a35a6d397ebe9bd23db"
 api_key = "205d9032223c4a68b5b4f06cce5cc80f" 
 region="eastus"
@@ -21,7 +22,7 @@ if __version_info__ < (20, 0, 0, "alpha", 1):
         f"{TG_VER} version of this example, "
         f"visit https://docs.python-telegram-bot.org/en/v{TG_VER}/examples.html"
     )
-from telegram import ForceReply, Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import ForceReply, Update, KeyboardButton, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters,  CallbackQueryHandler, CallbackContext
 
 # Enable logging
@@ -33,20 +34,29 @@ logger = logging.getLogger(__name__)
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
+        await update.message.reply_text(button_answer[update.message.text])
+        return
+    except KeyError:
+        button_answer.clear()
+
+    try:
         x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + update.message.text)
         data = (x.json()["data"])
         if type(data) == str:
             await update.message.reply_text(data)
         elif data[0]["type"]=="button" :
-            button = []
+            buttons = []
             for i in range(len(data)):
-                cb = data[i]["answer"][0]
-                button.append([InlineKeyboardButton(data[i]["text"],callback_data=cb)])
-            await context.bot.send_message(chat_id=update.effective_chat.id, reply_markup=InlineKeyboardMarkup(button),text="Lütfen seçiniz")
+                button = KeyboardButton(data[i]["text"])
+                buttons.append([button])
+                button_answer[data[i]["text"]] = data[i]["answer"][0] 
+            print(buttons)
+            reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
+            await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
         else:
             await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
     except:
-        await update.message.reply_text("üzgünüm, sorunuzu yanıtlayamıyorum.")
+        await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Bir soru sorun, onu cevaplamaya çalışacağım.")
@@ -84,7 +94,7 @@ def recognize_speech(path):
 
 
 async def handle_voice_message(update: Update, context: CallbackContext):
-    #try:
+    try:
         message = update.effective_message
         path = 'telegram/voice_message_raw.wav'
         file = await message.voice.get_file()
@@ -97,26 +107,32 @@ async def handle_voice_message(update: Update, context: CallbackContext):
 
         text = recognize_speech(path)
         
-        try:
-            if text == "Ses algılanamadı." or text == "Algılama iptal edildi veya tamamlanamadı.":
-                await update.message.reply_text(text)
+        if text == "Ses algılanamadı." or text == "Algılama iptal edildi veya tamamlanamadı.":
+            await update.message.reply_text(text)
+        else:
+            try:
+                await update.message.reply_text(button_answer[update.message.text])
+                return
+            except KeyError:
+                button_answer.clear()
+
+            x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + update.message.text)
+            data = (x.json()["data"])
+            if type(data) == str:
+                await update.message.reply_text(data)
+            elif data[0]["type"]=="button" :
+                buttons = []
+                for i in range(len(data)):
+                    button = KeyboardButton(data[i]["text"])
+                    buttons.append([button])
+                    button_answer[data[i]["text"]] = data[i]["answer"][0] 
+                print(buttons)
+                reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
+                await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
             else:
-                x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + text)
-                data = (x.json()["data"])
-                if type(data) == str:
-                    await update.message.reply_text(data)
-                elif data[0]["type"]=="button" :
-                    button = []
-                    for i in range(len(data)):
-                        cb = data[i]["answer"][0]
-                        button.append([InlineKeyboardButton(data[i]["text"],callback_data=cb)])
-                    await context.bot.send_message(chat_id=update.effective_chat.id, reply_markup=InlineKeyboardMarkup(button),text="Lütfen seçiniz")
-                else:
-                    await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
-        except:
-            await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
-    #except:
-    #   await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
+                await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
+    except:
+        await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
 
 
 
