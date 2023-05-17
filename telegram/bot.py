@@ -4,11 +4,9 @@ from telegram import __version__ as TG_VER
 import azure.cognitiveservices.speech as speechsdk
 from scipy.io import wavfile
 import scipy.signal as sps
-import io
 import soundfile as sf
-import wave
 import librosa
-import time
+
 api2 = "21676b8af2a44a35a6d397ebe9bd23db"
 api_key = "205d9032223c4a68b5b4f06cce5cc80f" 
 region="eastus"
