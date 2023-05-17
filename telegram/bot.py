@@ -2,6 +2,17 @@ import requests
 import logging
 from telegram import __version__ as TG_VER
 import azure.cognitiveservices.speech as speechsdk
+from scipy.io import wavfile
+import scipy.signal as sps
+import io
+import soundfile as sf
+import wave
+import librosa
+import time
+api2 = "21676b8af2a44a35a6d397ebe9bd23db"
+api_key = "205d9032223c4a68b5b4f06cce5cc80f" 
+region="eastus"
+speech_config = speechsdk.SpeechConfig(subscription=api_key, region=region, speech_recognition_language="tr-TR")
 
 try:
     from telegram import __version_info__
@@ -23,9 +34,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-speech_key = '205d9032223c4a68b5b4f06ccce5cc80f'
-service_region = 'eastus'
-speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
@@ -60,41 +68,59 @@ async def queryHandler(update: Update, context: CallbackContext):
     
     await context.bot.send_message(chat_id=update.effective_chat.id,text=query)
 
+def recognize_speech(path):
+
+    audio_config = speechsdk.audio.AudioConfig(filename=path)
+    speech_recognizer = speechsdk.SpeechRecognizer(speech_config, audio_config)
+    result = speech_recognizer.recognize_once()
+
+    # Check the recognition result
+    if result.reason == speechsdk.ResultReason.RecognizedSpeech:
+        return result.text
+    elif result.reason == speechsdk.ResultReason.NoMatch:
+        return "Ses algılanamadı."
+    elif result.reason == speechsdk.ResultReason.Canceled:
+        cancellation_details = speechsdk.CancellationDetails(result)
+        print(f"Cancellation reason: {cancellation_details.reason}")
+        if cancellation_details.reason == speechsdk.CancellationReason.Error:
+            print(f"Cancellation error details: {cancellation_details.error_details}")
+        return "Algılama iptal edildi veya tamamlanamadı."
+
+
 async def handle_voice_message(update: Update, context: CallbackContext):
-    try:
-        voice = update.message.voice  # Get the Voice object
-        file_id = voice.file_id  # Get the unique file ID
-        file = await context.bot.get_file(file_id)  # Get the file using the file ID
-        file_bytes = await file.download_as_bytearray()  # Get the contents of the file as a byte array
-        with open('voice_message.wav', 'wb') as f:
-            f.write(file_bytes)  # Save the file contents to a file
+    #try:
+        message = update.effective_message
+        path = 'telegram/voice_message_raw.wav'
+        file = await message.voice.get_file()
+        filebytes = await file.download_as_bytearray()
+        with open(path, 'wb') as f:
+            f.write(filebytes)
+        y, s = librosa.load(path, sr=16000)
+        path = 'telegram/voice_message.wav'
+        sf.write(path, y, s)
 
-        audio_config = speechsdk.AudioConfig(filename=  "../voice_message.wav")
-        speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
-        result = speech_recognizer.recognize_once_async().get()
-        if result.reason == speechsdk.ResultReason.RecognizedSpeech:
-            text = result.text
-            print(text)
-        else:
-            text = 'Ses kaydınızı işlerken bir hata oluştu.'
-
+        text = recognize_speech(path)
+        
         try:
-            x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + text)
-            data = (x.json()["data"])
-            if type(data) == str:
-                await update.message.reply_text(data)
-            elif data[0]["type"]=="button" :
-                button = []
-                for i in range(len(data)):
-                    cb = data[i]["answer"][0]
-                    button.append([InlineKeyboardButton(data[i]["text"],callback_data=cb)])
-                await context.bot.send_message(chat_id=update.effective_chat.id, reply_markup=InlineKeyboardMarkup(button),text="Lütfen seçiniz")
+            if text == "Ses algılanamadı." or text == "Algılama iptal edildi veya tamamlanamadı.":
+                await update.message.reply_text(text)
             else:
-                await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
+                x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + text)
+                data = (x.json()["data"])
+                if type(data) == str:
+                    await update.message.reply_text(data)
+                elif data[0]["type"]=="button" :
+                    button = []
+                    for i in range(len(data)):
+                        cb = data[i]["answer"][0]
+                        button.append([InlineKeyboardButton(data[i]["text"],callback_data=cb)])
+                    await context.bot.send_message(chat_id=update.effective_chat.id, reply_markup=InlineKeyboardMarkup(button),text="Lütfen seçiniz")
+                else:
+                    await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
         except:
-            await update.message.reply_text("üzgünüm, sorunuzu yanıtlayamıyorum.")
-    except:
-        await update.message.reply_text("üzgünüm, sorunuzu yanıtlayamıyorum.")
+            await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
+    #except:
+    #   await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
 
 
 
