@@ -260,7 +260,7 @@ def ask_endpoint():
     q = request.args.get("question")
     answer = answerer.generatedAnswer(q)
     add_asked_question(q, answer.text, answer.similarity, answer.category)
-    return response(status="success", data=str(answer.text))
+    return response(status="success", data=answer.text)
 
 @app.route("/askedQuestions")
 def get_asked_questions_route():
