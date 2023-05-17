@@ -172,7 +172,7 @@ export default {
           );
           setTimeout(() => {
             this.isSpeaking = false; // Delayed execution
-          }, 10000); // Replace 10000 with the desired delay in milliseconds
+          }, 2000); // Replace 2000 with the desired delay in milliseconds
         },
         startRecognition() {
           this.isRecognizing = true;
