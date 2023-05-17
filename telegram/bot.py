@@ -111,7 +111,7 @@ async def handle_voice_message(update: Update, context: CallbackContext):
         if text == "Ses algılanamadı." or text == "Algılama iptal edildi veya tamamlanamadı.":
             await update.message.reply_text(text)
         else:
-            x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + update.message.text)
+            x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + text)
             data = (x.json()["data"])
             if type(data) == str:
                 await update.message.reply_text(data)
