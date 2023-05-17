@@ -95,6 +95,7 @@ def recognize_speech(path):
 
 async def handle_voice_message(update: Update, context: CallbackContext):
     try:
+        button_answer.clear()
         message = update.effective_message
         path = 'telegram/voice_message_raw.wav'
         file = await message.voice.get_file()
