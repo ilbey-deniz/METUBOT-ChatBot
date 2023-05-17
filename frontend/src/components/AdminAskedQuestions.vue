@@ -22,7 +22,7 @@
                     :headers="headers"
                     :items="questions"
                     :search="search"
-                    :items-per-page="5"
+                    :items-per-page="50"
                     :items-per-page-text="'hl'"
                     no-results-text="Sonuç bulunamadı."
                     no-data-text="Soru bulunmamaktadır."
@@ -97,7 +97,6 @@ export default {
                 {
                     text: 'Sorulan Soru',
                     align: 'start',
-                    sortable: true,
                     value: 'question',
                 },
                 { text: 'Eşleşen Soru', value: 'matchedQuestion' },
@@ -105,6 +104,7 @@ export default {
                 { text: 'Benzerlik', value: 'similarity' },
                 { text: 'Beğeni', value: 'feedback' },
                 { text: 'Geri Bildirim', value: 'feedbackText' },
+                { text: 'Tarih', value: 'created_at' },
             ],
         }
     },

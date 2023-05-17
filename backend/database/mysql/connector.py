@@ -77,16 +77,21 @@ def create_db(db_name):
         print(f"error,can not create {db_name} database")
         return None
 
-
-# *change this function later. Add db_name parameter.
-def create_session():
+def get_engine():
     con = create_db(os.getenv('MYSQL_DATABASE'))
     con.database = os.getenv('MYSQL_DATABASE')
     if not con:
         print("session can not be created")
         return None
     engine = create_engine(f"mysql+mysqlconnector://{con.user}:{con.password}@{con.host}/{con.database}?charset=utf8mb4")
+    return engine
+
+# *change this function later. Add db_name parameter.
+def create_session():
+    engine = get_engine()
     Base.metadata.create_all(bind=engine)
     Session = sessionmaker(bind=engine)
     session = Session()
     return session
+
+

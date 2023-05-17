@@ -20,8 +20,8 @@ import bcrypt
 answer_generator = AnswerGeneratorMetu()
 
 #answerer: Answerer = FasttextAnswerer(answer_generator)
-#answerer: Answerer = elastic.ElasticsearchInterface(answer_generator)
-answerer: Answerer = DummyAnswerer(answer_generator)
+answerer: Answerer = elastic.ElasticsearchInterface(answer_generator)
+#answerer: Answerer = DummyAnswerer(answer_generator)
 
 app = Flask(__name__,
             static_folder = "./frontend/dist/static",
@@ -78,45 +78,63 @@ def response(status, data=None, message=None, code=200):
 def index():
     return render_template("index.html")
 
-@app.route('/addQuestion')
-@token_required
-def add_one_questions():
-    print('ADDING QUESTION')
-    category = request.args.get("category")
-    question = request.args.get("question")
-    answer = request.args.get("answer")
+@app.route('/addQuestion', methods = ['POST'])
+#@token_required
+def add_question():
+
+    args = request.get_json()
+    category = args["category"]
+    question = args["question"]
+    answer = args["answer"]
+    
     if None in [question,answer,category]:
         return response(status="error", message="invalid question, category or answer", code=400)
 
-    print(category, question, answer)
-    #add_question(question, answer, category)
-    answerer.addQuestion([question], [answer], category) #Note that question and answer are expected to be given as lists. These square brackets are temporary
+    print("ADD QUESTION: ")
+    print(f"Category: {category}")
+    print(f"Question: {question}")
+    print(f"Answer: {answer}")
+    
+    res = answerer.addQuestion(question, answer, category) #Note that question and answer are expected to be given as lists. These square brackets are temporary
 
-    return response("success")
+    return response(status="success", message="question added", data=res)
 
-@app.route('/deleteQuestion')
-def delete_one_questions():
-    print('QUESTION IS DELETING')
+@app.route('/deleteQuestion', methods = ['DELETE'])
+#@token_required
+def delete_question():
     question_id = request.args.get("question_id")
-    delete_question_with_id(int(question_id))
 
-    return response(status="success", message="question is deleted")
+    print('DELETE QUESTION: ')
+    print(f'Answer ID: {question_id}')
 
-@app.route('/updateQuestion')
-def update_one_questions():
-    print('QUESTION IS UPDATING')
-    question_id = request.args.get("question_id")
-    new_category = request.args.get("new_category")
-    new_question = request.args.get("new_question")
-    new_answer = request.args.get("new_answer")
-    print(new_category, new_question, new_answer)
-    update_question(int(question_id), new_question, new_answer, new_category)
+    answerer.deleteAnswer(question_id)
 
-    response_message = "question is updated"
-    response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
-    response = Response(response_message, mimetype="application/json", status=200)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return response(status="success", message="question deleted")
+
+@app.route('/updateQuestion', methods = ['POST'])
+#@token_required
+def update_question():
+    args = request.get_json()
+    id = args["id"]
+    category = args["category"]
+    question = args["question"]
+    answer = args["answer"]
+
+    if None in [question, answer, category]:
+        return response(status="error", message="invalid question, category or answer", code=400)
+
+    print('UPDATE QUESTION: ')
+    print(f"Answer ID: {id}")
+    print(f"Category: {category}")
+    print(f"Question: {question}")
+    print(f"Answer: {answer}")
+
+    res = answerer.updateAnswer(id, question, answer, category)
+
+    #response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
+    #response = Response(response_message, mimetype="application/json", status=200)
+    #response.headers.add('Access-Control-Allow-Origin', '*')
+    return response(status="success", message="question updated", data=res)
 
 @app.route('/getFrequentQuestions')
 def get_frequent_questions():
@@ -242,7 +260,7 @@ def ask_endpoint():
     q = request.args.get("question")
     answer = answerer.generatedAnswer(q)
     add_asked_question(q, answer.text, answer.similarity, answer.category)
-    return response(status="success", data=answer.text)
+    return response(status="success", data=str(answer.text))
 
 @app.route("/askedQuestions")
 def get_asked_questions_route():
@@ -257,7 +275,14 @@ def upload_excel():
     if file:
         filename = secure_filename(file.filename)
         print(f'File {filename} uploaded successfully!')
-        add_questions_from_excel(qpath=file)
+
+        data = add_questions_from_excel(qpath=file)
+
+        if data is None:
+            pass # Not Excel
+        else:
+            answerer.initFromDict(data)
+
     return response("success", 200)
 
 def check_password_hash(pw_hash, password):

@@ -66,7 +66,7 @@ class ElasticsearchInterface(Answerer):
             # No hit
             return response
 
-    def addQuestion(self, questions: list, answer: list, category: str) -> None:
+    def addQuestion(self, questions: list, answer: list, category: str) -> str:
         a = {
                 "join": {
                     "name": "answer"
@@ -89,6 +89,8 @@ class ElasticsearchInterface(Answerer):
 
             self.es.index(index="question-answer", document=q, routing=True)
 
+        return answer_id
+
     # Returns a list of q-a pairs in the same format as qa_pairs.json
     def getPage(self, from_: int, size: int) -> list:
         result = []
@@ -109,7 +111,8 @@ class ElasticsearchInterface(Answerer):
                 }
             })
 
-            result.append({"question": [q["_source"]["body"] for q in ques["hits"]["hits"]],
+            result.append({"id": res["_id"],
+                           "question": [q["_source"]["body"] for q in ques["hits"]["hits"]],
                            "answer": res["_source"]["answer"],
                            "category": res["_source"]["category"]})
 
@@ -129,17 +132,17 @@ class ElasticsearchInterface(Answerer):
 
             self.es.delete(index="question-answer", id=id)
 
-    # Deletes a single question document
+    # Deletes a single question document. TODO: Unecessary
     def deleteQuestion(self, id: str) -> None:
         self.es.delete(index="question-answer", id=id)
 
     # Updates answer document and all questions related to it
     # Basicially delete and add
-    def updateAnswer(self, id: str, questions: list, answer: list, category: str) -> None:
+    def updateAnswer(self, id: str, questions: list, answer: list, category: str) -> str:
         self.deleteAnswer(id)
-        self.addQuestion(questions, answer, category)
+        return self.addQuestion(questions, answer, category)
 
-    # Updates question without touching answer
+    # Updates question without touching answer TODO: Unecessary
     def updateQuestion(self, id: str, question: str) -> None:
         answer_id = self.es.get(index="question-answer", id=id)["_source"]["join"]["parent"]
 
@@ -155,3 +158,30 @@ class ElasticsearchInterface(Answerer):
         }
 
         self.es.index(index="question-answer", document=q, id=id, routing=True)
+
+    def initFromDict(self, data: dict) -> None:
+        pair_count = len(data["qa-pairs"])
+
+        for i in range(pair_count):
+            a = {
+                    "join": {
+                        "name": "answer"
+                    },
+                    "answer": data["qa-pairs"][i]["answer"],
+                    "category": data["qa-pairs"][i]["category"]
+                }
+
+            answer_id = self.es.index(index="question-answer", document=a, routing=True)["_id"]
+            
+            for question in data["qa-pairs"][i]["question"]:
+
+                q = {
+                    "join": {
+                        "name": "question",
+                        "parent": answer_id
+                    },
+                    "body": question,
+                    "vector": self.st.encode(question).tolist()
+                }
+
+                self.es.index(index="question-answer", document=q, routing=True)
