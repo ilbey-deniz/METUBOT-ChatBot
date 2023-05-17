@@ -2,8 +2,6 @@ import requests
 import logging
 from telegram import __version__ as TG_VER
 import azure.cognitiveservices.speech as speechsdk
-from scipy.io import wavfile
-import scipy.signal as sps
 import soundfile as sf
 import librosa
 

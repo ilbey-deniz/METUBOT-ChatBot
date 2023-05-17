@@ -253,7 +253,7 @@ def connect_message():
 def handle_question(q):
     answer = answerer.generatedAnswer(q)
     add_asked_question(q, answer.text, answer.similarity, answer.category)
-    emit('chat answer', { 'answer': str(answer.text), 'finished': True })
+    emit('chat answer', { 'answer': answer.text, 'finished': True })
 
 @app.route("/ask")
 def ask_endpoint():
