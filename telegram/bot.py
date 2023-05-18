@@ -44,7 +44,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         except KeyError:
             pass
 
-    try:
+    #try:
         x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + update.message.text)
         data = (x.json()["data"])
         if type(data) == str:
@@ -62,7 +62,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
         else:
             await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
-    except:
+    #except:
         await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
