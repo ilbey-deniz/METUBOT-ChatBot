@@ -5,7 +5,7 @@ import azure.cognitiveservices.speech as speechsdk
 import soundfile as sf
 import librosa
 
-button_answer = {}
+all_button_answer = {}
 ses = {}
 api2 = "21676b8af2a44a35a6d397ebe9bd23db"
 api_key = "205d9032223c4a68b5b4f06cce5cc80f" 
@@ -49,10 +49,13 @@ async def send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, text: s
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
-        await update.message.reply_text(button_answer[update.message.text])
+        await update.message.reply_text(all_button_answer[update.effective_chat.id][update.message.text])
         return
     except KeyError:
-        button_answer.clear()
+        try:
+            all_button_answer.pop(update.effective_chat.id)
+        except KeyError:
+            pass
 
     #try:
         x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + update.message.text)
@@ -67,10 +70,12 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 pass
         elif data[0]["type"]=="button" :
             buttons = []
+            button_answer = {}
             for i in range(len(data)):
                 button = KeyboardButton(data[i]["text"])
                 buttons.append([button])
                 button_answer[data[i]["text"]] = data[i]["answer"][0] 
+            all_button_answer[update.effective_chat.id] = button_answer
             print(buttons)
             reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
             await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
@@ -118,6 +123,11 @@ def recognize_speech(path):
 
 async def handle_voice_message(update: Update, context: CallbackContext):
     try:
+        all_button_answer.pop(update.effective_chat.id)
+    except KeyError:
+        pass
+    
+    try:
         message = update.effective_message
         path = 'telegram/voice_message_raw.wav'
         file = await message.voice.get_file()
@@ -144,10 +154,12 @@ async def handle_voice_message(update: Update, context: CallbackContext):
                     pass
             elif data[0]["type"]=="button" :
                 buttons = []
+                button_answer = {}
                 for i in range(len(data)):
                     button = KeyboardButton(data[i]["text"])
                     buttons.append([button])
-                    button_answer[data[i]["text"]] = data[i]["answer"][0] 
+                    button_answer[data[i]["text"]] = data[i]["answer"][0]
+                all_button_answer[update.effective_chat.id] = button_answer 
                 print(buttons)
                 reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
                 await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
