@@ -9,7 +9,7 @@ button_answer = {}
 api2 = "21676b8af2a44a35a6d397ebe9bd23db"
 api_key = "205d9032223c4a68b5b4f06cce5cc80f" 
 region="eastus"
-speech_config = speechsdk.SpeechConfig(subscription=api_key, region=region, speech_recognition_language="tr-TR")
+speech_config = speechsdk.SpeechConfig(subscription=api_key, region=region, speech_recognition_language="tr-TR", speech_synthesis_language="tr-TR")
 
 try:
     from telegram import __version_info__
@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 async def send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, text: str):
     audio_path = "telegram/output.wav"
-    audio_config = speechsdk.audio.AudioOutputConfig(filename=audio_path, auto_detect_source_language_config=True)
+    audio_config = speechsdk.audio.AudioOutputConfig(filename=audio_path)
     synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
 
     result = synthesizer.speak_text_async(text).get()
