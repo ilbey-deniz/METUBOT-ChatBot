@@ -31,7 +31,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, text: str):
+async def send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, text: str):
     audio_path = "telegram/output.wav"
     audio_config = speechsdk.audio.AudioOutputConfig(filename=audio_path, language="tr-TR")
     synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
@@ -40,9 +40,9 @@ def send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, text: str):
     if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
         print("Speech synthesized to speaker for text [{}]".format(text))
         with open(audio_path, "rb") as f:
-            update.message.reply_voice(f)
+            await update.message.reply_voice(f)
     else:
-        print("Speech synthesis failed.")
+        await update.message.reply_text("Ses sistemi hizmet verememektedir.")
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
