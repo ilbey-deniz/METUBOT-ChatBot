@@ -31,6 +31,17 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+async def send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, text: str):
+    audio_path = "telegram/output.wav"
+    synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
+    audio_config = speechsdk.audio.AudioOutputConfig(filename=audio_path)
+
+    result = synthesizer.speak_text_async(text).get()
+    if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
+        print("Speech synthesized successfully.")
+        await update.message.reply_voice(open(audio_path, "rb"))
+    else:
+        print("Speech synthesis failed.")
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
@@ -44,6 +55,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         data = (x.json()["data"])
         if type(data) == str:
             await update.message.reply_text(data)
+            send_voice(update, context, data)
         elif data[0]["type"]=="button" :
             buttons = []
             for i in range(len(data)):
