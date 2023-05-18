@@ -40,7 +40,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
     except KeyError:
         try:
-            all_button_answer.pop(update.effective_chat.id, None)
+            all_button_answer.pop(update.effective_chat.id)
         except KeyError:
             pass
 
@@ -57,6 +57,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 buttons.append([button])
                 button_answer[data[i]["text"]] = data[i]["answer"][0] 
             all_button_answer[update.effective_chat.id] = button_answer.deepcopy()
+            print(all_button_answer)
             reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
             await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
         else:
@@ -128,6 +129,7 @@ async def handle_voice_message(update: Update, context: CallbackContext):
                     buttons.append([button])
                     button_answer[data[i]["text"]] = data[i]["answer"][0] 
                 all_button_answer[update.effective_chat.id] = button_answer.deepcopy()
+                print(all_button_answer)
                 reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
                 await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
             else:
