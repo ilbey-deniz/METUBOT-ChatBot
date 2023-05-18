@@ -33,13 +33,12 @@ logger = logging.getLogger(__name__)
 
 def send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, text: str):
     audio_path = "telegram/output.wav"
-    synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
+    audio_config = speechsdk.audio.AudioOutputConfig(filename=audio_path, language="tr-TR")
+    synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
 
     result = synthesizer.speak_text_async(text).get()
     if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
         print("Speech synthesized to speaker for text [{}]".format(text))
-        stream = speechsdk.AudioDataStream(result)
-        stream.save_to_wav_file(audio_path)
         with open(audio_path, "rb") as f:
             update.message.reply_voice(f)
     else:
