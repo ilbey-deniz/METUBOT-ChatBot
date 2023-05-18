@@ -33,16 +33,17 @@ logger = logging.getLogger(__name__)
 
 async def send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, text: str):
     audio_path = "telegram/output.wav"
-    audio_config = speechsdk.audio.AudioOutputConfig(filename=audio_path, language="tr-TR")
+    audio_config = speechsdk.audio.AudioOutputConfig(filename=audio_path)
     synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
 
     result = synthesizer.speak_text_async(text).get()
     if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
         print("Speech synthesized to speaker for text [{}]".format(text))
-        with open(audio_path, "rb") as f:
-            await update.message.reply_voice(f)
+        await update.message.reply_voice(open(audio_path, "rb"))
+    elif result.reason == speechsdk.ResultReason.Canceled:
+        await update.message.reply_text("Ses sentezleme iptal edildi.")
     else:
-        await update.message.reply_text("Ses sistemi hizmet verememektedir.")
+        await update.message.reply_text("Ses sentezleme başarısız oldu.")
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
