@@ -4,8 +4,10 @@ from telegram import __version__ as TG_VER
 import azure.cognitiveservices.speech as speechsdk
 import soundfile as sf
 import librosa
+from copy import deepcopy
 
-button_answer = {}
+all_button_answer = {}
+
 api2 = "21676b8af2a44a35a6d397ebe9bd23db"
 api_key = "205d9032223c4a68b5b4f06cce5cc80f" 
 region="eastus"
@@ -34,10 +36,13 @@ logger = logging.getLogger(__name__)
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
-        await update.message.reply_text(button_answer[update.message.text])
+        await update.message.reply_text(all_button_answer[update.effective_chat.id][update.message.text])
         return
     except KeyError:
-        button_answer.clear()
+        try:
+            all_button_answer.pop(update.effective_chat.id, None)
+        except KeyError:
+            pass
 
     try:
         x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + update.message.text)
@@ -46,11 +51,12 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             await update.message.reply_text(data)
         elif data[0]["type"]=="button" :
             buttons = []
+            button_answer = {}
             for i in range(len(data)):
                 button = KeyboardButton(data[i]["text"])
                 buttons.append([button])
                 button_answer[data[i]["text"]] = data[i]["answer"][0] 
-            print(buttons)
+            all_button_answer[update.effective_chat.id] = button_answer.deepcopy()
             reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
             await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
         else:
@@ -116,11 +122,12 @@ async def handle_voice_message(update: Update, context: CallbackContext):
                 await update.message.reply_text(data)
             elif data[0]["type"]=="button" :
                 buttons = []
+                button_answer = {}
                 for i in range(len(data)):
                     button = KeyboardButton(data[i]["text"])
                     buttons.append([button])
                     button_answer[data[i]["text"]] = data[i]["answer"][0] 
-                print(buttons)
+                all_button_answer[update.effective_chat.id] = button_answer.deepcopy()
                 reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
                 await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
             else:
