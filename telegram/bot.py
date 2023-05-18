@@ -52,7 +52,8 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     #try:
         x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + update.message.text)
-        data = (x.json()["data"])
+        data = x.json()["data"]
+        print(data)
         if type(data) == str:
             await update.message.reply_text(data)
             send_voice(update, context, data)
