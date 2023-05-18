@@ -58,7 +58,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         print(data)
         if type(data) == str:
             await update.message.reply_text(data)
-            send_voice(update, context, data)
+            await send_voice(update, context, data)
         elif data[0]["type"]=="button" :
             buttons = []
             for i in range(len(data)):
