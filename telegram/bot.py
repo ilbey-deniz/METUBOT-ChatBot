@@ -6,6 +6,7 @@ import soundfile as sf
 import librosa
 
 button_answer = {}
+ses = {}
 api2 = "21676b8af2a44a35a6d397ebe9bd23db"
 api_key = "205d9032223c4a68b5b4f06cce5cc80f" 
 region="eastus"
@@ -59,7 +60,11 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         print(data)
         if type(data) == str:
             await update.message.reply_text(data)
-            await send_voice(update, context, data)
+            try:
+                if ses[update.message.chat_id] == True:
+                    await send_voice(update, context, data)
+            except KeyError:
+                pass
         elif data[0]["type"]=="button" :
             buttons = []
             for i in range(len(data)):
@@ -75,21 +80,23 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         #await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("Bir soru sorun, onu cevaplamaya çalışacağım.")
+    await update.message.reply_text("/sesaktif - Sesli yanıt aktif eder.\n/sesdeaktif - Sesli yanıt deaktif eder")
+
+async def enable_voice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    ses[update.message.chat_id] = True
+    await update.message.reply_text("Sesli yanıt aktif edildi.")
+
+async def disable_voice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    ses[update.message.chat_id] = False
+    await update.message.reply_text("Sesli yanıt deaktif edildi.")
     
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    ses[update.message.chat_id] = False
     user = update.effective_user
     await update.message.reply_html(
         rf"Merhaba {user.mention_html()}!",
         reply_markup=ForceReply(selective=True),
     )
-
-async def queryHandler(update: Update, context: CallbackContext):
-    query = update.callback_query.data
-    print(query)
-    
-    await context.bot.send_message(chat_id=update.effective_chat.id,text=query)
-
 def recognize_speech(path):
 
     audio_config = speechsdk.audio.AudioConfig(filename=path)
@@ -127,9 +134,14 @@ async def handle_voice_message(update: Update, context: CallbackContext):
             await update.message.reply_text(text)
         else:
             x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + text)
-            data = (x.json()["data"])
+            data = x.json()["data"]
             if type(data) == str:
                 await update.message.reply_text(data)
+                try:
+                    if ses[update.message.chat_id] == True:
+                        await send_voice(update, context, data)
+                except KeyError:
+                    pass
             elif data[0]["type"]=="button" :
                 buttons = []
                 for i in range(len(data)):
@@ -156,12 +168,11 @@ def main() -> None:
     # COMMANDS
     application.add_handler(CommandHandler("start", start_command))
     application.add_handler(CommandHandler("help", help_command))
+    application.add_handler(CommandHandler("sesaktif", enable_voice))
+    application.add_handler(CommandHandler("sesdeaktif", disable_voice))
 
     # MESSAGES
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, answer))
-
-    # QUERY
-    application.add_handler(CallbackQueryHandler(queryHandler))
 
     # VOICE
     application.add_handler(MessageHandler(filters.VOICE, handle_voice_message))
