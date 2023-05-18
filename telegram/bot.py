@@ -37,8 +37,11 @@ def send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, text: str):
 
     result = synthesizer.speak_text_async(text).get()
     if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
-        print("Speech synthesized successfully.")
-        update.message.reply_voice(voice=result.audio_data)
+        print("Speech synthesized to speaker for text [{}]".format(text))
+        stream = speechsdk.AudioDataStream(result)
+        stream.save_to_wav_file(audio_path)
+        with open(audio_path, "rb") as f:
+            update.message.reply_voice(f)
     else:
         print("Speech synthesis failed.")
 
