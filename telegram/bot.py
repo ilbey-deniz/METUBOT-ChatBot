@@ -50,14 +50,20 @@ async def send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, text: s
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
         await update.message.reply_text(all_button_answer[update.effective_chat.id][update.message.text])
+        try:
+            if ses[update.message.chat_id] == True:
+                await send_voice(update, context, data)
+        except KeyError:
+            pass
         return
     except KeyError:
         try:
             all_button_answer.pop(update.effective_chat.id)
+            reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
         except KeyError:
             pass
 
-    #try:
+    try:
         x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + update.message.text)
         data = x.json()["data"]
         print(data)
@@ -81,8 +87,8 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
         else:
             await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
-    #except:
-        #await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
+    except:
+        await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("/sesaktif - Sesli yanıt aktif eder.\n/sesdeaktif - Sesli yanıt deaktif eder")
@@ -124,6 +130,7 @@ def recognize_speech(path):
 async def handle_voice_message(update: Update, context: CallbackContext):
     try:
         all_button_answer.pop(update.effective_chat.id)
+        reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
     except KeyError:
         pass
     
