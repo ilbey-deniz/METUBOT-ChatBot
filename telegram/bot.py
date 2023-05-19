@@ -52,7 +52,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await update.message.reply_text(all_button_answer[update.effective_chat.id][update.message.text])
         try:
             if ses[update.message.chat_id] == True:
-                await send_voice(update, context, data)
+                await send_voice(update, context, all_button_answer[update.effective_chat.id][update.message.text])
         except KeyError:
             pass
         return
