@@ -59,7 +59,6 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     except KeyError:
         try:
             all_button_answer.pop(update.effective_chat.id)
-            reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
         except KeyError:
             pass
 
@@ -130,7 +129,6 @@ def recognize_speech(path):
 async def handle_voice_message(update: Update, context: CallbackContext):
     try:
         all_button_answer.pop(update.effective_chat.id)
-        reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
     except KeyError:
         pass
     
