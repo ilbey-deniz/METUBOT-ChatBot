@@ -11,7 +11,7 @@
                                 <v-text-field v-model="search" append-icon="mdi-magnify" label="Arama" single-line
                                     hide-details></v-text-field>
                                 <v-spacer></v-spacer>
-                                <v-dialog v-model="dialog" max-width="800px">
+                                <v-dialog v-model="dialog" max-width="800px" scrollable >
 
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
@@ -22,9 +22,13 @@
                                         <!-- EXCEL INPUTU EKLEME KODU SONU -->
                                     </template>
                                     <v-card>
-                                        <v-card-title>
-                                            <span class="text-h5">{{ formTitle }}</span>
+                                        <v-card-title class="pa-0 ma-0">
+                                            <v-toolbar flat>
+                                                <v-toolbar-title>{{ formTitle }}</v-toolbar-title>
+                                            </v-toolbar>
                                         </v-card-title>
+
+                                        <v-divider></v-divider>
 
                                         <v-card-text>
                                             <v-container>
@@ -55,32 +59,45 @@
                                                         <v-divider></v-divider>
                                                         
                                                         <v-layout row class="pa-2">
-                                                            <v-container>
-                                                                <v-list
-                                                                    style="height: 200px"
-                                                                    class="overflow-y-auto"
+                                                            <v-container style="height: 200px;" class="pa-2 ma-2 overflow-y-auto">
+                                                                <v-row 
+                                                                    v-for="(question, index) in editedItem.questions" 
+                                                                    class="pa-0 ma-0"
                                                                 >
-                                                                    <v-list-item
-                                                                        v-for="(question, index) in editedItem.questions"
-                                                                        :key="index"
-                                                                    >
+                                                                    <v-row class="pa-0 ma-0" v-if="editedQuestionIndex == index">
+                                                                        <v-col cols="11">
+                                                                            <v-text-field 
+                                                                                v-model="editedItem.questions[index]"
+                                                                                underlined
+                                                                                flat
+                                                                                dense
+                                                                                height="20px"
+                                                                                hide-details="auto"
+                                                                            >
+                                                                            </v-text-field>
+                                                                        </v-col>
+                                                                        <v-col class="text-right" cols="1">
+                                                                            <v-icon @click.stop="saveQuestion(index)">
+                                                                                done
+                                                                            </v-icon>
+                                                                        </v-col>
+                                                                    </v-row>
 
-                                                                        <v-list-item-title v-text="index" v-if="editedQuestionIndex == index"></v-list-item-title>
-                                                                        
-                                                                        <v-list-item-title v-text="question" v-else></v-list-item-title>
-                                                                            
-                                                                        <v-list-item-action>
-                                                                            <v-btn icon>
-                                                                                <v-icon @click.stop="updateQuestion(index)">
-                                                                                    edit
-                                                                                </v-icon>
-                                                                            </v-btn>
-                                                                        </v-list-item-action>
-
-                                                                    </v-list-item>
-                                                                </v-list>
+                                                                    <v-row class="pa-0 ma-0" v-else style="width: 100%;">
+                                                                        <v-col v-text="question" cols="10"></v-col>
+                                                                        <v-col class="text-right" cols="1">
+                                                                            <v-icon @click.stop="updateQuestion(index)">
+                                                                                edit
+                                                                            </v-icon>
+                                                                        </v-col>
+                                                                        <v-col class="text-right" cols="1">
+                                                                            <v-icon @click.stop="deleteQuestion(index)" :disabled="editedQuestionIndex != -1">
+                                                                                delete
+                                                                            </v-icon>
+                                                                        </v-col>
+                                                                    </v-row>
                                                                 
-                                                                <v-row v-for="(question, index) in editedItem.questions">test</v-row>
+                                                                </v-row>
                                                             </v-container>
                                                         </v-layout>
                                                     </v-col>
@@ -102,32 +119,47 @@
                                                         </v-form>
 
                                                         <v-divider></v-divider>
-
+                                                        
                                                         <v-layout row class="pa-2">
-                                                            <v-container>
-                                                                <v-list
-                                                                    style="height: 200px"
-                                                                    class="overflow-y-auto"
-                                                                    dense
+                                                            <v-container style="height: 200px;" class="pa-2 ma-2 overflow-y-auto">
+                                                                <v-row 
+                                                                    v-for="(answer, index) in editedItem.answers" 
+                                                                    class="pa-0 ma-0"
                                                                 >
-                                                                    <v-list-item
-                                                                        v-for="answer in editedItem.answers"
-                                                                        :key="index"
-                                                                        height="1"
-                                                                    >
+                                                                    <v-row class="pa-0 ma-0" v-if="editedAnswerIndex == index">
+                                                                        <v-col cols="11">
+                                                                            <v-text-field 
+                                                                                v-model="editedItem.answers[index]"
+                                                                                underlined
+                                                                                flat
+                                                                                dense
+                                                                                height="20px"
+                                                                                hide-details="auto"
+                                                                            >
+                                                                            </v-text-field>
+                                                                        </v-col>
+                                                                        <v-col class="text-right" cols="1">
+                                                                            <v-icon @click.stop="saveAnswer(index)">
+                                                                                done
+                                                                            </v-icon>
+                                                                        </v-col>
+                                                                    </v-row>
 
-                                                                        <v-list-item-content>
-                                                                            <v-list-item-title v-text="answer"></v-list-item-title>
-                                                                        </v-list-item-content>
-
-                                                                        <v-list-item-action>
-                                                                                <v-icon @click.stop="updateItem(index)">
-                                                                                    edit
-                                                                                </v-icon>
-                                                                        </v-list-item-action>
-
-                                                                    </v-list-item>
-                                                                </v-list>
+                                                                    <v-row class="pa-0 ma-0" v-else style="width: 100%;">
+                                                                        <v-col v-text="answer" cols="10"></v-col>
+                                                                        <v-col class="text-right" cols="1">
+                                                                            <v-icon @click.stop="updateAnswer(index)">
+                                                                                edit
+                                                                            </v-icon>
+                                                                        </v-col>
+                                                                        <v-col class="text-right" cols="1">
+                                                                            <v-icon @click.stop="deleteAnswer(index)" :disabled="editedAnswerIndex != -1">
+                                                                                delete
+                                                                            </v-icon>
+                                                                        </v-col>
+                                                                    </v-row>
+                                                                
+                                                                </v-row>
                                                             </v-container>
                                                         </v-layout>
                                                     </v-col>
@@ -304,7 +336,7 @@ export default {
 
             buttonSwitch: false,
             editedQuestionIndex: -1,
-
+            editedAnswerIndex: -1,
         }
     },
     mounted() {
@@ -345,6 +377,26 @@ export default {
 
         updateQuestion(index) {
             this.editedQuestionIndex = index
+        },
+
+        saveQuestion(index) {
+            this.editedQuestionIndex = -1
+        },
+
+        deleteQuestion(index) {
+            this.editedItem.questions.splice(index, 1)
+        },
+
+        updateAnswer(index) {
+            this.editedAnswerIndex = index
+        },
+
+        saveAnswer(index) {
+            this.editedAnswerIndex = -1
+        },
+
+        deleteAnswer(index) {
+            this.editedItem.answers.splice(index, 1)
         },
 
         editItem(item) {
