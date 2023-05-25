@@ -473,13 +473,13 @@ export default {
 
         editItem(item) {
             this.editedIndex = this.qa_pairs.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+            Object.assign(this.editedItem, JSON.parse(JSON.stringify(item)))
             this.dialog = true
         },
 
         deleteItem(item) {
             this.editedIndex = this.qa_pairs.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+            Object.assign(this.editedItem, JSON.parse(JSON.stringify(item)))
             this.dialogDelete = true
         },
 
@@ -492,19 +492,16 @@ export default {
             this.closeDelete()
         },
 
-        //TODO: write close, default is not suitable
         close() {
             this.dialog = false
-            this.$nextTick(() => {
-                this.editedItem = Object.assign({}, this.defaultItem)
-                this.editedIndex = -1
-            })
+            Object.assign(this.editedItem, JSON.parse(JSON.stringify(this.defaultItem)))
+            this.editedIndex = -1
         },
 
         closeDelete() {
             this.dialogDelete = false
             this.$nextTick(() => {
-                this.editedItem = Object.assign({}, this.defaultItem)
+                Object.assign(this.editedItem, JSON.parse(JSON.stringify(this.defaultItem)))
                 this.editedIndex = -1
             })
         },
@@ -526,10 +523,10 @@ export default {
         save() {
             this.saveLoading = true
             if (this.editedIndex > -1) {
-                Object.assign(this.qa_pairs[this.editedIndex], this.editedItem);
-                if (this.editedItem.question !== "" && this.editedItem.answer !== "" && this.editedItem.category !==
+                Object.assign(this.qa_pairs[this.editedIndex], JSON.parse(JSON.stringify(this.editedItem)));
+                if (this.editedItem.questions !== "" && this.editedItem.answers !== "" && this.editedItem.category !==
                         "") {
-                    this.valid = false;
+                    this.valid = false
                 } //What does this if do?
 
                 axios.post('/updateQuestion', {id: this.editedItem.id,
@@ -537,10 +534,10 @@ export default {
                                                answers: this.editedItem.answers,
                                                buttons: this.editedItem.buttons,
                                                category: this.editedItem.category}).catch(error => {
-                console.log(error);
+                console.log(error)
                 }).then(response => {
                     this.qa_pairs[this.editedIndex].id = response.data.data
-                    this.close() //TODO: ADD LOADING STUFF WHILE WAITING RESPONSE
+                    this.close()
                 })
             }
             else {
@@ -548,11 +545,11 @@ export default {
                                             answers: this.editedItem.answers,
                                             buttons: this.editedItem.buttons,
                                             category: this.editedItem.category}).catch(error => {
-                console.log(error);
+                console.log(error)
                 }).then(response => {
                     this.editedItem.id = response.data.data
                     this.qa_pairs.push(this.editedItem)
-                    this.close() //TODO: ADD LOADING STUFF WHILE WAITING RESPONSE
+                    this.close()
                 })
             }
             this.saveLoading = false
