@@ -112,9 +112,10 @@ class ElasticsearchInterface(Answerer):
             })
 
             result.append({"id": res["_id"],
-                           "question": [q["_source"]["body"] for q in ques["hits"]["hits"]],
-                           "answer": res["_source"]["answer"],
-                           "category": res["_source"]["category"]})
+                           "questions": [q["_source"]["body"] for q in ques["hits"]["hits"]],
+                           "answers": res["_source"]["answer"],
+                           "category": res["_source"]["category"],
+                           "buttons": []})
 
         return result
 

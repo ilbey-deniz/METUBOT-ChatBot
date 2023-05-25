@@ -323,10 +323,17 @@
         </v-row>
         <v-snackbar
             color="red"
-            v-model="alert"
+            v-model="errorAlert"
             :timeout="4000"
         >
-            {{ alertText }}
+            {{ errorAlertText }}
+        </v-snackbar>
+        <v-snackbar
+            color="green"
+            v-model="doneAlert"
+            :timeout="4000"
+        >
+            {{ doneAlertText }}
         </v-snackbar>
     </v-container>
 </template>
@@ -367,9 +374,9 @@ export default {
                 {
                     text: 'Soru',
                     align: 'start',
-                    value: 'question',
+                    value: 'questions',
                 },
-                { text: 'Cevap', value: 'answer' },
+                { text: 'Cevap', value: 'answers' },
                 { text: 'Kategori', value: 'category' },
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
@@ -403,8 +410,10 @@ export default {
             editedButtonIndex: -1,
 
             saveLoading: false,
-            alert: false,
-            alertText: "",
+            errorAlert: false,
+            errorAlertText: "",
+            doneAlert: false,
+            doneAlertText: "",
         }
     },
     mounted() {
@@ -483,6 +492,7 @@ export default {
             this.editedIndex = this.qa_pairs.indexOf(item)
             Object.assign(this.editedItem, JSON.parse(JSON.stringify(item)))
             this.dialog = true
+            console.log(this.editedItem)
         },
 
         deleteItem(item) {
@@ -494,10 +504,12 @@ export default {
         deleteItemConfirm() {
             axios.delete(`/deleteQuestion?question_id=${this.editedItem.id}`).then(response => {
                 this.qa_pairs.splice(this.editedIndex, 1)
+                this.doneAlertText = "Question deleted"
+                this.doneAlert = true
             }).catch(error => {
                 console.log(error)
-                this.alertText = error
-                this.alert = true
+                this.errorAlertText = error
+                this.errorAlert = true
             })
             this.closeDelete()
         },
@@ -523,9 +535,13 @@ export default {
             console.log(formData)
             axios.post('/upload_excel', formData)
                 .then(response => {
+                    this.doneAlertText = "Excel uploaded"
+                    this.doneAlert = true
                     console.log(response.data)
                 })
                 .catch(error => {
+                    this.errorAlertText = error
+                    this.errorAlert = true
                     console.log(error)
                 });
         },
@@ -545,10 +561,14 @@ export default {
                                                buttons: this.editedItem.buttons,
                                                category: this.editedItem.category}).catch(error => {
                 console.log(error)
-                this.alertText = error
-                this.alert = true
+                this.errorAlertText = error
+                this.errorAlert = true
+                this.saveLoading = false
                 }).then(response => {
                     this.qa_pairs[this.editedIndex].id = response.data.data
+                    this.doneAlertText = "Question updated"
+                    this.doneAlert = true
+                    this.saveLoading = false
                     this.close()
                 })
             }
@@ -558,15 +578,18 @@ export default {
                                             buttons: this.editedItem.buttons,
                                             category: this.editedItem.category}).catch(error => {
                 console.log(error)
-                this.alertText = error
-                this.alert = true
+                this.errorAlertText = error
+                this.errorAlert = true
+                this.saveLoading = false
                 }).then(response => {
                     this.editedItem.id = response.data.data
-                    this.qa_pairs.push(this.editedItem)
+                    this.qa_pairs.push(Object.assign({}, JSON.parse(JSON.stringify(this.editedItem))))
+                    this.doneAlertText = "New question added"
+                    this.doneAlert = true
+                    this.saveLoading = false
                     this.close()
                 })
             }
-            this.saveLoading = false
         },
         submit() {
 
