@@ -321,7 +321,13 @@
 
             </v-col>
         </v-row>
-
+        <v-snackbar
+            color="red"
+            v-model="alert"
+            :timeout="4000"
+        >
+            {{ alertText }}
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -397,6 +403,8 @@ export default {
             editedButtonIndex: -1,
 
             saveLoading: false,
+            alert: false,
+            alertText: "",
         }
     },
     mounted() {
@@ -488,6 +496,8 @@ export default {
                 this.qa_pairs.splice(this.editedIndex, 1)
             }).catch(error => {
                 console.log(error)
+                this.alertText = error
+                this.alert = true
             })
             this.closeDelete()
         },
@@ -509,14 +519,14 @@ export default {
 
         selectFile() {
             const formData = new FormData();
-            formData.append('file', this.$refs.fileInput.files[0]);
+            formData.append('file', this.$refs.fileInput.files[0])
             console.log(formData)
             axios.post('/upload_excel', formData)
                 .then(response => {
-                    console.log(response.data);
+                    console.log(response.data)
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(error)
                 });
         },
 
@@ -535,6 +545,8 @@ export default {
                                                buttons: this.editedItem.buttons,
                                                category: this.editedItem.category}).catch(error => {
                 console.log(error)
+                this.alertText = error
+                this.alert = true
                 }).then(response => {
                     this.qa_pairs[this.editedIndex].id = response.data.data
                     this.close()
@@ -546,6 +558,8 @@ export default {
                                             buttons: this.editedItem.buttons,
                                             category: this.editedItem.category}).catch(error => {
                 console.log(error)
+                this.alertText = error
+                this.alert = true
                 }).then(response => {
                     this.editedItem.id = response.data.data
                     this.qa_pairs.push(this.editedItem)
@@ -563,7 +577,7 @@ export default {
             }).catch(error => {
                 console.log(error)
             })
-        },
+        }
     },
 
 }
