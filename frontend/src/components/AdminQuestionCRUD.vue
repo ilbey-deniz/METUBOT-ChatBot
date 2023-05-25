@@ -8,18 +8,21 @@
                             <v-toolbar flat>
                                 <v-toolbar-title>Sorular</v-toolbar-title>
                                 <v-divider class="mx-4" inset vertical></v-divider>
-                                <v-text-field v-model="search" append-icon="mdi-magnify" label="Arama" single-line
-                                    hide-details></v-text-field>
+                                <v-text-field
+                                    v-model="search"
+                                    append-icon="mdi-magnify"
+                                    label="Arama"
+                                    single-line
+                                    hide-details
+                                >
+                                </v-text-field>
                                 <v-spacer></v-spacer>
+                                <input label="test" type="file" ref="fileInput" @change="selectFile" />
                                 <v-dialog v-model="dialog" max-width="800px" scrollable >
-
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
                                             Yeni Soru
                                         </v-btn>
-                                        <!-- EXCEL INPUTU EKLEME KODU -->
-                                        <input type="file" ref="fileInput" @change="selectFile" />
-                                        <!-- EXCEL INPUTU EKLEME KODU SONU -->
                                     </template>
                                     <v-card>
                                         <v-card-title class="pa-0 ma-0">
@@ -102,7 +105,6 @@
                                                         </v-layout>
                                                     </v-col>
                                                 </v-card>
-
                                                 
                                                 <v-card flat class="ma-1" outlined>
                                                     <v-col class="pa-0 ma-0">
@@ -165,7 +167,12 @@
                                                     </v-col>
                                                 </v-card>
 
-                                                <v-switch label="Buttons" v-model="buttonSwitch"></v-switch>
+                                                <v-switch
+                                                    label="Buttons"
+                                                    v-model="buttonSwitch"
+                                                    :model-value="editedItem.buttons.length > 0"
+                                                    :disabled="editedItem.buttons.length != 0"
+                                                ></v-switch>
 
                                                 <v-card flat class="ma-1" outlined v-if="buttonSwitch">
                                                     <v-col class="pa-0 ma-0">
@@ -185,34 +192,73 @@
                                                         </v-form>
 
                                                         <v-divider></v-divider>
-
+                                                        
                                                         <v-layout row class="pa-2">
-                                                            <v-container>
-                                                                <v-list
-                                                                    style="height: 200px"
-                                                                    class="overflow-y-auto"
-                                                                    dense
-                                                                    two-line
+                                                            <v-container style="height: 200px;" class="pa-2 ma-2 overflow-y-auto">
+                                                                <v-row 
+                                                                    v-for="(button, index) in editedItem.buttons" 
+                                                                    class="pa-0 ma-0"
                                                                 >
-                                                                    <v-list-item
-                                                                        v-for="button in editedItem.buttons"
-                                                                        :key="index"
-                                                                        height="1"
-                                                                    >
+                                                                    <v-row class="pa-0 ma-0" v-if="editedButtonIndex == index">
+                                                                        <v-col cols="11">
+                                                                            <v-row>
+                                                                                <v-col>
+                                                                                    <v-text-field 
+                                                                                        v-model="editedItem.buttons[index].text"
+                                                                                        underlined
+                                                                                        flat
+                                                                                        dense
+                                                                                        height="20px"
+                                                                                        hide-details="auto"
+                                                                                    >
+                                                                                    </v-text-field>
+                                                                                </v-col>
+                                                                            </v-row>
+                                                                            <v-row>
+                                                                                <v-col>
+                                                                                    <v-text-field 
+                                                                                        v-model="editedItem.buttons[index].answer[0]"
+                                                                                        underlined
+                                                                                        flat
+                                                                                        dense
+                                                                                        height="20px"
+                                                                                        hide-details="auto"
+                                                                                    >
+                                                                                    </v-text-field>
+                                                                                </v-col>
+                                                                            </v-row>
+                                                                        </v-col>
+                                                                        <v-col class="text-right" cols="1">
+                                                                            <v-icon @click.stop="saveButton(index)">
+                                                                                done
+                                                                            </v-icon>
+                                                                        </v-col>
+                                                                    </v-row>
 
-                                                                        <v-list-item-content>
-                                                                            <v-list-item-title v-text="button.text"></v-list-item-title>
-                                                                            <v-list-item-title v-text="button.answer[0]"></v-list-item-title>
-                                                                        </v-list-item-content>
-
-                                                                        <v-list-item-action>
-                                                                            <v-icon @click.stop="updateItem(index)">
+                                                                    <v-row class="pa-0 ma-0" v-else style="width: 100%;">
+                                                                        <v-col cols="10">
+                                                                            <v-row>
+                                                                                <v-col v-text="button.text">
+                                                                                </v-col>
+                                                                            </v-row>
+                                                                            <v-row>
+                                                                                <v-col v-text="button.answer[0]">
+                                                                                </v-col>
+                                                                            </v-row>
+                                                                        </v-col>
+                                                                        <v-col class="text-right" cols="1">
+                                                                            <v-icon @click.stop="updateButton(index)">
                                                                                 edit
                                                                             </v-icon>
-                                                                        </v-list-item-action>
-
-                                                                    </v-list-item>
-                                                                </v-list>
+                                                                        </v-col>
+                                                                        <v-col class="text-right" cols="1">
+                                                                            <v-icon @click.stop="deleteButton(index)" :disabled="editedButtonIndex != -1">
+                                                                                delete
+                                                                            </v-icon>
+                                                                        </v-col>
+                                                                    </v-row>
+                                                                
+                                                                </v-row>
                                                             </v-container>
                                                         </v-layout>
                                                     </v-col>
@@ -224,10 +270,20 @@
 
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
-                                            <v-btn color="blue darken-1" text @click="close">
+                                            <v-btn 
+                                                color="blue darken-1" 
+                                                text 
+                                                @click="close"
+                                            >
                                                 İptal
                                             </v-btn>
-                                            <v-btn color="blue darken-1" text @click="save" :disabled="editedItem.questions.length == 0 || editedItem.answers.length == 0">
+                                            <v-btn 
+                                                color="blue darken-1" 
+                                                text 
+                                                @click="save" 
+                                                :disabled="editedItem.questions.length == 0 || editedItem.answers.length == 0"
+                                                :loading="saveLoading"
+                                            >
                                                 Tamam
                                             </v-btn>
                                         </v-card-actions>
@@ -317,6 +373,7 @@ export default {
                 new_answer: '',
                 new_button_name: '',
                 new_button_answer: '',
+                id: '',
                 questions: [],
                 answers: [],
                 buttons: [],
@@ -337,6 +394,9 @@ export default {
             buttonSwitch: false,
             editedQuestionIndex: -1,
             editedAnswerIndex: -1,
+            editedButtonIndex: -1,
+
+            saveLoading: false,
         }
     },
     mounted() {
@@ -399,6 +459,18 @@ export default {
             this.editedItem.answers.splice(index, 1)
         },
 
+        updateButton(index) {
+            this.editedButtonIndex = index
+        },
+
+        saveButton(index) {
+            this.editedButtonIndex = -1
+        },
+
+        deleteButton(index) {
+            this.editedItem.buttons.splice(index, 1)
+        },
+
         editItem(item) {
             this.editedIndex = this.qa_pairs.indexOf(item)
             this.editedItem = Object.assign({}, item)
@@ -452,6 +524,7 @@ export default {
         },
 
         save() {
+            this.saveLoading = true
             if (this.editedIndex > -1) {
                 Object.assign(this.qa_pairs[this.editedIndex], this.editedItem);
                 if (this.editedItem.question !== "" && this.editedItem.answer !== "" && this.editedItem.category !==
@@ -460,8 +533,9 @@ export default {
                 } //What does this if do?
 
                 axios.post('/updateQuestion', {id: this.editedItem.id,
-                                               question: this.editedItem.question, // TODO: MAKE SURE THAT question AND answer ARE ARRAYS
-                                               answer: this.editedItem.answer,
+                                               questions: this.editedItem.questions,
+                                               answers: this.editedItem.answers,
+                                               buttons: this.editedItem.buttons,
                                                category: this.editedItem.category}).catch(error => {
                 console.log(error);
                 }).then(response => {
@@ -470,8 +544,9 @@ export default {
                 })
             }
             else {
-                axios.post('/addQuestion', {question: this.editedItem.question,
-                                            answer: this.editedItem.answer,
+                axios.post('/addQuestion', {questions: this.editedItem.questions,
+                                            answers: this.editedItem.answers,
+                                            buttons: this.editedItem.buttons,
                                             category: this.editedItem.category}).catch(error => {
                 console.log(error);
                 }).then(response => {
@@ -480,6 +555,7 @@ export default {
                     this.close() //TODO: ADD LOADING STUFF WHILE WAITING RESPONSE
                 })
             }
+            this.saveLoading = false
         },
         submit() {
 
