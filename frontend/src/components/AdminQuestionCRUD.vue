@@ -11,7 +11,7 @@
                                 <v-text-field v-model="search" append-icon="mdi-magnify" label="Arama" single-line
                                     hide-details></v-text-field>
                                 <v-spacer></v-spacer>
-                                <v-dialog v-model="dialog" max-width="500px">
+                                <v-dialog v-model="dialog" max-width="800px">
 
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
@@ -27,75 +27,165 @@
                                         </v-card-title>
 
                                         <v-card-text>
-                                            <!--
                                             <v-container>
-                                                <v-row>
-                                                    <v-col>
-                                                        <v-form v-model="valid">
-                                                            <v-text-field v-model="editedItem.category" label="Category"
-                                                                          prepend-icon="category"
-                                                                          :rules="categoryRules" :counter="30"
-                                                                          required></v-text-field>
-                                                            <v-textarea v-model="editedItem.question" label="Question"
-                                                                        prepend-icon="quiz"
-                                                                        :rules="questionRules" :counter="200"
-                                                                        required></v-textarea>
-                                                            <v-textarea v-model="editedItem.answer" label="Answer"
-                                                                        prepend-icon="edit_note"
-                                                                        :rules="answerRules" :counter="200"
-                                                                        required></v-textarea>
-                                                            <v-spacer></v-spacer>
-                                                        </v-form>
-                                                    </v-col>
-                                                </v-row>
-                                            </v-container>
-                                            -->
-                                            <v-container>
-                                                <v-row>
-                                                    <v-col>
-                                                        <v-form v-model="valid">
+                                                <v-card flat class="ma-1" outlined>
+                                                    <v-col class="pa-0 ma-0">
+                                                        <v-form v-model="valid" class="pa-2">
                                                             <v-text-field v-model="editedItem.category" label="Category"
                                                                 prepend-icon="category" :rules="categoryRules" :counter="30"
                                                                 required></v-text-field>
                                                         </v-form>
                                                     </v-col>
+                                                </v-card>
 
-                                                </v-row>
-                                                <v-row>
-                                                    <v-col>
-                                                        <v-form v-model="valid">
-                                                            <v-text-field v-model="editedItem.question" label="Question"
-                                                                prepend-icon="quiz" :rules="questionRules" :counter="200">
+                                                <v-card flat class="ma-1" outlined>
+                                                    <v-col class="pa-0 ma-0">
+                                                        <v-form v-model="valid" class="pa-2">
+                                                            <v-text-field v-model="editedItem.new_question" label="Question"
+                                                                prepend-icon="quiz" :counter="200">
                                                                 <template #append>
-                                                                    <v-btn class="mb-1" color="gray"
-                                                                        @click="addNewQuestion">
+                                                                    <v-btn icon class="mb-1" color="gray"
+                                                                        @click="addNewQuestion" :disabled="editedItem.new_question.length == 0">
                                                                         <v-icon>mdi-plus</v-icon>
-
                                                                     </v-btn>
                                                                 </template>
                                                             </v-text-field>
                                                         </v-form>
 
+                                                        <v-divider></v-divider>
+                                                        
+                                                        <v-layout row class="pa-2">
+                                                            <v-container>
+                                                                <v-list
+                                                                    style="height: 200px"
+                                                                    class="overflow-y-auto"
+                                                                >
+                                                                    <v-list-item
+                                                                        v-for="(question, index) in editedItem.questions"
+                                                                        :key="index"
+                                                                    >
+
+                                                                        <v-list-item-title v-text="index" v-if="editedQuestionIndex == index"></v-list-item-title>
+                                                                        
+                                                                        <v-list-item-title v-text="question" v-else></v-list-item-title>
+                                                                            
+                                                                        <v-list-item-action>
+                                                                            <v-btn icon>
+                                                                                <v-icon @click.stop="updateQuestion(index)">
+                                                                                    edit
+                                                                                </v-icon>
+                                                                            </v-btn>
+                                                                        </v-list-item-action>
+
+                                                                    </v-list-item>
+                                                                </v-list>
+                                                                
+                                                                <v-row v-for="(question, index) in editedItem.questions">test</v-row>
+                                                            </v-container>
+                                                        </v-layout>
                                                     </v-col>
-                                                </v-row>
-                                                <v-list>
-                                                    <template v-for="question in editedItem.questions">
-                                                        <v-list-tile :key="index"></v-list-tile>
-                                                        <v-list-tile-content>
-                                                            <v-list-tile-title>{{ question }}</v-list-tile-title>
-                                                        </v-list-tile-content>
+                                                </v-card>
 
-                                                        <v-list-tile-action>
-                                                            <v-btn icon>
-                                                                <v-icon @click.stop="updateItem(index)">
-                                                                    add
-                                                                </v-icon>
-                                                            </v-btn>
-                                                        </v-list-tile-action>
-                                                    </template>
+                                                
+                                                <v-card flat class="ma-1" outlined>
+                                                    <v-col class="pa-0 ma-0">
+                                                        <v-form v-model="valid" class="pa-2">
+                                                            <v-text-field v-model="editedItem.new_answer" label="Answer"
+                                                                prepend-icon="question_answer" :counter="200">
+                                                                <template #append>
+                                                                    <v-btn icon class="mb-1" color="gray"
+                                                                        @click="addNewAnswer" :disabled="editedItem.new_answer.length == 0">
+                                                                        <v-icon>mdi-plus</v-icon>
+                                                                    </v-btn>
+                                                                </template>
+                                                            </v-text-field>
+                                                        </v-form>
 
+                                                        <v-divider></v-divider>
 
-                                                </v-list>
+                                                        <v-layout row class="pa-2">
+                                                            <v-container>
+                                                                <v-list
+                                                                    style="height: 200px"
+                                                                    class="overflow-y-auto"
+                                                                    dense
+                                                                >
+                                                                    <v-list-item
+                                                                        v-for="answer in editedItem.answers"
+                                                                        :key="index"
+                                                                        height="1"
+                                                                    >
+
+                                                                        <v-list-item-content>
+                                                                            <v-list-item-title v-text="answer"></v-list-item-title>
+                                                                        </v-list-item-content>
+
+                                                                        <v-list-item-action>
+                                                                                <v-icon @click.stop="updateItem(index)">
+                                                                                    edit
+                                                                                </v-icon>
+                                                                        </v-list-item-action>
+
+                                                                    </v-list-item>
+                                                                </v-list>
+                                                            </v-container>
+                                                        </v-layout>
+                                                    </v-col>
+                                                </v-card>
+
+                                                <v-switch label="Buttons" v-model="buttonSwitch"></v-switch>
+
+                                                <v-card flat class="ma-1" outlined v-if="buttonSwitch">
+                                                    <v-col class="pa-0 ma-0">
+                                                        <v-form v-model="valid" class="pa-2">
+                                                            <v-text-field v-model="editedItem.new_button_name" label="Button Name"
+                                                                prepend-icon="smart_button" :counter="200">
+                                                            </v-text-field>
+                                                            <v-text-field v-model="editedItem.new_button_answer" label="Button Answer"
+                                                                prepend-icon="question_answer" :counter="200">
+                                                                <template #append>
+                                                                    <v-btn icon class="mb-1" color="gray"
+                                                                        @click="addNewButton" :disabled="editedItem.new_button_name.length == 0 || editedItem.new_button_answer.length == 0">
+                                                                        <v-icon>mdi-plus</v-icon>
+                                                                    </v-btn>
+                                                                </template>
+                                                            </v-text-field>
+                                                        </v-form>
+
+                                                        <v-divider></v-divider>
+
+                                                        <v-layout row class="pa-2">
+                                                            <v-container>
+                                                                <v-list
+                                                                    style="height: 200px"
+                                                                    class="overflow-y-auto"
+                                                                    dense
+                                                                    two-line
+                                                                >
+                                                                    <v-list-item
+                                                                        v-for="button in editedItem.buttons"
+                                                                        :key="index"
+                                                                        height="1"
+                                                                    >
+
+                                                                        <v-list-item-content>
+                                                                            <v-list-item-title v-text="button.text"></v-list-item-title>
+                                                                            <v-list-item-title v-text="button.answer[0]"></v-list-item-title>
+                                                                        </v-list-item-content>
+
+                                                                        <v-list-item-action>
+                                                                            <v-icon @click.stop="updateItem(index)">
+                                                                                edit
+                                                                            </v-icon>
+                                                                        </v-list-item-action>
+
+                                                                    </v-list-item>
+                                                                </v-list>
+                                                            </v-container>
+                                                        </v-layout>
+                                                    </v-col>
+                                                </v-card>
+
                                             </v-container>
 
                                         </v-card-text>
@@ -105,7 +195,7 @@
                                             <v-btn color="blue darken-1" text @click="close">
                                                 İptal
                                             </v-btn>
-                                            <v-btn color="blue darken-1" text @click="save">
+                                            <v-btn color="blue darken-1" text @click="save" :disabled="editedItem.questions.length == 0 || editedItem.answers.length == 0">
                                                 Tamam
                                             </v-btn>
                                         </v-card-actions>
@@ -163,13 +253,14 @@ export default {
                 v => v.length <= 30 || 'category must be less than 30 characters',
             ],
 
-            questionRules: [
-                v => !!v || 'question is required',
-            ],
-
             answerRules: [
                 v => !!v || 'answer is required',
             ],
+
+            questionRules: [
+                v => !!v || 'answer is required',
+            ],
+
             socketIoSocket: null,
             search: '',
 
@@ -191,21 +282,28 @@ export default {
             editedIndex: -1,
             editedItem: {
                 new_question: '',
-                questions: [
-                    "question1aaaaaaaaaaaaaaa",
-                    "q2",
-                    "q3",
-                ],
-                answer: '',
+                new_answer: '',
+                new_button_name: '',
+                new_button_answer: '',
+                questions: [],
+                answers: [],
+                buttons: [],
                 category: '',
             },
 
             defaultItem: {
                 new_question: '',
+                new_answer: '',
+                new_button_name: '',
+                new_button_answer: '',
                 questions: [],
-                answer: '',
+                answers: [],
+                buttons: [],
                 category: '',
             },
+
+            buttonSwitch: false,
+            editedQuestionIndex: -1,
 
         }
     },
@@ -216,7 +314,7 @@ export default {
     computed: {
         formTitle() {
             return this.editedIndex === -1 ? 'Yeni Soru' : 'Soru Düzenle'
-        },
+        }
     },
     watch: {
         dialog(val) {
@@ -230,8 +328,23 @@ export default {
     methods: {
 
         addNewQuestion() {
-            this.editedItem.questions.push(this.editedItem.question)
-            this.editedItem.question = ""
+            this.editedItem.questions.push(this.editedItem.new_question)
+            this.editedItem.new_question = ""
+        },
+
+        addNewAnswer() {
+            this.editedItem.answers.push(this.editedItem.new_answer)
+            this.editedItem.new_answer = ""
+        },
+
+        addNewButton() {
+            this.editedItem.buttons.push({"text": this.editedItem.new_button_name, "answer": [this.editedItem.new_button_answer]})
+            this.editedItem.new_button_answer = ""
+            this.editedItem.new_button_name = ""
+        },
+
+        updateQuestion(index) {
+            this.editedQuestionIndex = index
         },
 
         editItem(item) {
