@@ -126,7 +126,7 @@ export default {
         this.socketIoSocket.on('chat answer',
                 msg => setTimeout(() => this.addBotMessage(msg), 777))
 
-        if (this.enableDidYouMeanThis) {
+        // if (this.enableDidYouMeanThis) {
             this.addBotMessage({
                 answer: 'Sorunuzu tam anlayamamakla birlikte ileri düzey yöntemlerimiz sayesinde ' +
                         'size şu soruyu yönlendirebiliyoruz:\nŞunlardan birini mi demek istediniz?',
@@ -138,19 +138,36 @@ export default {
                 ],
                 selectedDYMTQuestion: null,
             })
-        }
+        // }
     },
     destroyed() {
         this.socketIoSocket.disconnect();
     },
     methods: {
-      // "205d9032223c4a68b5b4f06cce5cc80f", "eastus"
+        processString(input) {
+
+          // Calculate number of characters
+          let characterCount = input.length;
+          // Calculate number of words
+          const words = input.trim().split(/\s+/);
+          let wordCount = words.length;
+          // Calculate number of lines
+          const lines = input.split(/\n+/);
+          let lineCount = lines.length;
+          // w = 0.025 sn
+          // c = 0.05 sn
+          // init = 2.95 sn
+          // /n = 1.75 sn
+          return (characterCount * 0.025 + wordCount * 0.05 + lineCount * 1.75 + 1.2)*1000
+        },
+        // "205d9032223c4a68b5b4f06cce5cc80f", "eastus"
         speak(question_index) {
 
           if (this.isSpeaking) {
             return; // Return early if already speaking
           }
-
+          let time = this.processString(this.messages[question_index].content);
+          console.log(time);
           this.isSpeaking = true;
 
           const speechConfig = sdk.SpeechConfig.fromSubscription("205d9032223c4a68b5b4f06cce5cc80f", "eastus");
@@ -172,7 +189,7 @@ export default {
           );
           setTimeout(() => {
             this.isSpeaking = false; // Delayed execution
-          }, 2000); // Replace 2000 with the desired delay in milliseconds
+          }, time); // calculated speech delay of message
         },
         startRecognition() {
           this.isRecognizing = true;
@@ -186,13 +203,13 @@ export default {
           recognizer.recognizing = (s, e) => {
             const result = e.result.text;
             this.transcript = result;
-            this.messageForm.content = this.transcript;
-            this.sendMessage();
             console.log(result);
+            this.messageForm.content = this.transcript;
           };
 
           recognizer.canceled = (s, e) => {
             console.error(e.errorDetails);
+            console.log("cancelled");
             this.isRecognizing = false;
           };
 
@@ -205,6 +222,9 @@ export default {
           recognizer.startContinuousRecognitionAsync();
         },
         stopRecognition() {
+          this.transcript = "";
+          console.log(this.messageForm.content);
+          this.sendMessage();
           this.recognition.stopContinuousRecognitionAsync();
           this.isRecognizing = false;
         },
