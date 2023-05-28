@@ -84,8 +84,8 @@ def add_question():
 
     args = request.get_json()
     category = args["category"]
-    question = args["question"]
-    answer = args["answer"]
+    question = args["questions"]
+    answer = args["answers"]
     
     if None in [question,answer,category]:
         return response(status="error", message="invalid question, category or answer", code=400)
@@ -117,8 +117,8 @@ def update_question():
     args = request.get_json()
     id = args["id"]
     category = args["category"]
-    question = args["question"]
-    answer = args["answer"]
+    question = args["questions"]
+    answer = args["answers"]
 
     if None in [question, answer, category]:
         return response(status="error", message="invalid question, category or answer", code=400)
