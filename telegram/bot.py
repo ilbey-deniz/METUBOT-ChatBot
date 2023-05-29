@@ -7,7 +7,6 @@ import librosa
 
 all_button_answer = {}
 ses = {}
-api2 = "21676b8af2a44a35a6d397ebe9bd23db"
 api_key = "205d9032223c4a68b5b4f06cce5cc80f" 
 region="eastus"
 speech_config = speechsdk.SpeechConfig(subscription=api_key, region=region, speech_recognition_language="tr-TR")
@@ -92,13 +91,13 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("/sesaktif - Sesli yanıt aktif eder.\n/sesdeaktif - Sesli yanıt deaktif eder")
 
-async def enable_voice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    ses[update.message.chat_id] = True
-    await update.message.reply_text("Sesli yanıt aktif edildi.")
-
-async def disable_voice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    ses[update.message.chat_id] = False
-    await update.message.reply_text("Sesli yanıt deaktif edildi.")
+async def manage_voice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if ses[update.message.chat_id] == True:
+        ses[update.message.chat_id] = False
+        await update.message.reply_text("Sesli yanıt deaktif edildi.")
+    else:
+        ses[update.message.chat_id] = True
+        await update.message.reply_text("Sesli yanıt aktif edildi.")
     
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     ses[update.message.chat_id] = False
@@ -185,9 +184,7 @@ def main() -> None:
     # COMMANDS
     application.add_handler(CommandHandler("start", start_command))
     application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(CommandHandler("sesaktif", enable_voice))
-    application.add_handler(CommandHandler("sesdeaktif", disable_voice))
-
+    application.add_handler(CommandHandler("ses", manage_voice))
     # MESSAGES
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, answer))
 
