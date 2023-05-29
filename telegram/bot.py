@@ -89,7 +89,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await update.message.reply_text("Üzgünüm, sorunuzu yanıtlayamıyorum.")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("/sesaktif - Sesli yanıt aktif eder.\n/sesdeaktif - Sesli yanıt deaktif eder")
+    await update.message.reply_text("/ses komutu sesli yanıtı açar/kapatır.")
 
 async def manage_voice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if ses[update.message.chat_id] == True:
