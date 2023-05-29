@@ -103,8 +103,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     ses[update.message.chat_id] = False
     user = update.effective_user
     await update.message.reply_html(
-        rf"Merhaba {user.mention_html()}!",
-        reply_markup=ForceReply(selective=True),
+        rf"Merhaba {user.mention_html()}, ben METUBOT! Size nasıl yardımcı olabilirim? \n /ses komutu sesli yanıtı açar/kapatır.",
     )
 def recognize_speech(path):
 
