@@ -14,7 +14,7 @@
                             <template v-for="(msg, i) in messages">
                                 <div :class="{ 'd-flex flex-row-reverse': msg.isUser }">
                                   <metubot-chat-message :msg="msg" :enable-did-you-mean-this="enableDidYouMeanThis" @speak="speak(i)"
-                                                        :is-speaking="isSpeaking" @select-dymt-question="selectDYMTQuestion"
+                                                        :is-speaking="isSpeaking" @select-dymt-question="selectDYMTQuestion" @select-button="selectButton"
                                                         @report-question="reportQuestion(i)"></metubot-chat-message>
                                 </div>
 
@@ -126,7 +126,7 @@ export default {
         this.socketIoSocket.on('chat answer',
                 msg => setTimeout(() => this.addBotMessage(msg), 777))
 
-        // if (this.enableDidYouMeanThis) {
+        if (this.enableDidYouMeanThis) {
             this.addBotMessage({
                 answer: 'Sorunuzu tam anlayamamakla birlikte ileri düzey yöntemlerimiz sayesinde ' +
                         'size şu soruyu yönlendirebiliyoruz:\nŞunlardan birini mi demek istediniz?',
@@ -138,7 +138,7 @@ export default {
                 ],
                 selectedDYMTQuestion: null,
             })
-        // }
+        }
     },
     destroyed() {
         this.socketIoSocket.disconnect();
@@ -240,6 +240,13 @@ export default {
             let hour = date.getHours();
             let minutes = date.getMinutes();
             return `${hour}:${minutes}`;
+        },
+        selectButton(button) {
+          const message = {
+            answer: button.answer[0],
+            finished: true,
+          }
+          this.addBotMessage(message);
         },
         selectDYMTQuestion(questionStr) {
             this.messageForm.content = questionStr;

@@ -17,8 +17,26 @@
                             <v-icon v-if="hover">mdi-chevron-down</v-icon>
 
                         </v-btn>
-                        <span v-html="sanitizeExceptBoldItalicCode(msg.content).trim()" v-linkified
+
+                        <span v-if="typeof msg.content === 'string'" v-html="sanitizeExceptBoldItalicCode(msg.content).trim()" v-linkified
                               style="white-space: pre-wrap;"></span>
+                        <span v-else>
+                            Aşağıdakilerden hangisini tercih edersiniz?
+                        </span>
+                        <span v-if="typeof msg.content !== 'string'">
+                          <v-alert
+                              v-for="button in msg.content"
+                              color="indigo"
+                              icon="mdi-send"
+                              border="left"
+                              @click="$emit('select-button', button)"
+                              dense
+                              style="cursor: pointer; font-size:0.875rem; width:fit-content"
+                              class="mt-3"
+                          >
+                          {{ button.text }}
+                          </v-alert>
+                        </span>
                         <span v-if="enableDidYouMeanThis && !msg.selectedDYMTQuestion">
                         <v-alert
                                 v-for="question in msg.didYouMeanThisQuestions"
