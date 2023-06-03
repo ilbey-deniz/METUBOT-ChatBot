@@ -11,16 +11,26 @@
                         <v-card-text :class="'flex-grow-1 overflow-y-auto ' + scrollbarTheme" ref="message-div"
                                      style="height: 1px;">
 
-                            <template v-for="(msg, i) in messages">
-                                <div :class="{ 'd-flex flex-row-reverse': msg.isUser }">
-                                  <metubot-chat-message :msg="msg" :enable-did-you-mean-this="enableDidYouMeanThis" @speak="speak(i)"
-                                                        :is-speaking="isSpeaking" @select-dymt-question="selectDYMTQuestion" @select-button="selectButton"
-                                                        @report-question="reportQuestion(i)"></metubot-chat-message>
-                                </div>
+                          <template v-for="(msg, i) in messages">
+                            <div :class="['message-container', {'d-flex flex-row-reverse': msg.isUser}]">
+                              <div class="volume-icon">
+                                <v-icon
+                                    :color="isSpeaking && voice_index === i ? 'red' : undefined"
+                                    style="font-size: 30px;"
+                                    @click.stop="toggleSpeech(i)"
+                                >
+                                  {{ isSpeaking && voice_index === i ? 'stop_circle' : 'play_circle' }}</v-icon>
+                              </div>
+                              <metubot-chat-message :msg="msg" :enable-did-you-mean-this="enableDidYouMeanThis"
+                                                    :is-speaking="isSpeaking" @select-dymt-question="selectDYMTQuestion" @select-button="selectButton"
+                                                    @report-question="reportQuestion(i)"></metubot-chat-message>
+                            </div>
+                          </template>
 
-                            </template>
 
-                            <v-chip v-if="waitingForAnswer"
+
+
+                          <v-chip v-if="waitingForAnswer"
                                     color="red"
                                     dark
                                     style="height:52px; white-space: normal; width: 70px;"
@@ -81,6 +91,7 @@ import {io} from "socket.io-client";
 import MetubotChatMessage from '@/components/MetubotChatMessage.vue';
 import axios from 'axios';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
+// import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 export default {
     name: 'MetubotChat',
@@ -119,6 +130,12 @@ export default {
             isRecognizing: false,
             recognition: null,
             isSpeaking: false,
+            paused: false,
+            api_key: "c8f16b9dfc984870afa3dc696e6fdc39",
+            api_region: "eastus",
+            speechSynthesizer: null,
+            player: null,
+            voice_index: -1
         }
     },
     mounted() {
@@ -126,7 +143,7 @@ export default {
         this.socketIoSocket.on('chat answer',
                 msg => setTimeout(() => this.addBotMessage(msg), 777))
 
-        if (this.enableDidYouMeanThis) {
+        // if (this.enableDidYouMeanThis) {
             this.addBotMessage({
                 answer: 'Sorunuzu tam anlayamamakla birlikte ileri düzey yöntemlerimiz sayesinde ' +
                         'size şu soruyu yönlendirebiliyoruz:\nŞunlardan birini mi demek istediniz?',
@@ -138,63 +155,69 @@ export default {
                 ],
                 selectedDYMTQuestion: null,
             })
-        }
+        // }
     },
     destroyed() {
         this.socketIoSocket.disconnect();
     },
     methods: {
-        processString(input) {
-
-          // Calculate number of characters
-          let characterCount = input.length;
-          // Calculate number of words
-          const words = input.trim().split(/\s+/);
-          let wordCount = words.length;
-          // Calculate number of lines
-          const lines = input.split(/\n+/);
-          let lineCount = lines.length;
-          // w = 0.025 sn
-          // c = 0.05 sn
-          // init = 2.95 sn
-          // /n = 1.75 sn
-          return (characterCount * 0.025 + wordCount * 0.05 + lineCount * 1.75 + 1.2)*1000
-        },
-        // "205d9032223c4a68b5b4f06cce5cc80f", "eastus"
         speak(question_index) {
 
           if (this.isSpeaking) {
             return; // Return early if already speaking
           }
-          let time = this.processString(this.messages[question_index].content);
-          console.log(time);
+          this.voice_index = question_index;
           this.isSpeaking = true;
-
-          const speechConfig = sdk.SpeechConfig.fromSubscription("205d9032223c4a68b5b4f06cce5cc80f", "eastus");
+          const speechConfig = sdk.SpeechConfig.fromSubscription(this.api_key, this.api_region);
           speechConfig.speechSynthesisVoiceName = "tr-TR-EmelNeural";
 
-          const speechSynthesizer = new sdk.SpeechSynthesizer(speechConfig);
+          // const speechSynthesizer = new sdk.SpeechSynthesizer(speechConfig);
+          this.player = new sdk.SpeakerAudioDestination();
+          let audioConfig  = sdk.AudioConfig.fromSpeakerOutput(this.player);
+          this.speechSynthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
           const textToSpeak = this.messages[question_index].content;
 
-          speechSynthesizer.speakTextAsync(
+          this.speechSynthesizer.speakTextAsync(
               textToSpeak,
-              () => {
-                // Set isSpeaking to false after speech ends
-                speechSynthesizer.close();
+              result => {
+                // Interact with the audio ArrayBuffer data
+                console.log(`Audio duration: ${result.audioDuration/10000}.`)
+                let time = result.audioDuration/10000;
+                this.speechSynthesizer.close();
+                setTimeout(() => {
+                  // this.player.pause();
+                  if(!this.paused){
+                    this.isSpeaking = false;
+                  }
+                  this.paused = false;
+                }, time);
               },
-              (error) => {
-                console.error("Speech synthesis error:", error);
-                speechSynthesizer.close();
+              error => {
+                console.log(error);
+                this.speechSynthesizer.close();
               }
           );
-          setTimeout(() => {
-            this.isSpeaking = false; // Delayed execution
-          }, time); // calculated speech delay of message
+        },
+        stopSpeech(question_index) {
+          if (this.isSpeaking && this.voice_index === question_index) {
+            this.paused = true;
+            this.isSpeaking = false;
+            this.player.pause(); // Stop the speech synthesis
+            this.speechSynthesizer.close();
+          }
+        },
+        toggleSpeech(question_index) {
+          if (this.isSpeaking) {
+            this.stopSpeech(question_index);
+          } else {
+            // this.paused = false;
+            this.speak(question_index); // Pass the appropriate question index here
+          }
         },
         startRecognition() {
           this.isRecognizing = true;
 
-          const speechConfig = sdk.SpeechConfig.fromSubscription("205d9032223c4a68b5b4f06cce5cc80f", "eastus");
+          const speechConfig = sdk.SpeechConfig.fromSubscription(this.api_key, this.api_region);
           speechConfig.speechRecognitionLanguage = 'tr-TR';
 
           const audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
@@ -394,6 +417,18 @@ export default {
   min-width: 30px;
   text-align: center;
   margin-bottom: 12px;
+}
+
+.volume-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 5px; /* Adjust as needed */
+  margin-bottom: 1.2%;
+}
+
+.message-container {
+  display: flex;
+  align-items: center;
 }
 
 
