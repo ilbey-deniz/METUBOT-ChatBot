@@ -64,7 +64,7 @@ import { io } from "socket.io-client";
           this.socketIoSocket.emit('token check', this.token);
           this.socketIoSocket.on("token check answer", (data) => {
             if(data["status"] === "success"){
-              this.$router.push("/yonetim");
+              this.$router.push("/yonetim/tables");
             }
           })
         }
@@ -74,7 +74,7 @@ import { io } from "socket.io-client";
         this.socketIoSocket.on("register answer", (data) => {
         if (data["status"] === "success") {
             sessionStorage.setItem("token", data["token"]);
-            this.$router.push("/yonetim");
+            this.$router.push("/yonetim/tables");
         }
         else{
             if(data["message"] === "userExists"){

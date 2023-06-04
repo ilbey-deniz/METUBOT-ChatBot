@@ -65,7 +65,7 @@ export default {
     this.socketIoSocket.on("login answer", (data) => {
       if (data["status"] === "success") {
         sessionStorage.setItem("token", data["token"]);
-        this.$router.push("/yonetim");
+        this.$router.push("/yonetim/tables");
         
       }
       else{
