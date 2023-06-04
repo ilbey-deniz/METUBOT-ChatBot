@@ -69,7 +69,6 @@
                                 </v-btn>
                               </template>
                               <template v-slot:append-outer>
-
                                     <!-- touchend.prevent reason is not hiding the keyboard on mobile -->
                                     <v-icon color="blue" @click="sendMessage" @touchend.prevent="sendMessage">
                                         mdi-send
@@ -295,6 +294,7 @@ export default {
 
         },
         addBotMessage(msg) {
+            console.log(msg);
             if (msg.finished) {
                 this.waitingForAnswer = false;
             }
@@ -307,6 +307,7 @@ export default {
                 created_at: this.getClock(),
                 didYouMeanThisQuestions: msg.didYouMeanThisQuestions,
                 selectedDYMTQuestion: null,
+                asked_question_id: msg.asked_question_id,
             });
             this.scrollMessagesToBottom();
             if (this.answerSoundsEnabled) {
@@ -336,7 +337,7 @@ export default {
             }
             console.log(this.qa_pair.question)
             console.log(this.qa_pair.answer)
-            axios.get(`/reportQuestion?question=${this.qa_pair.question}&answer=${this.qa_pair.answer}&created_at=${this.qa_pair.created_at}`)
+            axios.get(`/addFeedback?question=${this.qa_pair.question}&answer=${this.qa_pair.answer}&created_at=${this.qa_pair.created_at}`)
             this.qa_pair = {
                 question: "",
                 answer: "",

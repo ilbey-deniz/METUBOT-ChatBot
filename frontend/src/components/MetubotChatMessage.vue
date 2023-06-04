@@ -134,6 +134,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "MetubotChatMessage",
     props: {
@@ -169,9 +171,20 @@ export default {
             }
             return hour + ":" + minute;
         },
+        addFeedbackRequest(asked_question_id, feedback='', feedbackText='') {
+            axios.get(`/addFeedback?asked_question_id=${asked_question_id}&report_message=${feedbackText}&is_liked=${feedback}`)
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
         onLike() {
             if (this.feedback !== 'like') {
                 this.feedback = 'like';
+                this.feedbackText = '';
+                this.addFeedbackRequest(this.msg.asked_question_id, this.feedback, this.feedbackText);
                 this.feedbackDialog = true;
             }
 
@@ -179,11 +192,12 @@ export default {
         onDislike() {
             if (this.feedback !== 'dislike') {
                 this.feedback = 'dislike';
+                this.feedbackText = '';
+                this.addFeedbackRequest(this.msg.asked_question_id, this.feedback, this.feedbackText);
                 this.feedbackDialog = true;
             }
         },
         onFeedback() {
-            this.$emit('report-question');
             this.feedbackDialog = true;
         },
         resetFeedbackDialog() {
@@ -191,8 +205,8 @@ export default {
             this.feedbackDialog = false;
         },
         sendFeedbackText() {
+            this.addFeedbackRequest(this.msg.asked_question_id, '', this.feedbackText);
             this.resetFeedbackDialog();
-
         }
 
     },
