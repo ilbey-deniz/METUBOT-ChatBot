@@ -131,7 +131,7 @@ class ElasticsearchInterface(Answerer):
         for q in ques["hits"]["hits"]:
             self.es.delete(index="question-answer", id=q["_id"])
 
-            self.es.delete(index="question-answer", id=id)
+        self.es.delete(index="question-answer", id=id)
 
     # Deletes a single question document. TODO: Unecessary
     def deleteQuestion(self, id: str) -> None:
