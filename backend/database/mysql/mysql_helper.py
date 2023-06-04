@@ -32,20 +32,16 @@ class Feedbacks(Base):
     __tablename__ = "user_feedbacks"
 
     Fid = Column(Integer, primary_key=True)
-    asked_question = Column(String(255))
-    is_liked = Column(BOOLEAN)
-    report_message = Column(String(255))
-    similarity = Column(FLOAT)
-    # created_at = Column(DateTime)
-    # category = Column(String(60))
-    # count = Column(Integer)
+    is_liked = Column(String(15))
+    report_message = Column(String(1000))
+    created_at = Column(DateTime)
 
 
 # The ORM class to represent feedback_activity to create relation question with report.
 class Feedback_activity(Base):
     __tablename__ = "feedback_activity"
 
-    Qid = Column(Integer, ForeignKey("main_questions.Qid"), primary_key=True, nullable=False)
+    Qid = Column(Integer, ForeignKey("asked_questions.Qid"), primary_key=True, nullable=False)
     Fid = Column(Integer, ForeignKey("user_feedbacks.Fid"), primary_key=True, nullable=False)
     created_at = Column(DateTime)
 

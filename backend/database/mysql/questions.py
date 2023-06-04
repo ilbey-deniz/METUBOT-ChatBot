@@ -222,14 +222,13 @@ def query_all_questions():
     return results
 
 
-def add_feedback(main_question_id, similarity, asked_question, is_liked, report_message):
+def add_feedback(asked_question_id, is_liked, report_message):
     session = create_session()
-    feedback = Feedbacks(asked_question=asked_question, similarity=similarity,
-                         is_liked=is_liked, report_message=report_message)
+    feedback = Feedbacks(is_liked=is_liked, report_message=report_message, created_at=datetime.now())
     session.add(feedback)
     session.commit()
 
-    feedback_activity = Feedback_activity(Qid=main_question_id, Fid=feedback.Fid, created_at=datetime.now())
+    feedback_activity = Feedback_activity(Qid=asked_question_id, Fid=feedback.Fid, created_at=datetime.now())
     session.add(feedback_activity)
     session.commit()
     session.close()
@@ -237,18 +236,18 @@ def add_feedback(main_question_id, similarity, asked_question, is_liked, report_
 
 def query_all_feedbacks():
     session = create_session()
-    res = session.query(Questions, Feedbacks).\
-        select_from(Questions).join(Feedback_activity).join(Feedbacks).filter(
-        Questions.Qid == Feedback_activity.Qid
+    res = session.query(AskedQuestion, Feedbacks).\
+        select_from(AskedQuestion).join(Feedback_activity).join(Feedbacks).filter(
+        AskedQuestion.Qid == Feedback_activity.Qid
     ).filter(
         Feedbacks.Fid == Feedback_activity.Fid
     ).all()
     results = []
     for q, f in res:
         temp = dict()
-        temp["asked_question"] = f.asked_question
-        temp["question"] = q.question
-        temp["similarity"] = f.similarity
+        temp["Qid"] = q.Qid
+        temp["Fid"] = f.Fid
+        temp["asked_question"] = q.asked_question
         temp["is_liked"] = f.is_liked
         temp["report_message"] = f.report_message
         results.append(temp)
@@ -265,6 +264,7 @@ def add_asked_question(asked_question, answer, similarity, category):
                          category=category)
     session.add(asked_question)
     session.commit()
+    return asked_question.Qid
 
 def get_asked_questions():
     session = create_session()

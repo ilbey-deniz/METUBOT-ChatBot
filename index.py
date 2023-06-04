@@ -86,7 +86,7 @@ def add_question():
     category = args["category"]
     question = args["questions"]
     answer = args["answers"]
-    
+
     if None in [question,answer,category]:
         return response(status="error", message="invalid question, category or answer", code=400)
 
@@ -94,7 +94,7 @@ def add_question():
     print(f"Category: {category}")
     print(f"Question: {question}")
     print(f"Answer: {answer}")
-    
+
     res = answerer.addQuestion(question, answer, category) #Note that question and answer are expected to be given as lists. These square brackets are temporary
 
     return response(status="success", message="question added", data=res)
@@ -211,18 +211,15 @@ def get_all_questions():
     return response
 
 
-@app.route('/reportQuestion')
+@app.route('/addFeedback')
 def report_questions():
     print('REPORTİNG QUESTİON')
-    question_id = request.args.get("question_id")
-    similarity = request.args.get("similarity")
-    asked_question = request.args.get("asked_question")
+    asked_question_id = request.args.get("asked_question_id")
     report_message = request.args.get("report_message")
     is_liked = request.args.get("is_liked")
 
-    add_feedback(int(question_id), float(similarity), asked_question, bool(is_liked), report_message)
-    response_message = "feedback is added"
-    response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
+    add_feedback(int(asked_question_id), is_liked, report_message)
+    response_message = json.dumps("feedback is added", indent=4, ensure_ascii=False)
     response = Response(response_message, mimetype="application/json", status=200)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
@@ -252,14 +249,14 @@ def connect_message():
 @socketio.on('chat question')
 def handle_question(q):
     answer = answerer.generatedAnswer(q)
-    add_asked_question(q, answer.text, answer.similarity, answer.category)
-    emit('chat answer', { 'answer': answer.text, 'finished': True })
+    qid = add_asked_question(q, answer.text, answer.similarity, answer.category)
+    emit('chat answer', { 'answer': answer.text, 'finished': True, 'asked_question_id': qid })
 
 @app.route("/ask")
 def ask_endpoint():
     q = request.args.get("question")
     answer = answerer.generatedAnswer(q)
-    add_asked_question(q, answer.text, answer.similarity, answer.category)
+    qid = add_asked_question(q, answer.text, answer.similarity, answer.category)
     return response(status="success", data=answer.text)
 
 @app.route("/askedQuestions")
