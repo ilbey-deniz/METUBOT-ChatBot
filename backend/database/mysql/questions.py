@@ -1,4 +1,5 @@
 from backend.database.mysql.connector import *
+from itertools import groupby
 
 import json
 from datetime import datetime, date, timedelta
@@ -268,18 +269,40 @@ def add_asked_question(asked_question, answer, similarity, category):
 
 def get_asked_questions():
     session = create_session()
-    res = session.query(AskedQuestion).order_by(desc(AskedQuestion.created_at)).all()
+    res = session.query(AskedQuestion, Feedbacks).\
+        select_from(AskedQuestion)\
+            .join(Feedback_activity, AskedQuestion.Qid == Feedback_activity.Qid, isouter=True)\
+            .join(Feedbacks, Feedback_activity.Fid == Feedbacks.Fid, isouter=True)\
+            .order_by(desc(AskedQuestion.Qid)) \
+            .all()
+
     results = []
-    for r in res:
+    for qid, rows in groupby(res, lambda row: row[0].Qid):
+        rowsList = list(rows)
+        print(qid, rowsList)
+
+        q, _ = rowsList[0]
+        feedbackText = []
+        feedback = ''
+        for q2, f in rowsList:
+            if f:
+                if f.is_liked:
+                    feedback = f.is_liked
+                if f.report_message:
+                    feedbackText.append(f.report_message)
+
         temp = dict()
-        temp["question"] = r.asked_question
-        temp["matchedQuestion"] = r.answer
-        temp["category"] = r.category
-        temp["similarity"] = r.similarity
-        temp["feedback"] = 'like'
-        temp["feedbackText"] = 'Ben bu cevabı ziyadesiyle beğendim, filhakika bu hoş feedbacki bile bırakmış bulundum.'
-        temp["created_at"] = r.created_at
+        temp["Qid"] = q.Qid
+
+        temp["question"] = q.asked_question
+        temp["matchedQuestion"] = q.answer
+        temp["category"] = q.category
+        temp["similarity"] = q.similarity
+        temp["feedback"] = feedback
+        temp["feedbackText"] = str(feedbackText) if len(feedbackText) != 1 else feedbackText[0]
+        temp["created_at"] = str(q.created_at)
         results.append(temp)
+
     return results
 
 if __name__ == "__main__":
