@@ -20,6 +20,6 @@ class Answerer(ABC):
 
 @dataclass
 class Answer:
-    text: str
+    text: dict
     similarity: float
     category: str

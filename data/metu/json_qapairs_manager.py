@@ -46,18 +46,30 @@ def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=Fals
 
     try:
         d = pd.read_excel(qpath)
-        q = d['questions'].values.tolist()
-        a = d['answers'].values.tolist()
-        c = d['categories'].values.tolist()
+        q = d['question'].values.tolist()
+        a = d['answer'].values.tolist()
+        c = d['category'].values.tolist()
+        b = d['buttons'].values.tolist()
 
         dict = json.load(open(path))
+        ret_dict = {"qa-pairs": []}
         for i in range(len(q)):
-            if {"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]} not in dict["qa-pairs"]:
-                dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]})
+            dict["qa-pairs"].append({"question":q[i].split("#"),
+                                     "answer":a[i].split("#"),
+                                     "category":c[i],
+                                     "buttons": [{"text": i.split("*")[0],
+                                                  "answer": i.split("*")[1]} for i in b[i].split("#")]})
+            ret_dict["qa-pairs"].append({"question":q[i].split("#"),
+                                     "answer":a[i].split("#"),
+                                     "category":c[i],
+                                     "buttons": [{"text": i.split("*")[0],
+                                                  "answer": [i.split("*")[1]]} for i in b[i].split("#")]})
+            #if {"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]} not in dict["qa-pairs"]:
+            #    dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]})
         
         write_json(dict,path)
         
-        return dict
+        return ret_dict
     except ValueError:
         print("NOT AN EXCEL FILE")
         return None
