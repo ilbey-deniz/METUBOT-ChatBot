@@ -252,14 +252,14 @@ def connect_message():
 @socketio.on('chat question')
 def handle_question(q):
     answer = answerer.generatedAnswer(q)
-    qid = add_asked_question(q, answer.text, answer.similarity, answer.category)
+    qid = add_asked_question(q, answer.text["question"], answer.similarity, answer.category)
     emit('chat answer', { 'answer': answer.text, 'finished': True, 'asked_question_id': qid })
 
 @app.route("/ask")
 def ask_endpoint():
     q = request.args.get("question")
     answer = answerer.generatedAnswer(q)
-    qid = add_asked_question(q, answer.text, answer.similarity, answer.category)
+    qid = add_asked_question(q, answer.text["question"], answer.similarity, answer.category)
     return response(status="success", data=answer.text)
 
 @app.route("/askedQuestions")

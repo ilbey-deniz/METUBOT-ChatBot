@@ -41,16 +41,17 @@ class ElasticsearchInterface(Answerer):
 
         if len(question_response["hits"]["hits"]) > 0:
             answer_response = self.es.get(index="question-answer", id=question_response["hits"]["hits"][0]["_source"]["join"]["parent"])
-            result = { "answer": answer_response["_source"]["answer"], "buttons": answer_response["_source"]["buttons"] }
+            result = {"question":question_response["hits"]["hits"][0]["_source"]["body"], "answer": answer_response["_source"]["answer"], "buttons": answer_response["_source"]["buttons"] }
             category = answer_response["_source"]["category"]
-            response.similarity = question_response["hits"]["max_score"]
+            response.similarity = question_response["hits"]["max_score"] -1
 
             print(f'Most similiar question: {question_response["hits"]["hits"][0]["_source"]["body"]}')
             print(f'Similiarity: {response.similarity}')
             print(f'Parent id: {question_response["hits"]["hits"][0]["_source"]["join"]["parent"]}')
             print(f'Answer: {result}')
 
-            if response.similarity < 1.36: #Not final
+            if response.similarity < 0.36: #Not final
+                response.text["question"] = question_response["hits"]["hits"][0]["_source"]["body"]
                 return response
 
             response.category = category
