@@ -41,7 +41,7 @@ class ElasticsearchInterface(Answerer):
 
         if len(question_response["hits"]["hits"]) > 0:
             answer_response = self.es.get(index="question-answer", id=question_response["hits"]["hits"][0]["_source"]["join"]["parent"])
-            result = answer_response["_source"]["answer"]
+            result = { "answer": answer_response["_source"]["answer"], "button": answer_response["_source"]["button"] }
             category = answer_response["_source"]["category"]
             response.similarity = question_response["hits"]["max_score"]
 
@@ -55,24 +55,27 @@ class ElasticsearchInterface(Answerer):
 
             response.category = category
 
-            if isinstance(result[0], str):
-                response.text = result[0]
-            else:
-                response.text = result
+            #if isinstance(result[0], str):
+            #    response.text = result[0]
+            #else:
+            #    response.text = result
 
+            response.text = result
+            
             return response
 
         else:
             # No hit
             return response
 
-    def addQuestion(self, questions: list, answer: list, category: str) -> str:
+    def addQuestion(self, questions: list, answer: list, category: str, button: list) -> str:
         a = {
                 "join": {
                     "name": "answer"
                 },
                 "answer": answer,
-                "category": category
+                "category": category,
+                "button": button
             }
 
         answer_id = self.es.index(index="question-answer", document=a, routing=True)["_id"]
@@ -115,7 +118,7 @@ class ElasticsearchInterface(Answerer):
                            "questions": [q["_source"]["body"] for q in ques["hits"]["hits"]],
                            "answers": res["_source"]["answer"],
                            "category": res["_source"]["category"],
-                           "buttons": []})
+                           "buttons": res["_source"]["button"]})
 
         return result
 
@@ -169,7 +172,8 @@ class ElasticsearchInterface(Answerer):
                         "name": "answer"
                     },
                     "answer": data["qa-pairs"][i]["answer"],
-                    "category": data["qa-pairs"][i]["category"]
+                    "category": data["qa-pairs"][i]["category"],
+                    "button": []
                 }
 
             answer_id = self.es.index(index="question-answer", document=a, routing=True)["_id"]
