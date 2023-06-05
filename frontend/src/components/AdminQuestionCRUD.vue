@@ -311,6 +311,16 @@
                                 mdi-delete
                             </v-icon>
                         </template>
+                        <template v-slot:item.questions="{ item }">
+                            <tr v-for="q in item.questions">
+                                {{ q }}
+                            </tr>
+                        </template>
+                        <template v-slot:item.answers="{ item }">
+                            <tr v-for="q in item.answers">
+                                {{ q }}
+                            </tr>
+                        </template>
                         <template v-slot:no-data>
                             <v-btn color="primary" @click="initialize">
                                 Reset
