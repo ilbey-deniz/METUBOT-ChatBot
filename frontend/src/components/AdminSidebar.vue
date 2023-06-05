@@ -34,10 +34,13 @@
                     <span v-on:click="logout" class="material-icons">logout</span>
                     <span class="text">Çıkış Yap</span>
                 </router-link>
-                <router-link to="/settings" class="button">
+                <!--
+                    <router-link to="/settings" class="button">
                     <span class="material-icons">settings</span>
                     <span class="text">Ayarlar</span>
                 </router-link>
+                -->
+                
             </div>
         </aside>
     </v-sheet>

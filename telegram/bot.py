@@ -3,13 +3,18 @@ import logging
 from telegram import __version__ as TG_VER
 import azure.cognitiveservices.speech as speechsdk
 import soundfile as sf
+from random import choice
 import librosa
+
+local = "http://localhost:8080/ask?question="
+server = "http://metubot.ceng.metu.edu.tr/ask?question="
 
 all_button_answer = {}
 ses = {}
-api_key = "205d9032223c4a68b5b4f06cce5cc80f" 
+api_key = "c8f16b9dfc984870afa3dc696e6fdc39"  
 region="eastus"
 speech_config = speechsdk.SpeechConfig(subscription=api_key, region=region, speech_recognition_language="tr-TR")
+
 
 try:
     from telegram import __version_info__
@@ -62,23 +67,24 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             pass
 
     try:
-        x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + update.message.text)
+        x = requests.get(server + update.message.text)
         data = x.json()["data"]
         print(data)
-        if type(data) == str:
-            await update.message.reply_text(data)
+        if len(data["buttons"]) == 0:
+            ret = choice(data["answer"])
+            await update.message.reply_text(ret)
             try:
                 if ses[update.message.chat_id] == True:
-                    await send_voice(update, context, data)
+                    await send_voice(update, context, ret)
             except KeyError:
                 pass
-        elif data[0]["type"]=="button" :
+        elif len(data["buttons"]) > 0:
             buttons = []
             button_answer = {}
-            for i in range(len(data)):
-                button = KeyboardButton(data[i]["text"])
+            for i in range(len(data["buttons"])):
+                button = KeyboardButton(data["buttons"][i]["text"])
                 buttons.append([button])
-                button_answer[data[i]["text"]] = data[i]["answer"][0] 
+                button_answer[data["buttons"][i]["text"]] = data["buttons"][i]["answer"][0] 
             all_button_answer[update.effective_chat.id] = button_answer
             print(buttons)
             reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
@@ -118,9 +124,9 @@ def recognize_speech(path):
         return "Ses algılanamadı."
     elif result.reason == speechsdk.ResultReason.Canceled:
         cancellation_details = speechsdk.CancellationDetails(result)
-        print(f"Cancellation reason: {cancellation_details.reason}")
+        print(f"İptal sebebi: {cancellation_details.reason}")
         if cancellation_details.reason == speechsdk.CancellationReason.Error:
-            print(f"Cancellation error details: {cancellation_details.error_details}")
+            print(f"İptal sebebi detayları: {cancellation_details.error_details}")
         return "Algılama iptal edildi veya tamamlanamadı."
 
 
@@ -146,23 +152,24 @@ async def handle_voice_message(update: Update, context: CallbackContext):
         if text == "Ses algılanamadı." or text == "Algılama iptal edildi veya tamamlanamadı.":
             await update.message.reply_text(text)
         else:
-            x = requests.get('http://metubot.ceng.metu.edu.tr/ask?question=' + text)
+            x = requests.get(server + text)
             data = x.json()["data"]
-            if type(data) == str:
-                await update.message.reply_text(data)
-                try:
-                    if ses[update.message.chat_id] == True:
-                        await send_voice(update, context, data)
-                except KeyError:
-                    pass
-            elif data[0]["type"]=="button" :
+            if len(data["buttons"]) == 0:
+                    ret = choice(data["answer"])
+                    await update.message.reply_text(ret)
+                    try:
+                        if ses[update.message.chat_id] == True:
+                            await send_voice(update, context, ret)
+                    except KeyError:
+                        pass
+            elif len(data["buttons"]) > 0:
                 buttons = []
                 button_answer = {}
-                for i in range(len(data)):
-                    button = KeyboardButton(data[i]["text"])
+                for i in range(len(data["buttons"])):
+                    button = KeyboardButton(data["buttons"][i]["text"])
                     buttons.append([button])
-                    button_answer[data[i]["text"]] = data[i]["answer"][0]
-                all_button_answer[update.effective_chat.id] = button_answer 
+                    button_answer[data["buttons"][i]["text"]] = data["buttons"][i]["answer"][0] 
+                all_button_answer[update.effective_chat.id] = button_answer
                 print(buttons)
                 reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
                 await update.message.reply_text('Lütfen Seçiniz', reply_markup=reply_markup)
