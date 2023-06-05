@@ -54,16 +54,20 @@ def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=Fals
         dict = json.load(open(path))
         ret_dict = {"qa-pairs": []}
         for i in range(len(q)):
+            if isinstance(b[i], str):
+                buttons = b[i].split("#")
+            else:
+                buttons = []
             dict["qa-pairs"].append({"question":q[i].split("#"),
                                      "answer":a[i].split("#"),
                                      "category":c[i],
-                                     "buttons": [{"text": i.split("*")[0],
-                                                  "answer": i.split("*")[1]} for i in b[i].split("#")]})
+                                     "buttons": [{"text": button.split("*")[0],
+                                                  "answer": [button.split("*")[1]]} for button in buttons]})
             ret_dict["qa-pairs"].append({"question":q[i].split("#"),
                                      "answer":a[i].split("#"),
                                      "category":c[i],
-                                     "buttons": [{"text": i.split("*")[0],
-                                                  "answer": [i.split("*")[1]]} for i in b[i].split("#")]})
+                                     "buttons": [{"text": button.split("*")[0],
+                                                  "answer": [button.split("*")[1]]} for button in buttons]})
             #if {"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]} not in dict["qa-pairs"]:
             #    dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]})
         
