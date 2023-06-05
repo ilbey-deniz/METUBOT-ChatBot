@@ -213,36 +213,36 @@
             ],
             "buttons": [
                 {  
-                    "button_text": "Mimarlık Fakültesi",
-                    "button_answer": [
+                    "text": "Mimarlık Fakültesi",
+                    "answer": [
                         "ARCH kısaltmalı bölümün kodu 120'dir. CRP kısaltmalı bölümün kodu 121'dir. ID kısaltmalı bölümün kodu 125'tir."
                     ]
                 },
                 {
                     
-                    "button_text": "Fen Edebiyat Fakültesi",
-                    "button_answer": [
+                    "text": "Fen Edebiyat Fakültesi",
+                    "answer": [
                         "PHYS kısaltmalı bölümün kodu 230'tür. GENE kısaltmalı bölümün kodu 219'dır. BIOL kısaltmalı bölümün kodu 238'dır. CHEM kısaltmalı bölümün kodu 234'tür. HIST kısaltmalı bölümün kodu 240'tır. MATH kısaltmalı bölümün kodu 236'dır. PHIL kısaltmalı bölümün kodu 241'dir. PSY kısaltmalı bölümün kodu 233'tür. SOC kısaltmalı bölümün kodu 232'dir. STAT kısaltmalı bölümün kodu 246'dır."
                     ]
                 },
                 {
                     
-                    "button_text": "İktisadi ve İdari Bilimler Fakültesi",
-                    "button_answer": [
+                    "text": "İktisadi ve İdari Bilimler Fakültesi",
+                    "answer": [
                         "BA kısaltmalı bölümün kodu 312'dir. ECON kısaltmalı bölümün kodu 311'dir. IR kısaltmalı bölümün kodu 314'dir. ADM kısaltmalı bölümün kodu 310'dur."
                     ]
                 },
                 {
                     
-                    "button_text": "Eğitim Fakültesi",
-                    "button_answer": [
+                    "text": "Eğitim Fakültesi",
+                    "answer": [
                         "FLE kısaltmalı bölümün kodu 450'dir. MSE kısaltmalı bölümün kodu 460'tır. CEIT kısaltmalı bölümün kodu 121'dir. ECE kısaltmalı bölümün kodu 411'dir."
                     ]
                 },
                 {
                     
-                    "button_text": "Mühendislik Fakültesi",
-                    "button_answer": [
+                    "text": "Mühendislik Fakültesi",
+                    "answer": [
                         "AEE kısaltmalı bölümün kodu 572'dir. CHE kısaltmalı bölümün kodu 563'tür. CE kısaltmalı bölümün kodu 562'dir. CENG kısaltmalı bölümün kodu 571'dir. ENVE kısaltmalı bölümün kodu 560'tır. GEOE kısaltmalı bölümün kodu 564'tür.                                 EE kısaltmalı bölümün kodu 567'dir. ES kısaltmalı bölümün kodu 561'dir. IE kısaltmalı bölümün kodu 568'dir. ME kısaltmalı bölümün kodu 569'dur. METE kısaltmalı bölümün kodu 570'tir. MINE kısaltmalı bölümün kodu 565'tir. PETE kısaltmalı bölümün kodu 566'dir."
                     ]
                 }
@@ -1202,22 +1202,22 @@
             "buttons": [
                 {
                     
-                    "button_text": "Kültür İşleri Müdürlüğüne bağlı Öğrenci Toplulukları",
-                    "button_answer": [
+                    "text": "Kültür İşleri Müdürlüğüne bağlı Öğrenci Toplulukları",
+                    "answer": [
                         "http://kim.metu.edu.tr/tr/ogrenci-topluluklari sitesini inceleyin."
                     ]
                 },
                 {
                     
-                    "button_text": "Spor Müdürlüğüne bağlı Öğrenci Toplulukları",
-                    "button_answer": [
+                    "text": "Spor Müdürlüğüne bağlı Öğrenci Toplulukları",
+                    "answer": [
                         "https://spormd.metu.edu.tr/tr/spor-topluluklari sitesini inceleyin."
                     ]
                 },
                 {
                     
-                    "button_text": "Spor Müdürlüğüne bağlı Spor Takımları",
-                    "button_answer": [
+                    "text": "Spor Müdürlüğüne bağlı Spor Takımları",
+                    "answer": [
                         "https://spormd.metu.edu.tr/tr/spor-takimlari sitesini inceleyin."
                     ]
                 }
@@ -1235,36 +1235,36 @@
             "buttons": [
                 {
                     
-                    "button_text": "Lisans Eğitim-Öğretim Yönetmeliği",
-                    "button_answer": [
+                    "text": "Lisans Eğitim-Öğretim Yönetmeliği",
+                    "answer": [
                         "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-lisans-egitim-ogretim-yonetmeligi"
                     ]
                 },
                 {
                     
-                    "button_text": "Lisansüstü Eğitim-Öğretim Yönetmeliği",
-                    "button_answer": [
+                    "text": "Lisansüstü Eğitim-Öğretim Yönetmeliği",
+                    "answer": [
                         "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-lisansustu-egitim-ogretim-yonetmeligi sitesini inceleyin."
                     ]
                 },
                 {
                     
-                    "button_text": "Meslek Yüksekokulu Eğitim Öğretim Yönetmeliği",
-                    "button_answer": [
+                    "text": "Meslek Yüksekokulu Eğitim Öğretim Yönetmeliği",
+                    "answer": [
                         "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-meslek-yuksekokulu-egitim-ogretim-yonetmeligi sitesini inceleyin."
                     ]
                 },
                 {
                     
-                    "button_text": "Yabancı Diller Yüksekokulu Temel İngilizce Bölümü Yönetmeliği",
-                    "button_answer": [
+                    "text": "Yabancı Diller Yüksekokulu Temel İngilizce Bölümü Yönetmeliği",
+                    "answer": [
                         "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-yabanci-diller-yuksekokulu-temel-ingilizce-bolumu-yonetmeligii sitesini inceleyin."
                     ]
                 },
                 {
                     
-                    "button_text": "Yurtlar Yönetmeliği",
-                    "button_answer": [
+                    "text": "Yurtlar Yönetmeliği",
+                    "answer": [
                         "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-yurtlar-yonetmeligi sitesini inceleyin."
                     ]
                 }
