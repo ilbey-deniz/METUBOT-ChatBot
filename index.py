@@ -86,6 +86,7 @@ def add_question():
     category = args["category"]
     question = args["questions"]
     answer = args["answers"]
+    buttons = args["buttons"]
 
     if None in [question,answer,category]:
         return response(status="error", message="invalid question, category or answer", code=400)
@@ -94,6 +95,11 @@ def add_question():
     print(f"Category: {category}")
     print(f"Question: {question}")
     print(f"Answer: {answer}")
+    print(f"Buttons: {buttons}")
+
+    if buttons:
+        answer = [{"type": "answerString", "text": answer[0]}]
+        answer += buttons
 
     res = answerer.addQuestion(question, answer, category) #Note that question and answer are expected to be given as lists. These square brackets are temporary
 

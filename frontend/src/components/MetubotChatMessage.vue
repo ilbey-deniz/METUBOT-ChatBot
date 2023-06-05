@@ -9,9 +9,9 @@
                             dark
                             style="height:auto; position: relative; width: fit-content; border-radius: 19px;"
                             class="pa-4 mb-4 message-box"
-                            @click="feedbackMenu = true"
+                            
                     >
-                        <v-btn style="position: absolute; right: 5px; top: 5px;" dark icon>
+                        <v-btn @click="feedbackMenu = true" style="position: absolute; right: 5px; top: 5px;" dark icon>
 
                             <v-icon v-if="hover">mdi-chevron-down</v-icon>
 
@@ -19,12 +19,13 @@
 
                         <span v-if="typeof msg.content === 'string'" v-html="sanitizeExceptBoldItalicCode(msg.content).trim()" v-linkified
                               style="white-space: pre-wrap;"></span>
+                        <span v-else-if="msg.content[0].type === 'answerString'">{{ msg.content[0].text }}</span>  
                         <span v-else>
                             Aşağıdakilerden hangisini tercih edersiniz?
                         </span>
                         <span v-if="typeof msg.content !== 'string'">
                           <v-alert
-                              v-for="button in msg.content"
+                              v-for="button in msg.content" v-if="button.type !== 'answerString'"
                               color="indigo"
                               icon="mdi-send"
                               border="left"
@@ -33,6 +34,7 @@
                               style="cursor: pointer; font-size:0.875rem; width:fit-content"
                               class="mt-3"
                           >
+                          
                           {{ button.text }}
                           </v-alert>
                         </span>
