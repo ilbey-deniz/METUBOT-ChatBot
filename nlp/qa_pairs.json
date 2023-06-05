@@ -7,7 +7,8 @@
             "answer": [
                 "Kayıt uygulamasında bulunan captchayı çözdüğünü ileri sürerek ders kayıtlarında haksız kazanç sağlamak ve kayıt önceliği elde etmek isteyen bazı kişiler olduğu görülmüştür. Ders kayıtlarının eşit koşullarda gerçekleşmesi için captcha uygulaması güncellenmiştir."
             ],
-            "category": "kayıt"
+            "category": "kayıt",
+            "buttons": []
         },
         {
             "question": [
@@ -16,7 +17,8 @@
             "answer": [
                 "Bölüm/birim koordinatörlerinin listesine http://coordinators.metu.edu.tr/ adresinden erişebilirsiniz."
             ],
-            "category": "koordinatör"
+            "category": "koordinatör",
+            "buttons": []
         },
         {
             "question": [
@@ -25,7 +27,8 @@
             "answer": [
                 "Bu lojmanlarda kalan ODTÜ personeli 3378 numaralı telefondan ya da lkoord@metu.edu.tr e-posta adresinden lojman koordinatörüne merkezi sistem kullanıcı adı bilgisini ileterek lojmanlardan internete bağlanmak için gerekli kayıt işleminin yapılmasını talep etmelidir."
             ],
-            "category": "internet"
+            "category": "internet",
+            "buttons": []
         },
         {
             "question": [
@@ -34,7 +37,8 @@
             "answer": [
                 "genel-duyuru listesine ODTÜ personeli olan kisiler kullanici_adimetu.edu.tr seklindeki e-posta adresleri ile otomatik olarak kaydedilmektedir. Ögrencilerin üyelik talepleri kabul edilmemektedir."
             ],
-            "category": "mail"
+            "category": "mail",
+            "buttons": []
         },
         {
             "question": [
@@ -43,7 +47,8 @@
             "answer": [
                 "Horde kullanarak bir posta kutusundaki tüm epostaları tek bir dosya ile bilgisayarınıza indirebilirsiniz. Bunun için horde web uygulamasına DİNAMİK modda giriş yaptıktan sonra sol tarafta listelenen posta kutularından indirmek istediğinize sağ tıklayarak Export / Dışa aktar seçeneğini işaretleyiniz."
             ],
-            "category": "mail"
+            "category": "mail",
+            "buttons": []
         },
         {
             "question": [
@@ -52,7 +57,8 @@
             "answer": [
                 "Akıllı kartınıza yemek saatlerinde (11:00 dan sonra) yüklediğiniz bakiyeyi aktarabilmek için kartınızı yükleme/güncelleme terminaline veya Kiosk'a okutmanız gerekmektedir. Kartınızı bu cihazlara okuttuğunuz halde bakiyeniz aktarılmamışsa https://bilisimdestek.metu.edu.tr/ adresi üzerinden kullanıcı hesabınız ile giriş yaparak sorununuzu bildirebilirsiniz."
             ],
-            "category": "kimlik kart"
+            "category": "kimlik kart",
+            "buttons": []
         },
         {
             "question": [
@@ -61,7 +67,8 @@
             "answer": [
                 "Akıllı kimlik kartınızı kaybettiğinizi/çalındığını fark ettiğinizde, cardinfo.metu.edu.tr adresinden kartınızı iptal etmelisiniz.Bu durumda akıllı kimlik kartınız sistem tarafından “iptal” edilir."
             ],
-            "category": "kimlik kart"
+            "category": "kimlik kart",
+            "buttons": []
         },
         {
             "question": [
@@ -74,7 +81,8 @@
             "answer": [
                 "https://useraccount.metu.edu.tr adresinden kullanıcı adı ve şifrenizle giriş yaptıktan sonra \"Change Password\" butonundan işleminizi gerçekleştirebilirsiniz."
             ],
-            "category": "şifre"
+            "category": "şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -85,7 +93,8 @@
             "answer": [
                 "Lisanlı yazılımlar hakkında bilgi edinmek için https://yazilim.cc.metu.edu.tr adresine gidebilirsiniz."
             ],
-            "category": "lisanslı yazılımlar"
+            "category": "lisanslı yazılımlar",
+            "buttons": []
         },
         {
             "question": [
@@ -97,7 +106,8 @@
             "answer": [
                 "WIFI ile ilgili sorularınız için https://faq.cc.metu.edu.tr/groups/wireless-network adresine gidebilirsiniz."
             ],
-            "category": "wifi"
+            "category": "wifi",
+            "buttons": []
         },
         {
             "question": [
@@ -109,7 +119,8 @@
             "answer": [
                 "GET_METU_FOOD"
             ],
-            "category": "kafeterya"
+            "category": "kafeterya",
+            "buttons": []
         },
         {
             "question": [
@@ -122,7 +133,8 @@
             "answer": [
                 "GET_CENG_CURRICULUM"
             ],
-            "category": "ceng"
+            "category": "ceng",
+            "buttons": []
         },
         {
             "question": [
@@ -134,7 +146,8 @@
             "answer": [
                 "GET_TODAYS_DATE"
             ],
-            "category": "zaman"
+            "category": "zaman",
+            "buttons": []
         },
         {
             "question": [
@@ -149,7 +162,8 @@
             "answer": [
                 "GET_CALENDAR"
             ],
-            "category": "zaman"
+            "category": "zaman",
+            "buttons": []
         },
         {
             "question": [
@@ -160,7 +174,8 @@
             "answer": [
                 "GET_RING_TIMES"
             ],
-            "category": "ring"
+            "category": "ring",
+            "buttons": []
         },
         {
             "question": [
@@ -173,7 +188,8 @@
             "answer": [
                 "GET_CAFETERIA_TIMES"
             ],
-            "category": "kafeterya"
+            "category": "kafeterya",
+            "buttons": []
         },
         {
             "question": [
@@ -184,7 +200,8 @@
             "answer": [
                 "GET_CAFETERIA_PRICE"
             ],
-            "category": "kafeterya"
+            "category": "kafeterya",
+            "buttons": []
         },
         {
             "question": [
@@ -192,38 +209,40 @@
                 "bölümümün kısaltması nedir"
             ],
             "answer": [
-                {
-                    "type": "button",
-                    "text": "Mimarlık Fakültesi",
-                    "answer": [
+                "Size uygun departmanı seçiniz:"
+            ],
+            "buttons": [
+                {  
+                    "button_text": "Mimarlık Fakültesi",
+                    "button_answer": [
                         "ARCH kısaltmalı bölümün kodu 120'dir. CRP kısaltmalı bölümün kodu 121'dir. ID kısaltmalı bölümün kodu 125'tir."
                     ]
                 },
                 {
-                    "type": "button",
-                    "text": "Fen Edebiyat Fakültesi",
-                    "answer": [
+                    
+                    "button_text": "Fen Edebiyat Fakültesi",
+                    "button_answer": [
                         "PHYS kısaltmalı bölümün kodu 230'tür. GENE kısaltmalı bölümün kodu 219'dır. BIOL kısaltmalı bölümün kodu 238'dır. CHEM kısaltmalı bölümün kodu 234'tür. HIST kısaltmalı bölümün kodu 240'tır. MATH kısaltmalı bölümün kodu 236'dır. PHIL kısaltmalı bölümün kodu 241'dir. PSY kısaltmalı bölümün kodu 233'tür. SOC kısaltmalı bölümün kodu 232'dir. STAT kısaltmalı bölümün kodu 246'dır."
                     ]
                 },
                 {
-                    "type": "button",
-                    "text": "İktisadi ve İdari Bilimler Fakültesi",
-                    "answer": [
+                    
+                    "button_text": "İktisadi ve İdari Bilimler Fakültesi",
+                    "button_answer": [
                         "BA kısaltmalı bölümün kodu 312'dir. ECON kısaltmalı bölümün kodu 311'dir. IR kısaltmalı bölümün kodu 314'dir. ADM kısaltmalı bölümün kodu 310'dur."
                     ]
                 },
                 {
-                    "type": "button",
-                    "text": "Eğitim Fakültesi",
-                    "answer": [
+                    
+                    "button_text": "Eğitim Fakültesi",
+                    "button_answer": [
                         "FLE kısaltmalı bölümün kodu 450'dir. MSE kısaltmalı bölümün kodu 460'tır. CEIT kısaltmalı bölümün kodu 121'dir. ECE kısaltmalı bölümün kodu 411'dir."
                     ]
                 },
                 {
-                    "type": "button",
-                    "text": "Mühendislik Fakültesi",
-                    "answer": [
+                    
+                    "button_text": "Mühendislik Fakültesi",
+                    "button_answer": [
                         "AEE kısaltmalı bölümün kodu 572'dir. CHE kısaltmalı bölümün kodu 563'tür. CE kısaltmalı bölümün kodu 562'dir. CENG kısaltmalı bölümün kodu 571'dir. ENVE kısaltmalı bölümün kodu 560'tır. GEOE kısaltmalı bölümün kodu 564'tür.                                 EE kısaltmalı bölümün kodu 567'dir. ES kısaltmalı bölümün kodu 561'dir. IE kısaltmalı bölümün kodu 568'dir. ME kısaltmalı bölümün kodu 569'dur. METE kısaltmalı bölümün kodu 570'tir. MINE kısaltmalı bölümün kodu 565'tir. PETE kısaltmalı bölümün kodu 566'dir."
                     ]
                 }
@@ -237,7 +256,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-personeliyim-nasil-kullanici-kodu-alabilirim"
             ],
-            "category": "Kullanıcı Kodu ve Şifre"
+            "category": "Kullanıcı Kodu ve Şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -246,7 +266,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-ogrencisiyim-nasil-metuedutr-uzantili-kullanici-kodu-edinebilirim"
             ],
-            "category": "Kullanıcı Kodu ve Şifre"
+            "category": "Kullanıcı Kodu ve Şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -255,7 +276,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-kullanici-kodumu-ve-parolami-nerelerde-kullanabilirim "
             ],
-            "category": "Kullanıcı Kodu ve Şifre"
+            "category": "Kullanıcı Kodu ve Şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -264,7 +286,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-kullanici-kodu-parola-ve-kurtarma-e-postasi-islemleri  adresinden bilgi alabilirsiniz."
             ],
-            "category": "Kullanıcı Kodu ve Şifre"
+            "category": "Kullanıcı Kodu ve Şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -273,7 +296,8 @@
             "answer": [
                 " https://faq.cc.metu.edu.tr/tr/sss/parolami-nasil-degistirebilirim-yeni-parola-secerken-nelere-dikkat-etmeliyim adresinden bilgi alabilirsiniz."
             ],
-            "category": "Kullanıcı Kodu ve Şifre"
+            "category": "Kullanıcı Kodu ve Şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -282,7 +306,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-kullanici-kodu-parola-ve-kurtarma-e-postasi-islemleri   adresinden bilgi alabilirsiniz."
             ],
-            "category": "Kullanıcı Kodu ve Şifre"
+            "category": "Kullanıcı Kodu ve Şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -291,7 +316,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-kullanici-kodu-parola-ve-kurtarma-e-postasi-islemleri   adresinden bilgi alabilirsiniz."
             ],
-            "category": "Kullanıcı Kodu ve Şifre"
+            "category": "Kullanıcı Kodu ve Şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -300,7 +326,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-kullanici-kodu-parola-ve-kurtarma-e-postasi-islemleri   adresinden bilgi alabilirsiniz."
             ],
-            "category": "Kullanıcı Kodu ve Şifre"
+            "category": "Kullanıcı Kodu ve Şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -309,7 +336,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-kullanici-kodu-parola-ve-kurtarma-e-postasi-islemleri   adresinden bilgi alabilirsiniz."
             ],
-            "category": "Kullanıcı Kodu ve Şifre"
+            "category": "Kullanıcı Kodu ve Şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -318,7 +346,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/kullanici-hesabi-hangi-durumlarda-kapatilir adresinden bilgi alabilirsiniz."
             ],
-            "category": "Kullanıcı Kodu ve Şifre"
+            "category": "Kullanıcı Kodu ve Şifre",
+            "buttons": []
         },
         {
             "question": [
@@ -327,7 +356,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/kullanici-hesabim-kapatildi-e-posta-yedeklerimi-varsa-nasil-edinebilirim-ve-acabilirim adresinden bilgi alabilirsiniz."
             ],
-            "category": "E-posta"
+            "category": "E-posta",
+            "buttons": []
         },
         {
             "question": [
@@ -336,7 +366,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/horde-ile-tum-e-postalarimi-nasil-indirebilirim adresinden bilgi alabilirsiniz."
             ],
-            "category": "E-posta"
+            "category": "E-posta",
+            "buttons": []
         },
         {
             "question": [
@@ -345,7 +376,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/kullanici-hesabimdan-yanlislikla-sildigim-dosyalara-nasil-ulasabilirim"
             ],
-            "category": "E-posta"
+            "category": "E-posta",
+            "buttons": []
         },
         {
             "question": [
@@ -354,7 +386,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/adsoyadmetuedutr-bicimindeki-e-posta-adresimi-degistirebilir-miyim adresinden bilgi alabilirsiniz."
             ],
-            "category": "E-posta"
+            "category": "E-posta",
+            "buttons": []
         },
         {
             "question": [
@@ -363,7 +396,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-e-posta-yonlendirmeyi-nasil-kullanabilirim adresinden bilg alabilirsiniz."
             ],
-            "category": "E-posta"
+            "category": "E-posta",
+            "buttons": []
         },
         {
             "question": [
@@ -372,7 +406,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/mezun-olduktan-sonra-odtu-kullanici-hesabima-gelen-e-postalarimi-yonlendirebilir-miyim adresinden bilgi alabilirsiniz."
             ],
-            "category": "E-posta"
+            "category": "E-posta",
+            "buttons": []
         },
         {
             "question": [
@@ -381,7 +416,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/OutsourcedSoftware  adresinden bilgi alabilirsiniz."
             ],
-            "category": "Lisanslı Yazılım"
+            "category": "Lisanslı Yazılım",
+            "buttons": []
         },
         {
             "question": [
@@ -390,7 +426,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-mobil-uygulamasi"
             ],
-            "category": "ODTÜ Mobil Uygulaması"
+            "category": "ODTÜ Mobil Uygulaması",
+            "buttons": []
         },
         {
             "question": [
@@ -399,7 +436,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/gmail-hesabima-odtu-e-posta-adresimi-nasil-eklerim"
             ],
-            "category": "E-posta"
+            "category": "E-posta",
+            "buttons": []
         },
         {
             "question": [
@@ -408,7 +446,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtude-ogrenciyim-genel-duyuru-listesine-uye-olabilir-miyim"
             ],
-            "category": "Elektronik Listeler"
+            "category": "Elektronik Listeler",
+            "buttons": []
         },
         {
             "question": [
@@ -417,7 +456,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-personeliyim-fakat-genel-duyuru-aras-gor-duyuru-veya-ogr-uye-duyuru-listelerine-gelen"
             ],
-            "category": "Elektronik Listeler"
+            "category": "Elektronik Listeler",
+            "buttons": []
         },
         {
             "question": [
@@ -426,7 +466,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/android-yuklu-cihazimla-odtu-e-posta-servisini-nasil-kullanabilirim"
             ],
-            "category": "E-posta"
+            "category": "E-posta",
+            "buttons": []
         },
         {
             "question": [
@@ -435,7 +476,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/iphone-ya-da-ipad-ile-odtu-e-posta-servisini-nasil-kullanabilirim"
             ],
-            "category": "E-posta"
+            "category": "E-posta",
+            "buttons": []
         },
         {
             "question": [
@@ -444,7 +486,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/mozilla-thunderbird-ile-odtu-e-posta-servisini-nasil-kullanabilirim"
             ],
-            "category": "E-posta"
+            "category": "E-posta",
+            "buttons": []
         },
         {
             "question": [
@@ -453,7 +496,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/vpn-uygulamasini-nasil-indiririm"
             ],
-            "category": "VPN"
+            "category": "VPN",
+            "buttons": []
         },
         {
             "question": [
@@ -462,7 +506,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/vpn-uygulamasi-kurulumunda-sorun-yasiyorum-ne-yapmaliyim adresinden bilgi alabilirsiniz."
             ],
-            "category": "VPN"
+            "category": "VPN",
+            "buttons": []
         },
         {
             "question": [
@@ -471,7 +516,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/android-yuklu-cihazimla-odtu-vpn-hizmetini-nasil-kullanabilirim"
             ],
-            "category": "VPN"
+            "category": "VPN",
+            "buttons": []
         },
         {
             "question": [
@@ -480,7 +526,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/iphone-ya-da-ipad-ile-odtu-vpn-servisini-nasil-kullanabilirim"
             ],
-            "category": "VPN"
+            "category": "VPN",
+            "buttons": []
         },
         {
             "question": [
@@ -489,7 +536,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/vpn-profil-silme-nasil-yapilir"
             ],
-            "category": "VPN"
+            "category": "VPN",
+            "buttons": []
         },
         {
             "question": [
@@ -498,7 +546,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/vpn-servisine-bilgilerimi-dogru-girmeme-ragmen-baglanamiyorum-sorun-ne-olabilir"
             ],
-            "category": "VPN"
+            "category": "VPN",
+            "buttons": []
         },
         {
             "question": [
@@ -507,7 +556,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/windows-isletim-sistemi-kurulu-cihazimla-odtu-vpn-servisini-nasil-kullanabilirim"
             ],
-            "category": "VPN"
+            "category": "VPN",
+            "buttons": []
         },
         {
             "question": [
@@ -516,7 +566,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/ubuntu-isletim-sistemi-yuklu-cihazimla-odtu-vpn-hizmetini-nasil-kullanabilirim"
             ],
-            "category": "VPN"
+            "category": "VPN",
+            "buttons": []
         },
         {
             "question": [
@@ -525,7 +576,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/eduroama-nasil-baglanilir"
             ],
-            "category": "eduroam"
+            "category": "eduroam",
+            "buttons": []
         },
         {
             "question": [
@@ -534,7 +586,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/android-isletim-sistemi-yuklu-telefonumdan-eduroam-kablosuz-agina-nasil-baglanabilirim"
             ],
-            "category": "eduroam"
+            "category": "eduroam",
+            "buttons": []
         },
         {
             "question": [
@@ -543,7 +596,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/mac-bilgisayarimdan-eduroam-kablosuz-agina-nasil-baglanabilirim"
             ],
-            "category": "eduroam"
+            "category": "eduroam",
+            "buttons": []
         },
         {
             "question": [
@@ -552,7 +606,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/iphone-telefonumdan-eduroam-kablosuz-agina-nasil-baglanabilirim"
             ],
-            "category": "eduroam"
+            "category": "eduroam",
+            "buttons": []
         },
         {
             "question": [
@@ -561,7 +616,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/eduroam-sifremi-unuttum-ne-yapmaliyim"
             ],
-            "category": "eduroam"
+            "category": "eduroam",
+            "buttons": []
         },
         {
             "question": [
@@ -570,7 +626,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/kablolu-aga-nasil-baglanabilirim"
             ],
-            "category": "Kablolu Ağ"
+            "category": "Kablolu Ağ",
+            "buttons": []
         },
         {
             "question": [
@@ -579,7 +636,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/internet-baglantim-cok-yavas-sorun-ne-olabilir adresinden bilgi alabilirsiniz."
             ],
-            "category": "Ağ"
+            "category": "Ağ",
+            "buttons": []
         },
         {
             "question": [
@@ -588,7 +646,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/meturoam"
             ],
-            "category": "meturoam"
+            "category": "meturoam",
+            "buttons": []
         },
         {
             "question": [
@@ -597,7 +656,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/meturoam-sifremi-unuttum-ne-yapabilirim"
             ],
-            "category": "meturoam"
+            "category": "meturoam",
+            "buttons": []
         },
         {
             "question": [
@@ -606,7 +666,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/bolum-koordinatorune-nasil-ulasabilirim"
             ],
-            "category": "IT Koordinatör"
+            "category": "IT Koordinatör",
+            "buttons": []
         },
         {
             "question": [
@@ -615,7 +676,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/akilli-kimlik-kartimi-kaybettimcalindi-ne-yapmaliyim"
             ],
-            "category": "Akıllı Kart"
+            "category": "Akıllı Kart",
+            "buttons": []
         },
         {
             "question": [
@@ -624,7 +686,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/akilli-kimlik-kartimi-degistirdim-yeni-kimligimi-kullanima-acmam-gerekir-mi"
             ],
-            "category": "Akıllı Kart"
+            "category": "Akıllı Kart",
+            "buttons": []
         },
         {
             "question": [
@@ -633,7 +696,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/akilli-kimlik-kartim-kirildi-ne-yapmaliyim"
             ],
-            "category": "Akıllı Kart"
+            "category": "Akıllı Kart",
+            "buttons": []
         },
         {
             "question": [
@@ -642,7 +706,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/akilli-kartiniz-iptal-edilmistir-universitenize-basvurunuz-uyarisi-almaktayim-ne-yapmaliyim"
             ],
-            "category": "Akıllı Kart"
+            "category": "Akıllı Kart",
+            "buttons": []
         },
         {
             "question": [
@@ -651,7 +716,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtu-personeliyim-yakinim-icin-kimlik-karti-cikartabilir-miyim"
             ],
-            "category": "Akıllı Kart"
+            "category": "Akıllı Kart",
+            "buttons": []
         },
         {
             "question": [
@@ -660,7 +726,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtucard-websitesi-araciligi-ile-nasil-para-yuklerim"
             ],
-            "category": "Akıllı Kart"
+            "category": "Akıllı Kart",
+            "buttons": []
         },
         {
             "question": [
@@ -669,7 +736,8 @@
             "answer": [
                 "Sistemden iptal edilen akıllı kart tekrar aktif edilemez. Yeni kart başvurusunda bulunmanız gerekmektedir."
             ],
-            "category": "Akıllı Kart"
+            "category": "Akıllı Kart",
+            "buttons": []
         },
         {
             "question": [
@@ -678,7 +746,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/bilgisayarimdaki-isletim-sistemini-nasil-guncelleyebilirim"
             ],
-            "category": "İşletim Sistemi"
+            "category": "İşletim Sistemi",
+            "buttons": []
         },
         {
             "question": [
@@ -687,7 +756,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/bilgisayarima-virus-bulasmasi-durumunda-ne-yapmaliyim"
             ],
-            "category": "İşletim Sistemi"
+            "category": "İşletim Sistemi",
+            "buttons": []
         },
         {
             "question": [
@@ -696,7 +766,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/bilgisayarima-virus-bulastigini-nasil-anlayabilirim"
             ],
-            "category": "İşletim Sistemi"
+            "category": "İşletim Sistemi",
+            "buttons": []
         },
         {
             "question": [
@@ -705,7 +776,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/viruslerden-korunmak-icin-neler-yapmaliyim"
             ],
-            "category": "İşletim Sistemi"
+            "category": "İşletim Sistemi",
+            "buttons": []
         },
         {
             "question": [
@@ -714,7 +786,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/odtude-kullanilan-lisansli-bir-antivirus-programi-var-mi-varsa-nereden-edinebilirim"
             ],
-            "category": "İşletim Sistemi"
+            "category": "İşletim Sistemi",
+            "buttons": []
         },
         {
             "question": [
@@ -723,7 +796,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/spam-e-postalari-ne-yapmaliyim"
             ],
-            "category": "İşletim Sistemi"
+            "category": "İşletim Sistemi",
+            "buttons": []
         },
         {
             "question": [
@@ -732,7 +806,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/etkilesimli-kayitlar"
             ],
-            "category": "Kayıtlar"
+            "category": "Kayıtlar",
+            "buttons": []
         },
         {
             "question": [
@@ -741,7 +816,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/yeni-kayit-olan-ogrenciler"
             ],
-            "category": "Kayıtlar"
+            "category": "Kayıtlar",
+            "buttons": []
         },
         {
             "question": [
@@ -750,7 +826,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/kayit-sayfasindaki-robot-resim-dogrulama-ben-robot-degilim-hakkinda-nereden-bilgi-edinebilirim"
             ],
-            "category": "Kayıtlar"
+            "category": "Kayıtlar",
+            "buttons": []
         },
         {
             "question": [
@@ -759,7 +836,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/etkilesimli-kayitlarda-neden-captcha-uygulamasi-kullanilmaktadir"
             ],
-            "category": "Kayıtlar"
+            "category": "Kayıtlar",
+            "buttons": []
         },
         {
             "question": [
@@ -768,7 +846,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/uzaktan-egitim-icin-zoom"
             ],
-            "category": "Zoom"
+            "category": "Zoom",
+            "buttons": []
         },
         {
             "question": [
@@ -777,7 +856,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/ders-kayitlari-icin-hangi-pc-salonlarini-kullanabilirim"
             ],
-            "category": "Kayıtlar"
+            "category": "Kayıtlar",
+            "buttons": []
         },
         {
             "question": [
@@ -786,7 +866,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/bidb-tarafindan-isletilen-pc-salonlarinda-kullanici-kodum-ile-giris-yapamiyorum-ne-yapmaliyim"
             ],
-            "category": "PC Salonları"
+            "category": "PC Salonları",
+            "buttons": []
         },
         {
             "question": [
@@ -795,7 +876,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/ebys"
             ],
-            "category": "EBYS"
+            "category": "EBYS",
+            "buttons": []
         },
         {
             "question": [
@@ -804,7 +886,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/ebysye-nasil-giris-yapilirr"
             ],
-            "category": "EBYS"
+            "category": "EBYS",
+            "buttons": []
         },
         {
             "question": [
@@ -813,7 +896,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/ebysde-e-imzayi-nasil-kullanabilirim"
             ],
-            "category": "EBYS"
+            "category": "EBYS",
+            "buttons": []
         },
         {
             "question": [
@@ -822,7 +906,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/gorev-degisikligi-atama-durumlarinda-ebysde-tanimlamalar-nasil-yapilmaktadir"
             ],
-            "category": "EBYS"
+            "category": "EBYS",
+            "buttons": []
         },
         {
             "question": [
@@ -831,7 +916,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/kampus-disindan-ebysye-giris-yapilabilir-mi"
             ],
-            "category": "EBYS"
+            "category": "EBYS",
+            "buttons": []
         },
         {
             "question": [
@@ -840,7 +926,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/ebys-yi-mobil-cihazim-ile-kullanabilirmiyim"
             ],
-            "category": "EBYS"
+            "category": "EBYS",
+            "buttons": []
         },
         {
             "question": [
@@ -849,7 +936,8 @@
             "answer": [
                 "https://faq.cc.metu.edu.tr/tr/sss/ebysde-gorunen-birim-gorev-ya-da-unvaniniz-hatali-ise-ne-yapmalisiniz"
             ],
-            "category": "EBYS"
+            "category": "EBYS",
+            "buttons": []
         },
         {
             "question": [
@@ -861,7 +949,8 @@
             "answer": [
                 "Merhaba, nasıl yardımcı olabilirim?"
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -870,7 +959,8 @@
             "answer": [
                 "İyi günler, nasıl yardımcı olabilirim?"
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -879,7 +969,8 @@
             "answer": [
                 "İyi akşamlar, nasıl yardımcı olabilirim?"
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -888,7 +979,8 @@
             "answer": [
                 "İyi geceler, nasıl yardımcı olabilirim?"
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -899,7 +991,8 @@
             "answer": [
                 "Beni birkaç son sınıf Bilgisayar Mühendisliği öğrencisi tasarladı, amacım sizlere yardımcı olabilmek."
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -910,27 +1003,8 @@
             "answer": [
                 "Üstesinden geleceğine eminim."
             ],
-            "category": "sohbet"
-        },
-        {
-            "question": [
-                "form sorusu"
-            ],
-            "answer": [
-                {
-                    "type": "form",
-                    "text": [
-                        "isim",
-                        "soyisim",
-                        "sınıf",
-                        "gpa"
-                    ],
-                    "answer": [
-                        "ANSWER_FORM_1"
-                    ]
-                }
-            ],
-            "category": "diyalog"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -939,7 +1013,8 @@
             "answer": [
                 "Bunu yapmak için öncelikle tabağınıza yiyebileceğinizden fazla ürün almadığınızdan emin olmalısınız. Bu da ortalama 500-600 gram ürünü aşmıyor olmak anlamına gelir. Tabağınıza 75 gram kadar yoğurt ya da süt bazlı ürün almalısınız. Serviste kullanılan kaşıklarla alacağınız 3 kaşık yoğurt yaklaşık 75 gram gelir.  60 gram kadar et, balık, kuru bakliyat ya da yumurta bazlı ürün almalısınız ki 2 adet köfte, 1 adet ızgara tavuk ya da 1 dilim palamut yaklaşık 60 gram gelir.  35 gram kadar tatlı alabilirsiniz. Bu da 1 adet baklava ya da 1-2 adet çikolatalı ezme kadardır.  165 gram yeşil salata, sebze yemeği ya da meyve almalısınız. Eğer tabağınızın 1/4’ü kadar yeşil salata alırsanız 50 gram civarı gelecektir. 1 servis kasığı sebze yemeği ya da zeytinyağlı yaklaşık 50 gram gelir.  165 gram börek, pilav, ya da makarna almalısınız. Ekmek yiyecekseniz bu miktarı düşürmelisiniz çünkü 1 adet roll ekmek 50 gram, 1 kaşık pilav 30 gram gelir."
             ],
-            "category": "çatı"
+            "category": "çatı",
+            "buttons": []
         },
         {
             "question": [
@@ -948,7 +1023,8 @@
             "answer": [
                 "Pişmiş maliyeti büfe satış fiyatımızın 2,5 katı olan kırmızı et yemeklerine menümüzde maalesef yer veremiyoruz."
             ],
-            "category": "çatı"
+            "category": "çatı",
+            "buttons": []
         },
         {
             "question": [
@@ -957,7 +1033,8 @@
             "answer": [
                 "Aslında tüm restoranların menüsü bir sefer belirlenir ve yıllarca aynı kalır. Açık büfede servis ettiğimiz ürün sayısı her gün 140 çeşit civarındaki bu ortalama bir restoranın menüsüne göre 20 kat daha fazla seçenek anlamına gelir. Bu çeşitlerin yaklaşık %60’ı sabitken, kalan %40’lık bölüm gün aşırı değişmektedir."
             ],
-            "category": "çatı"
+            "category": "çatı",
+            "buttons": []
         },
         {
             "question": [
@@ -966,7 +1043,8 @@
             "answer": [
                 "Aslında Türk yemeklerin geneli salça, sarımsak ve baharat bazlıdır. Yemeklerimizi geleneksel tadına uygun reçetelerle yapmaya çalıyoruz. Bu da bazı benzerlikler olmasına neden olabiliyor. Dikkat edilmesi gereken bir başka konu da tabağa aynı anda alınan çok fazla çeşidin soslarının karışarak birbirini etkiliyor olmasıdır."
             ],
-            "category": "çatı"
+            "category": "çatı",
+            "buttons": []
         },
         {
             "question": [
@@ -976,7 +1054,8 @@
             "answer": [
                 "Ürünlerimizi serviste en fazla 2 saat kalacak şekilde planlıyor ve süre sonunda kalan kısmı servisten çekerek imha ediyoruz."
             ],
-            "category": "çatı"
+            "category": "çatı",
+            "buttons": []
         },
         {
             "question": [
@@ -986,7 +1065,8 @@
             "answer": [
                 "Ürünlerimizi serviste en fazla 2 saat kalacak şekilde planlıyor ve süre sonunda kalan kısmı servisten çekerek imha ediyoruz."
             ],
-            "category": "çatı"
+            "category": "çatı",
+            "buttons": []
         },
         {
             "question": [
@@ -995,7 +1075,8 @@
             "answer": [
                 "ODTÜ'de öğrenim dili İngilizce'dir."
             ],
-            "category": "genel"
+            "category": "genel",
+            "buttons": []
         },
         {
             "question": [
@@ -1004,7 +1085,8 @@
             "answer": [
                 "ODTÜ'de 3'ü uluslararası ortak program olmak üzere 41 lisans programının yürütüldüğü 5 Fakülte, 105 yüksek lisans ve 70 doktora programının yürütüldüğü 5 Enstitü, İngilizce eğitimi veren Yabancı Diller Yüksek Okulu faaliyet göstermektedir. ODTÜ Kuzey Kıbrıs Kampüsü'ne bağlı 15 lisans programı ve 5 yüksek lisans programı yürütülmektedir."
             ],
-            "category": "genel"
+            "category": "genel",
+            "buttons": []
         },
         {
             "question": [
@@ -1013,7 +1095,8 @@
             "answer": [
                 "ODTÜ'de akademik yıl iki yarıyıldan oluşmaktadır. Akademik yılın birinci dönemi genellikle Eylül ayının son haftasında başlamakta ve Ocak ayının ortasında tamamlanmaktadır. İkinci dönem, Şubat ayının ortasında başlamakta ve Haziran ayının ortasında sona ermektedir. ODTÜ'de dönem derslerini içeren yaz okulu ve uluslararası öğrencilerin ilgilerine hitap edecek dersler içeren Uluslararası Yaz Okulu da bulunmaktadır."
             ],
-            "category": "genel"
+            "category": "genel",
+            "buttons": []
         },
         {
             "question": [
@@ -1024,7 +1107,8 @@
             "answer": [
                 "ODTÜ, Türkiye'nin rekabeti yüksek sayılı üniversitelerindendir. Her yıl ülke çapında yapılan Üniversite Giriş Sınavları'na giren en yüksek puanlı 1000 öğrencinin 1/3'ünden fazlası ODTÜ'yü tercih etmektedir. ODTÜ'de öğrenim görme talebi çok yüksek olduğundan, ODTÜ'nün pek çok bölümü, Üniversite Giriş Sınavı'na giren yaklaşık birbuçuk milyon öğrenciden sadece en üstteki yüzde üçlük dilime girebilenleri kabul etmektedir. ODTÜ öğrencilerinin yüzde kırktan fazlası yüksek lisansa devam etmektedir."
             ],
-            "category": "genel"
+            "category": "genel",
+            "buttons": []
         },
         {
             "question": [
@@ -1033,7 +1117,8 @@
             "answer": [
                 "Akademik yıl boyunca öğrenciler kampüsde yapılan sanat etkinliklerinden, sergilerden, müzik etkinliklerinden ve çok çeşitli sosyal ve akademik faaliyetlerden yararlanabilirler. Bu etkinliklerin birçoğu ODTÜ'nün Kültür Kongre Merkezi'nde gerçekleştirilmektedir. Yılın sosyal etkinliklerinin doruğa ulaştığı geleneksel Uluslararası Bahar Şenliği, Mayıs ayındadır."
             ],
-            "category": "genel"
+            "category": "genel",
+            "buttons": []
         },
         {
             "question": [
@@ -1042,7 +1127,8 @@
             "answer": [
                 "Kampüs alanı 45.000 dekar (4500 hektar), orman alanı ise 30.430 dekar (3043 hektar) büyüklüğündedir ve Ankara'nın merkezinden 20 km uzaktaki Eymir Gölü'nü de içine almaktadır. ODTÜ öğrencileri, bu gölde yapılan kürek sporu faaliyetlerinden, balık avlama ve piknik olanaklarından ve çeşitli etkinliklerden yararlanabilirler. ODTÜ'nün ana kampüsünden ve şehirdeki belirli noktalardan buraya otobüs seferleri mevcuttur."
             ],
-            "category": "genel"
+            "category": "genel",
+            "buttons": []
         },
         {
             "question": [
@@ -1052,7 +1138,8 @@
             "answer": [
                 "Kayıp diplomaların yerine ikinci nüsha diploma başvurusu yapılması gerekmektedir. http://oidb.metu.edu.tr/kayip-diplomalar-icin-yapilacak-islemler adresinden gerekli adımları takip edebilirsiniz."
             ],
-            "category": "mezun"
+            "category": "mezun",
+            "buttons": []
         },
         {
             "question": [
@@ -1061,7 +1148,8 @@
             "answer": [
                 "https://www.metu.edu.tr/tr/iletisim adresinden gerekli iletişim bilgilerine ulaşabilirsiniz."
             ],
-            "category": "iletişim"
+            "category": "iletişim",
+            "buttons": []
         },
         {
             "question": [
@@ -1070,7 +1158,8 @@
             "answer": [
                 "ÖİDB tarafından kayıt işlemi gerçekleştirilen ve öğrenci numarası bulunan tüm öğrenciler useraccount.metu.edu.tr adresindeki Yeni Öğrenci bağlantısını kullanarak TC Kimlik veya Öğrenci numarası ile kayıtlı olduğu bölüm bilgisini seçer, beyan ettiği e-posta adresine Tek Kullanımlık Şifre iletilir. Bu şifre ile useraccount.metu.edu.tr adresine giriş yaparak kalıcı şifre, kurtarma e-posta adresi ve ad.soyad şeklindeki e-posta adresini (özel öğrenciler hariç) tanımlayabilir."
             ],
-            "category": "email"
+            "category": "email",
+            "buttons": []
         },
         {
             "question": [
@@ -1079,7 +1168,8 @@
             "answer": [
                 "ÖİDB tarafından kayıt işlemi gerçekleştirilen ve öğrenci numarası bulunan tüm öğrenciler useraccount.metu.edu.tr adresindeki Yeni Öğrenci bağlantısını kullanarak TC Kimlik veya Öğrenci numarası ile kayıtlı olduğu bölüm bilgisini seçer, beyan ettiği e-posta adresine Tek Kullanımlık Şifre iletilir. Bu şifre ile useraccount.metu.edu.tr adresine giriş yaparak kalıcı şifre, kurtarma e-posta adresi ve ad.soyad şeklindeki e-posta adresini (özel öğrenciler hariç) tanımlayabilir."
             ],
-            "category": "email"
+            "category": "email",
+            "buttons": []
         },
         {
             "question": [
@@ -1088,7 +1178,8 @@
             "answer": [
                 "Yerleşkede azami hız 50 km/saat, yayaların yoğun olduğu yerlerde 30km/saattir."
             ],
-            "category": "ulaşım"
+            "category": "ulaşım",
+            "buttons": []
         },
         {
             "question": [
@@ -1097,80 +1188,87 @@
             "answer": [
                 "https://harita.metu.edu.tr/"
             ],
-            "category": "ulaşım"
+            "category": "ulaşım",
+            "buttons": []
         },
         {
             "question": [
-                "haritaya nasıl ulaşırım"
+                "öğrenci toplulukları nelerdir?"
             ],
             "answer": [
+                "İlgilendiğiniz topluluğun hangi müdürlüğe bağlı olduğunu söyler misiniz?"
+            ],
+            "category": "topluluk",
+            "buttons": [
                 {
-                    "type": "button",
-                    "text": "Kültür İşleri Müdürlüğüne bağlı Öğrenci Toplulukları",
-                    "answer": [
+                    
+                    "button_text": "Kültür İşleri Müdürlüğüne bağlı Öğrenci Toplulukları",
+                    "button_answer": [
                         "http://kim.metu.edu.tr/tr/ogrenci-topluluklari sitesini inceleyin."
                     ]
                 },
                 {
-                    "type": "button",
-                    "text": "Spor Müdürlüğüne bağlı Öğrenci Toplulukları",
-                    "answer": [
+                    
+                    "button_text": "Spor Müdürlüğüne bağlı Öğrenci Toplulukları",
+                    "button_answer": [
                         "https://spormd.metu.edu.tr/tr/spor-topluluklari sitesini inceleyin."
                     ]
                 },
                 {
-                    "type": "button",
-                    "text": "Spor Müdürlüğüne bağlı Spor Takımları",
-                    "answer": [
+                    
+                    "button_text": "Spor Müdürlüğüne bağlı Spor Takımları",
+                    "button_answer": [
                         "https://spormd.metu.edu.tr/tr/spor-takimlari sitesini inceleyin."
                     ]
                 }
-            ],
-            "category": "topluluk"
+            ]
         },
         {
             "question": [
                 "öğrenci yönetmeliği nelerdir",
                 "odtünün kuralları nelerdir"
             ],
-            "answer": [
+            "answer":[
+                "ODTÜ'de öğrenci yönetmeliği olarak 4 yönetmelik bulunmaktadır. Bunlar:"
+            ],
+            "category":"yönetmelik",
+            "buttons": [
                 {
-                    "type": "button",
-                    "text": "Lisans Eğitim-Öğretim Yönetmeliği",
-                    "answer": [
+                    
+                    "button_text": "Lisans Eğitim-Öğretim Yönetmeliği",
+                    "button_answer": [
                         "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-lisans-egitim-ogretim-yonetmeligi"
                     ]
                 },
                 {
-                    "type": "button",
-                    "text": "Lisansüstü Eğitim-Öğretim Yönetmeliği",
-                    "answer": [
+                    
+                    "button_text": "Lisansüstü Eğitim-Öğretim Yönetmeliği",
+                    "button_answer": [
                         "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-lisansustu-egitim-ogretim-yonetmeligi sitesini inceleyin."
                     ]
                 },
                 {
-                    "type": "button",
-                    "text": "Meslek Yüksekokulu Eğitim Öğretim Yönetmeliği",
-                    "answer": [
+                    
+                    "button_text": "Meslek Yüksekokulu Eğitim Öğretim Yönetmeliği",
+                    "button_answer": [
                         "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-meslek-yuksekokulu-egitim-ogretim-yonetmeligi sitesini inceleyin."
                     ]
                 },
                 {
-                    "type": "button",
-                    "text": "Yabancı Diller Yüksekokulu Temel İngilizce Bölümü Yönetmeliği",
-                    "answer": [
+                    
+                    "button_text": "Yabancı Diller Yüksekokulu Temel İngilizce Bölümü Yönetmeliği",
+                    "button_answer": [
                         "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-yabanci-diller-yuksekokulu-temel-ingilizce-bolumu-yonetmeligii sitesini inceleyin."
                     ]
                 },
                 {
-                    "type": "button",
-                    "text": "Yurtlar Yönetmeliği",
-                    "answer": [
+                    
+                    "button_text": "Yurtlar Yönetmeliği",
+                    "button_answer": [
                         "https://oidb.metu.edu.tr/orta-dogu-teknik-universitesi-yurtlar-yonetmeligi sitesini inceleyin."
                     ]
                 }
-            ],
-            "category": "yönetmelik"
+            ]
         },
         {
             "question": [
@@ -1182,7 +1280,8 @@
             "answer": [
                 "Yardımcı olamadıysam özür dilerim, zamanla gelişmek üzerine programlandım."
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -1191,7 +1290,8 @@
             "answer": [
                 "Ben de bir şey cevaplamadım."
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -1200,7 +1300,8 @@
             "answer": [
                 "Yoğun olduğuna eminim."
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -1209,7 +1310,8 @@
             "answer": [
                 "Olabileceğime inanmak istiyorum."
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -1218,7 +1320,8 @@
             "answer": [
                 ":)"
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -1227,7 +1330,8 @@
             "answer": [
                 "Sorduğun soruyu, belleğimde mevcut olan sorularla eşleyebiliyorum."
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -1236,7 +1340,8 @@
             "answer": [
                 "Kolay gelsin :("
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -1245,7 +1350,8 @@
             "answer": [
                 "ChatGPT yerli ve milli değil ama :)"
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -1254,7 +1360,8 @@
             "answer": [
                 "Benim adım METUBOT!"
             ],
-            "category": "sohbet"
+            "category": "sohbet",
+            "buttons": []
         },
         {
             "question": [
@@ -1264,7 +1371,8 @@
             "answer": [
                 "Üniversitelerin teknoparklarında yer alan firmalara başvurabilirsin."
             ],
-            "category": "staj"
+            "category": "staj",
+            "buttons": []
         },
         {
             "question": [
@@ -1273,7 +1381,8 @@
             "answer": [
                 "Yazın okula kayıtlı iseniz, yaz okulu esnasında staj yapamazsınız."
             ],
-            "category": "staj"
+            "category": "staj",
+            "buttons": []
         },
         {
             "question": [
@@ -1282,7 +1391,8 @@
             "answer": [
                 "Tahmin yapmak ya da düşünce belirtmek gibi yeteneklerim yok. Ben sadece bir botum."
             ],
-            "category": "cevapsız"
+            "category": "cevapsız",
+            "buttons": []
         },
         {
             "question": [
@@ -1291,7 +1401,8 @@
             "answer": [
                 "https://ring.metu.edu.tr/ adresini inceleyebilirsiniz."
             ],
-            "category": "ring"
+            "category": "ring",
+            "buttons": []
         },
         {
             "question": [
@@ -1300,7 +1411,8 @@
             "answer": [
                 "ODTÜ Bilgi İşlem Daire Başkanlığı (BİDB), Bilgisayar Mühendisliği ile İnşaat Mühendisliği K6 binaları arasında yer almaktadır."
             ],
-            "category": "ulaşım"
+            "category": "ulaşım",
+            "buttons": []
         },
         {
             "question": [
@@ -1309,7 +1421,8 @@
             "answer": [
                 "Halı Sahalar, baraka spor salonunun yanındadır. İnşaat mühendisliği karşısındaki merdivenlerden inerseniz sağınızda kalır. Eğer C heykelinden gelip devrimin önünden geçerseniz, sağdan yukarı devam etmeniz durumunda baraka spor salonuna, ardından halı sahalara ulaşabilirsiniz. Biraz daha yukarıda büyük sentetik futbol sahası bulunmaktadır."
             ],
-            "category": "ulaşım"
+            "category": "ulaşım",
+            "buttons": []
         },
         {
             "question": [
@@ -1318,7 +1431,8 @@
             "answer": [
                 "Yemekhaneden çıktıktan sonra sağ tarafınıza Kimya Bölümünü alacak şekilde ilerleyin. Çatı, sağ tarafınızda Endüstri Mühendisliği'nin hemen yanında yer almaktadır."
             ],
-            "category": "ulaşım"
+            "category": "ulaşım",
+            "buttons": []
         },
         {
             "question": [
@@ -1327,7 +1441,8 @@
             "answer": [
                 "https://ihm.metu.edu.tr/tr/istenen-belgeler sitesinde gerekli belgelere ulaşabilirsiniz"
             ],
-            "category": "taşıt pulu"
+            "category": "taşıt pulu",
+            "buttons": []
         },
         {
             "question": [
@@ -1336,7 +1451,8 @@
             "answer": [
                 "Havacılığa gitmek için önce Jeoloji Mühendisliğine doğru gidip, Maden Mühendisliğine ulaştıktan sonra Maden Mühendisliğinin arkasındaki patika yolu takip etmelisiniz."
             ],
-            "category": "ulaşım"
+            "category": "ulaşım",
+            "buttons": []
         }
     ]
 }
