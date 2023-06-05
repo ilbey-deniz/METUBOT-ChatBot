@@ -299,7 +299,7 @@ def get_asked_questions():
         temp["category"] = q.category
         temp["similarity"] = q.similarity
         temp["feedback"] = feedback
-        temp["feedbackText"] = str(feedbackText) if len(feedbackText) != 1 else feedbackText[0]
+        temp["feedbackText"] = feedbackText
         temp["created_at"] = str(q.created_at)
         results.append(temp)
 

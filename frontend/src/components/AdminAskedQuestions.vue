@@ -54,6 +54,12 @@
                     </v-icon>
 
                 </template>
+                <template v-slot:item.feedbackText="{ item }">
+                    
+                    <tr v-for="f in item.feedbackText">
+                        {{ f }}
+                    </tr>
+                </template>
                 <template v-slot:no-data>
                     <v-btn
                             color="primary"
