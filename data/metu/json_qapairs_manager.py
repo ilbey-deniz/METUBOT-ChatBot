@@ -54,22 +54,24 @@ def add_questions_from_excel(path=qapairs_path, qpath=excel_path, overwrite=Fals
         dict = json.load(open(path))
         ret_dict = {"qa-pairs": []}
         for i in range(len(q)):
-            if isinstance(b[i], str):
-                buttons = b[i].split("#")
+            if isinstance(q[i], str) and isinstance(a[i], str) and isinstance(c[i], str):
+                if isinstance(b[i], str):
+                    buttons = b[i].split("#")
+                else:
+                    buttons = []
+                dict["qa-pairs"].append({"question":q[i].split("#"),
+                                        "answer":a[i].split("#"),
+                                        "category":c[i],
+                                        "buttons": [{"text": button.split("*")[0],
+                                                    "answer": [button.split("*")[1]]} for button in buttons]})
+                ret_dict["qa-pairs"].append({"question":q[i].split("#"),
+                                        "answer":a[i].split("#"),
+                                        "category":c[i],
+                                        "buttons": [{"text": button.split("*")[0],
+                                                    "answer": [button.split("*")[1]]} for button in buttons]})
             else:
-                buttons = []
-            dict["qa-pairs"].append({"question":q[i].split("#"),
-                                     "answer":a[i].split("#"),
-                                     "category":c[i],
-                                     "buttons": [{"text": button.split("*")[0],
-                                                  "answer": [button.split("*")[1]]} for button in buttons]})
-            ret_dict["qa-pairs"].append({"question":q[i].split("#"),
-                                     "answer":a[i].split("#"),
-                                     "category":c[i],
-                                     "buttons": [{"text": button.split("*")[0],
-                                                  "answer": [button.split("*")[1]]} for button in buttons]})
-            #if {"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]} not in dict["qa-pairs"]:
-            #    dict["qa-pairs"].append({"question":q[i].split("#"),"answer":a[i].split("#"),"category":c[i]})
+                print(f"ERROR: Empty field at excel line {i}")
+                return None
         
         write_json(dict,path)
         
