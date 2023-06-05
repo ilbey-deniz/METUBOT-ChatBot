@@ -37,7 +37,7 @@ class ElasticsearchInterface(Answerer):
                 }
             }
         })
-        response = Answer("Üzgünüm, ne sormak istediğinizi anlayamadım.", 1, "Cevabı Meçhul")
+        response = Answer({"answer": ["Üzgünüm, ne sormak istediğinizi anlayamadım."], "buttons": []}, 1, "Cevabı Meçhul")
 
         if len(question_response["hits"]["hits"]) > 0:
             answer_response = self.es.get(index="question-answer", id=question_response["hits"]["hits"][0]["_source"]["join"]["parent"])
@@ -173,7 +173,7 @@ class ElasticsearchInterface(Answerer):
                     },
                     "answer": data["qa-pairs"][i]["answer"],
                     "category": data["qa-pairs"][i]["category"],
-                    "buttons": []
+                    "buttons": data["qa-pairs"][i]["buttons"]
                 }
 
             answer_id = self.es.index(index="question-answer", document=a, routing=True)["_id"]
