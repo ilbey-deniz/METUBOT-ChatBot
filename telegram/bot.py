@@ -8,9 +8,10 @@ import librosa
 
 local = "http://localhost:8080/ask?question="
 server = "http://metubot.ceng.metu.edu.tr/ask?question="
+
 all_button_answer = {}
 ses = {}
-api_key = "205d9032223c4a68b5b4f06cce5cc80f" 
+api_key = "c8f16b9dfc984870afa3dc696e6fdc39"  
 region="eastus"
 speech_config = speechsdk.SpeechConfig(subscription=api_key, region=region, speech_recognition_language="tr-TR")
 
