@@ -9,6 +9,17 @@
         <v-card class="card mt-4">
             <v-card-title>
                 Sorulan Sorular
+                <v-divider class="mx-4" inset vertical></v-divider>
+                <span style="font-size:1rem;">
+                    <v-icon color="green">mdi-thumb-up</v-icon> %{{ (likeCount/questionCount*100).toFixed(2)}} <br>
+                    <v-icon color="red">mdi-thumb-down</v-icon> %{{ (dislikeCount/questionCount*100).toFixed(2)}}
+                </span>
+                <v-divider class="mx-4" inset vertical></v-divider>
+                <span style="font-size:1rem;">
+                    Başarı oranı: %{{ (similarityEsikDegeriniGecenSayisi/questionCount*100).toFixed(2) }}
+                </span>
+                <v-divider class="mx-4" inset vertical></v-divider>
+
                 <v-spacer></v-spacer>
                 <v-text-field
                         v-model="search"
@@ -26,7 +37,7 @@
                     :items-per-page-text="'hl'"
                     no-results-text="Sonuç bulunamadı."
                     no-data-text="Soru bulunmamaktadır."
-                    :footer-props="{'items-per-page-text':'Sayfa başı gösterilecek soru sayısı:'}"
+                    :footer-props="{'items-per-page-text':'Sayfa başı gösterilecek soru sayısı:', 'items-per-page-options': [10, 25, 50, 666, -1]}"
             >
 
                 <template v-slot:item.feedback="{ item }">
@@ -124,6 +135,18 @@ export default {
             });
     },
     computed: {
+        likeCount() {
+            return this.questions.filter((question) => question.feedback === 'like').length;
+        },
+        dislikeCount() {
+            return this.questions.filter((question) => question.feedback === 'dislike').length;
+        },
+        questionCount() {
+            return this.questions.length;
+        },
+        similarityEsikDegeriniGecenSayisi() {
+            return this.questions.filter((question) => question.similarity >= 0.36).length;
+        },
         chartData() {
             const catToCount = {};
             this.questions.forEach((question) => {
