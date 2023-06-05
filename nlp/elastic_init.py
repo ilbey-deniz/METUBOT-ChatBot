@@ -87,7 +87,7 @@ def initializeIndex(qa_file):
                     },
                     "answer": data["qa-pairs"][i]["answer"],
                     "category": data["qa-pairs"][i]["category"],
-                    "button": data["qa-pairs"][i]["button"]
+                    "buttons": data["qa-pairs"][i]["buttons"]
                 }
 
             answer_id = es.index(index="question-answer", document=a, routing=True)["_id"]

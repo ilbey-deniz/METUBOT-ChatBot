@@ -41,7 +41,7 @@ class ElasticsearchInterface(Answerer):
 
         if len(question_response["hits"]["hits"]) > 0:
             answer_response = self.es.get(index="question-answer", id=question_response["hits"]["hits"][0]["_source"]["join"]["parent"])
-            result = { "answer": answer_response["_source"]["answer"], "button": answer_response["_source"]["button"] }
+            result = { "answer": answer_response["_source"]["answer"], "buttons": answer_response["_source"]["buttons"] }
             category = answer_response["_source"]["category"]
             response.similarity = question_response["hits"]["max_score"]
 
@@ -61,21 +61,21 @@ class ElasticsearchInterface(Answerer):
             #    response.text = result
 
             response.text = result
-            
+
             return response
 
         else:
             # No hit
             return response
 
-    def addQuestion(self, questions: list, answer: list, category: str, button: list) -> str:
+    def addQuestion(self, questions: list, answer: list, category: str, buttons: list) -> str:
         a = {
                 "join": {
                     "name": "answer"
                 },
                 "answer": answer,
                 "category": category,
-                "button": button
+                "buttons": buttons
             }
 
         answer_id = self.es.index(index="question-answer", document=a, routing=True)["_id"]
@@ -118,7 +118,7 @@ class ElasticsearchInterface(Answerer):
                            "questions": [q["_source"]["body"] for q in ques["hits"]["hits"]],
                            "answers": res["_source"]["answer"],
                            "category": res["_source"]["category"],
-                           "buttons": res["_source"]["button"]})
+                           "buttons": res["_source"]["buttons"]})
 
         return result
 
@@ -173,7 +173,7 @@ class ElasticsearchInterface(Answerer):
                     },
                     "answer": data["qa-pairs"][i]["answer"],
                     "category": data["qa-pairs"][i]["category"],
-                    "button": []
+                    "buttons": []
                 }
 
             answer_id = self.es.index(index="question-answer", document=a, routing=True)["_id"]
