@@ -174,8 +174,19 @@ export default {
           this.player = new sdk.SpeakerAudioDestination();
           let audioConfig  = sdk.AudioConfig.fromSpeakerOutput(this.player);
           this.speechSynthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
-          const textToSpeak = this.messages[question_index].content;
-
+          let textToSpeak = this.messages[question_index].content;
+          
+          if(typeof textToSpeak === 'object'){
+            let answer = textToSpeak.answer;
+            let buttons = "";
+            
+            for(let i in textToSpeak.buttons){
+              let button = textToSpeak.buttons[i];
+              buttons += "\n" + button.text;
+            }
+            textToSpeak = answer + buttons;
+          }
+          
           this.speechSynthesizer.speakTextAsync(
               textToSpeak,
               result => {
