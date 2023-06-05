@@ -265,9 +265,10 @@ export default {
         },
         selectButton(button) {
           const message = {
-            answer: button.answer[0],
+            answer: button.button_answer[Math.floor(Math.random()*button.button_answer.length)],
             finished: true,
           }
+          console.log(message)
           this.addBotMessage(message);
         },
         selectDYMTQuestion(questionStr) {
@@ -294,7 +295,6 @@ export default {
 
         },
         addBotMessage(msg) {
-            console.log(msg);
             if (msg.finished) {
                 this.waitingForAnswer = false;
             }
