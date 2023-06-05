@@ -14,12 +14,8 @@
             <div class="menu">
                 
                 <router-link to="/yonetim/tables" class="button">
-                    <span class="material-icons">table_chart</span>
-                    <span class="text">İstatistik Tablosu</span>
-                </router-link>
-                <router-link to="/yonetim/charts" class="button">
                     <span class="material-icons">pie_chart</span>
-                    <span class="text">Grafikler</span>
+                    <span class="text">İstatistik Tablosu</span>
                 </router-link>
                 <router-link to="/yonetim/addquestion" class="button">
                     <span class="material-icons">menu</span>
