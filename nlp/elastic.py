@@ -142,9 +142,9 @@ class ElasticsearchInterface(Answerer):
 
     # Updates answer document and all questions related to it
     # Basicially delete and add
-    def updateAnswer(self, id: str, questions: list, answer: list, category: str) -> str:
+    def updateAnswer(self, id: str, questions: list, answer: list, category: str, buttons: list) -> str:
         self.deleteAnswer(id)
-        return self.addQuestion(questions, answer, category)
+        return self.addQuestion(questions, answer, category, buttons)
 
     # Updates question without touching answer TODO: Unecessary
     def updateQuestion(self, id: str, question: str) -> None:

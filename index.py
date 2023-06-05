@@ -97,11 +97,7 @@ def add_question():
     print(f"Answer: {answer}")
     print(f"Buttons: {buttons}")
 
-    if buttons:
-        answer = [{"type": "answerString", "text": answer[0]}]
-        answer += buttons
-
-    res = answerer.addQuestion(question, answer, category) #Note that question and answer are expected to be given as lists. These square brackets are temporary
+    res = answerer.addQuestion(question, answer, category, buttons) #Note that question and answer are expected to be given as lists. These square brackets are temporary
 
     return response(status="success", message="question added", data=res)
 
@@ -125,6 +121,7 @@ def update_question():
     category = args["category"]
     question = args["questions"]
     answer = args["answers"]
+    buttons = args["buttons"]
 
     if None in [question, answer, category]:
         return response(status="error", message="invalid question, category or answer", code=400)
@@ -135,7 +132,7 @@ def update_question():
     print(f"Question: {question}")
     print(f"Answer: {answer}")
 
-    res = answerer.updateAnswer(id, question, answer, category)
+    res = answerer.updateAnswer(id, question, answer, category, buttons)
 
     #response_message = json.dumps(response_message, indent=4, ensure_ascii=False)
     #response = Response(response_message, mimetype="application/json", status=200)

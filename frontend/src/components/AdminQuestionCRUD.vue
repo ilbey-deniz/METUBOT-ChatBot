@@ -492,6 +492,14 @@ export default {
             this.editedIndex = this.qa_pairs.indexOf(item)
             Object.assign(this.editedItem, JSON.parse(JSON.stringify(item)))
             this.dialog = true
+            if (this.editedItem.buttons.length == 0)
+            {
+                this.buttonSwitch = false
+            }
+            else
+            {
+                this.buttonSwitch = true
+            }
             console.log(this.editedItem)
         },
 
