@@ -265,7 +265,7 @@ export default {
         },
         selectButton(button) {
           const message = {
-            answer: button.button_answer[Math.floor(Math.random()*button.button_answer.length)],
+            answer: button.answer[Math.floor(Math.random()*button.answer.length)],
             finished: true,
           }
           console.log(message)

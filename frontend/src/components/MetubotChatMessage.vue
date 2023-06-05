@@ -36,7 +36,7 @@
                               class="mt-3"
                           >
                           
-                          {{ button.button_text }}
+                          {{ button.text }}
                           </v-alert>
                         </span> 
                         <span v-if="enableDidYouMeanThis && !msg.selectedDYMTQuestion">

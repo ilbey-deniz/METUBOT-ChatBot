@@ -8,7 +8,7 @@ class AnswerGenerator:
 
     def generate(self, answer: Answer) -> Answer:
         for keyword in self.answerGenerations:
-            if keyword in answer.text:
+            if keyword in answer.text["answer"]:
                 generated = self.answerGenerations[keyword]()
-                answer.text = answer.text.replace(keyword, generated)
+                answer.text["answer"] = [generated,]
         return answer
