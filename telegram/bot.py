@@ -67,7 +67,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             pass
 
     try:
-        x = requests.get(local + update.message.text)
+        x = requests.get(server + update.message.text)
         data = x.json()["data"]
         print(data)
         if len(data["buttons"]) == 0:
@@ -98,6 +98,11 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     await update.message.reply_text("/ses komutu sesli yanıtı açar/kapatır.")
 
 async def manage_voice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    try:
+        ses[update.message.chat_id]
+    except KeyError:
+        ses[update.message.chat_id] = False
+
     if ses[update.message.chat_id] == False:
         ses[update.message.chat_id] = True
         await update.message.reply_text("Sesli yanıt aktif edildi.")
@@ -154,7 +159,7 @@ async def handle_voice_message(update: Update, context: CallbackContext):
         if text == "Ses algılanamadı." or text == "Algılama iptal edildi veya tamamlanamadı.":
             await update.message.reply_text(text)
         else:
-            x = requests.get(local + text)
+            x = requests.get(server + text)
             data = x.json()["data"]
             if len(data["buttons"]) == 0:
                     ret = choice(data["answer"])
