@@ -15,17 +15,18 @@
 
                             <v-icon v-if="hover">mdi-chevron-down</v-icon>
 
-                        </v-btn>
-
+                        </v-btn> 
+                        
                         <span v-if="typeof msg.content === 'string'" v-html="sanitizeExceptBoldItalicCode(msg.content).trim()" v-linkified
-                              style="white-space: pre-wrap;"></span>
-                        <span v-else-if="msg.content[0].type === 'answerString'">{{ msg.content[0].text }}</span>  
+                              style="white-space: pre-wrap;"> </span>
+     
                         <span v-else>
-                            Aşağıdakilerden hangisini tercih edersiniz?
+                            {{ msg.content.answer[Math.floor(Math.random()*msg.content.answer.length)] }}
                         </span>
-                        <span v-if="typeof msg.content !== 'string'">
+
+                        <span v-if="msg.content.buttons">
                           <v-alert
-                              v-for="button in msg.content" v-if="button.type !== 'answerString'"
+                              v-for="button in msg.content.buttons"
                               color="indigo"
                               icon="mdi-send"
                               border="left"
@@ -35,9 +36,9 @@
                               class="mt-3"
                           >
                           
-                          {{ button.text }}
+                          {{ button.button_text }}
                           </v-alert>
-                        </span>
+                        </span> 
                         <span v-if="enableDidYouMeanThis && !msg.selectedDYMTQuestion">
                         <v-alert
                                 v-for="question in msg.didYouMeanThisQuestions"
